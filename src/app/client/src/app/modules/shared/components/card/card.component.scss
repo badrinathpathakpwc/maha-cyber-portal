@@ -1,0 +1,293 @@
+@import "variables";
+.text-center {
+  text-align: center;
+  font-size: 12px;
+}
+.completed-section {
+  cursor: pointer;
+   img {
+     width:250px;
+   }
+}
+.fa-commenting {
+  font-size: 13px !important;
+}
+ul.post-info {
+  list-style: none;
+  width: 16vw;
+  margin: 0;
+  padding: 0;
+}
+.post-info li {
+  display: inline-block;
+  margin: 0;
+}
+.lesson-ratings.jq-ry-container {
+  padding: 0 0px 3px 0px;
+}
+.sb-content-pin:hover .grid .content-imp .lesson-title span, .sb-content-pin:hover .grid .content-imp .content-info {
+  color: #FFFFFF;
+}
+.sb-content-pin .caption {
+  padding: 0px 19px !important;
+  .description {
+    margin: 0px;
+    word-break: break-all;
+    height: 59px !important;
+    overflow: hidden;
+    // border-bottom: 1px solid #E6E7E8;
+    padding-top: 15px;
+    color: #000;
+    font-size: 12px;
+    /*border-top: 1px solid rgb(221, 221, 221);*/
+  }
+  .updated-date {
+    position: absolute;
+    bottom: 60px;
+    i {
+      margin-right: 3px;
+    }
+    span.lesson-pin-last-updated.changeformat, i.fa.fa-history {
+      color: #000000;
+    }
+  }
+  .creator {
+    position: absolute;
+    display: block;
+    width: 100%;
+    margin-top: 6%;
+    font-size: 12px;
+    color: #ad1b02;
+  }
+}
+.language-grade-age {
+  padding: 7px 19px;
+}
+.content-imp-top-inner {
+  position: relative;
+}
+.sb-content-pin .content-imp-top {
+  padding: 0px;
+  background-color: #7d7d7d;
+  color: rgb(255, 255, 255);
+  text-align: left;
+  position: absolute;
+  bottom: -4px;
+  width: 100%;
+  left: 0;
+  &.static {
+    // border-top: 1px solid #e1e1e1;
+    background-color: #ffffff00;
+    color: #000000;
+    height:59px;
+    .fa-star {
+      color:#e1e1e1;
+    }
+  }
+}
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+.sb-content-pin .grid .content-pin-img div.content-pin-inner img {
+  max-width: 100%;
+  height: 180px;
+  width: 100%;
+}
+.sb-content-pin .grid .content-pin-img div.content-pin-inner {
+  text-align: center;
+}
+@media (min-width: 1025px) {
+.sb-content-pin .grid .content-pin-img div.content-pin-inner {
+    height: auto!important;
+  }
+}
+.sb-content-pin .grid .content-pin-img {
+  position: relative;
+  width: 100%;
+}
+.sb-content-pin .content-info p {
+  display: inline-block;
+  margin: 0;
+  font-size: 12px;
+  line-height: 100%;
+  text-transform: capitalize !important;
+  background: none !important;
+  padding: 0 8px 0 0 !important;
+}
+.sb-content-pin:hover .grid .content-imp {
+  background-color: #ad1b02;
+  color: #fff;
+  border-radius: 5px 5px 0 0;
+}
+.sbCard .grid div {
+  background-repeat: no-repeat;
+  height: auto !important;
+}
+.lesson-title, .lesson-title a, .word-title a {
+  color: #383838;
+  font-weight: 600;
+  text-transform: capitalize;
+  font-size: 14px !important;
+}
+.sbCard {
+  width:265px; /*Has been added to fix the related content pin width on concept details view - Himangi*/
+	padding:0;
+	border:0; 
+	position:relative;
+	height: /*480px*/ 415px;
+  border-radius:5px;
+  cursor: pointer;
+  &.sb-content-pin {
+    height: 355px !important;
+    font-size: 12px;
+    color: #888;
+  }
+  &.sb-scale-effect {
+    -webkit-transition:all 0.5s;
+     transition:all 0.5s;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    &:hover {
+      border-radius: 5px;
+      -webkit-box-shadow: 1px 6px 15px 2px rgba(0,0,0,0.1);
+      -moz-box-shadow: 1px 6px 15px 2px rgba(0,0,0,0.1);
+      -o-box-shadow: 1px 6px 15px 2px rgba(0,0,0,0.1);
+      -webkit-transition: all 0.5s;
+      transition: all 0.5s;
+      z-index: 100;
+      transform: scale(1.02);
+      -webkit-transform: scale(1.02);
+      -moz-transform: scale(1.02);
+      -o-transform: scale(1.02);
+      -ms-transform: scale(1.02);
+      background-color:#fff;
+      border-radius: 5px;
+      position:relative;
+    }
+  }
+  &:hover {
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.16);;
+    transform: translateY(-2px);
+  }
+  &:focus {
+    outline: $primary-color auto 1px;
+  }
+  .grid {
+    height: 100%;
+    border: 1px solid #fbfbfb;
+    border-radius: 5px;
+    background-color: white;
+    .content-imp {
+      padding: 0 19px;
+      padding-top: 15px;
+      .content-info{
+        line-height: 17px;
+        padding-bottom: 10px;
+        color: #383838;
+      }
+    } 
+  }
+  .image {
+    width: 70px;
+    height: 92px;
+    border: $primary-border;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    min-width: 70px;
+    max-width: 70px;
+    background-color: $primary-background;
+    img {
+      object-fit: cover;
+      width: 70px;
+      height: 92px;
+      max-width: 100%;
+    }
+  }
+  .header {
+    display: flex;
+    align-items: flex-end;
+  }
+  .meta {
+    font-size: 0.8571rem;
+    color: $text-lightDark;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 92px;
+    overflow: hidden;
+    width: calc(100% - 70px);
+  }
+
+  &.course {
+    justify-content: flex-start;
+  }
+
+  &.non-course {
+    justify-content: flex-end;
+  }
+
+  .topic,
+  .subtopic {
+    line-height: 1.417em;
+    max-height: 2.84em;
+    overflow: hidden;
+  }
+
+  .avatar {
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+  }
+
+  .ui.label {
+    font-size: 0.7857rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 0.5px solid $card-label-border-color;
+    color: $primary-color;
+    font-weight: 500;
+    width: auto;
+    align-self: flex-start;
+    background: transparent;
+  }
+
+  .sub-header {
+    padding: 10px 15px;
+  }
+
+  .title {
+    font-size: 1rem;
+    line-height: 1.429em;
+    height: 2.857em;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    font-weight: bold;
+    color: $primary-color !important;
+  }
+
+/*  .creator {
+    font-size: 1rem;
+    height: 1.5em;
+    margin-top: 0.5em;
+    color: $text-gray;
+  }
+.description {
+    font-size: 1rem;
+    line-height: 1.25em;
+    height: 6em;
+    color: $text-lightDark;
+    padding: 8px 1rem;
+    overflow: hidden;
+    word-break: break-word;
+  }*/
+}
+*[lang="hi"] .sbCard .meta {
+  line-height: 1.6em;
+}

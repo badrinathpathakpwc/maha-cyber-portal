@@ -1,0 +1,75 @@
+<div class="ui container">
+    <div  class="ui grid">
+        <div class="twelve wide column" style="background-color: #ffffff">
+            <app-data-driven-filter [pageId]="'explore-search'" *ngIf="initFilters" [filterEnv]="filterType"
+                [enrichFilters]="facetsList" [ignoreQuery]="['key']" [accordionDefaultOpen]=true
+                [isShowFilterLabel]=true [hashTagId]="hashTagId" [showSearchedParam]=true (dataDrivenFilter)="getFilters($event)"></app-data-driven-filter>
+        </div>
+        <div class="twelve wide column" style="background-color: #ffffff">
+            <div class="ui clearing segment content-player-header search-content-header" *ngIf="!showLoader && contentList.length && this.queryParams.key">
+                <div class="ui left floated header">
+                    <p class="serch-allresult">{{resourceService.frmelmnts?.lbl?.showingResultsFor |
+                        interpolate:'{searchString}':this.queryParams.key}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div [appTelemetryImpression]="telemetryImpression" class="twelve wide column" in-view-container (inview)="inView($event)" *ngIf="!showLoader && contentList.length">
+            <div class="ui stackable four column grid dynamic-section-card">
+                <div in-view-item [id]="i" [data]="content" class="column pt-5 pb-5 pl-10" *ngFor="let content of contentList;let i = index;">
+                    <app-card  appContentDirection [data]="content" appTelemetryInteract [telemetryInteractEdata]="cardIntractEdata" [telemetryInteractObject]="{id:content.metaData.identifier,type:content.metaData.contentType || 'content',ver:'1.0'}"
+                            (clickEvent)="playContent($event)" [data]="content"></app-card>
+                </div>
+            </div>
+        </div>
+        <div [appTelemetryImpression]="telemetryImpression" class="twelve wide column" *ngIf="contentList.length === 0 && !showLoader">
+            <app-no-result [data]="noResultMessage"></app-no-result>
+        </div>
+        <div class="twelve wide column" *ngIf="showLoader">
+            <app-loader [data]='loaderMessage'></app-loader>
+        </div>
+        <div class="twelve wide column right aligned" *ngIf="paginationDetails.totalItems > configService.appConfig.SEARCH.PAGE_LIMIT && !showLoader">
+            <div class="ui pagination menu" *ngIf="paginationDetails.pages.length">
+                <a [ngClass]="{disabled:paginationDetails.currentPage===1 }" class="item " (click)="navigateToPage(1) ">{{resourceService.frmelmnts?.lbl?.first}}</a>
+                <a [ngClass]="{disabled:paginationDetails.currentPage===1 }" class="item " (click)="navigateToPage(paginationDetails.currentPage - 1)">{{resourceService.frmelmnts?.lbl?.previous}}</a>
+                <a *ngFor="let page of paginationDetails.pages" [ngClass]="{active:paginationDetails.currentPage===page}" (click)="navigateToPage(page)" class="item">{{page}}</a>
+                <a [ngClass]="{disabled:paginationDetails.currentPage=== paginationDetails.totalPages}" (click)="navigateToPage(paginationDetails.currentPage + 1)"
+                    class="item">{{resourceService.frmelmnts?.lbl?.next}}</a>
+                <a [ngClass]="{disabled:paginationDetails.currentPage=== paginationDetails.totalPages}" (click)="navigateToPage(paginationDetails.totalPages)"
+                    class="item ">{{resourceService.frmelmnts?.lbl?.last}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<sui-modal 
+    [mustScroll]="true" 
+    [isClosable]="true"
+    [transitionDuration]="0"
+    [size]="'small'"
+    class="sb-modal"
+    appBodyScroll
+    (dismissed)="showLoginModal = false"
+    #modal 
+    *ngIf="showLoginModal">
+
+    <!--Header-->
+    <div class="sb-modal-header">
+        {{resourceService?.frmelmnts?.lbl?.signinenrollTitle}}
+    </div>
+    <!--/Header-->
+    <!--Content-->
+    <div class="sb-modal-content">
+        <div class="ui center aligned segment">
+            <p>{{resourceService?.frmelmnts?.lbl?.signinenrollTitle}}</p>
+        </div>
+    </div>
+    <!--/Content-->
+
+    <!--Actions-->
+    <div class="sb-modal-actions">
+        <a href={{baseUrl}} class="sb-btn sb-btn-normal sb-btn-primary">
+            {{resourceService.frmelmnts?.btn?.signin}}
+        </a> 
+    </div>
+    <!--/Actions-->
+</sui-modal>

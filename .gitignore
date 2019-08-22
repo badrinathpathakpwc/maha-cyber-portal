@@ -1,0 +1,13 @@
+node_modules
+dist
+coverage
+documentation
+thirdparty
+mochawesome-report
+/.tmp
+/.sass-cache
+/npm-debug.log
+.coverrun
+/src/app/log
+
+

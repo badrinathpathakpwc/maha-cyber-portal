@@ -1,0 +1,76 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/spec",
+    "baseUrl": "./",
+    "paths": {
+      "@sunbird/core": [
+        "app/modules/core"
+      ],
+      "@sunbird/shared": [
+        "app/modules/shared"
+      ],
+      "@sunbird/home": [
+        "app/modules/home"
+      ],
+      "@sunbird/dashboard": [
+        "app/modules/dashboard"
+      ],
+      "@sunbird/announcement": [
+        "app/modules/announcement"
+      ],
+      "@sunbird/notes": [
+        "app/modules/notes"
+      ],
+      "@sunbird/resource": [
+        "app/modules/resource"
+      ],
+      "@sunbird/learn": [
+        "app/modules/learn"
+      ],
+      "@sunbird/workspace": [
+        "app/modules/workspace"
+      ],
+      "@sunbird/org-management": [
+        "app/modules/org-management"
+      ],
+      "@sunbird/profile": [
+        "app/plugins/profile"
+      ],
+      "@sunbird/search": [
+        "app/modules/search"
+      ],
+      "@sunbird/telemetry": [
+        "app/modules/telemetry"
+      ],
+      "@sunbird/badge": [
+        "app/modules/badging"
+      ],
+      "@sunbird/public": [
+        "app/modules/public"
+      ],
+      "@sunbird/shared-feature": [
+        "app/modules/shared-feature"
+      ],
+      "@sunbird/environment": [
+        "environments/environment"
+      ],
+      "@sunbird/course-batch": [
+        "app/modules/course-batch"
+      ]
+    },
+    "module": "commonjs",
+    "types": [
+      "jasmine",
+      "node"
+    ]
+  },
+  "files": [
+    "test.ts",
+    "polyfills.ts"
+  ],
+  "include": [
+    "**/*.spec.ts",
+    "**/*.d.ts"
+  ]
+}

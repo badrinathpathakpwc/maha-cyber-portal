@@ -1,0 +1,282 @@
+<sui-modal [mustScroll]="true" [isClosable]="true" [transitionDuration]="0" [size]="'large'" class="sb-modal"
+  appBodyScroll (dismissed)="redirect();modal.deny();" #modal>
+  <!--Header-->
+  <div class="sb-modal-header" [appTelemetryImpression]="telemetryImpression">
+    {{resourceService?.frmelmnts?.lbl?.onboardUser}}
+  </div>
+  <!--/Header-->
+  <!--Content-->
+  <div class="sb-modal-content onboard-user-modal" style="height: auto;">
+    <div class="ui stackable grid">
+      <div class="twelve wide column workspacesegment">
+        <sui-tabset #tabSection>
+          <div class="ui top attached tabular menu">
+            <a class="item" (click)="changeTab()"
+              suiTabHeader="createUser">{{resourceService?.frmelmnts?.lbl?.createUser}}</a>
+            <a class="item" (click)="changeTab()"
+              suiTabHeader="assignUser">{{resourceService?.frmelmnts?.lbl?.assignUser}}</a>
+          </div>
+          <div class="ui bottom attached segment" suiTabContent="createUser"
+            style="border-width: 0px 1px 1px;border-style: solid;border-color: #ddd;">
+            <!-- <div *ngIf="showLoader">
+              <app-loader></app-loader>
+            </div> -->
+            <form class="ui form" [formGroup]="createUserForm">
+              <div class="ui grid">
+                <div class="six wide column">
+                  <div class="required field" [ngClass]="{ 'error': cfSubmitted && cf.firstName.errors }">
+                    <label>{{resourceService?.frmelmnts?.lbl?.firstName}}</label>
+                    <input formControlName="firstName" type="text" placeholder="First name" autofocus>
+                    <div *ngIf="cfSubmitted && cf.firstName.errors">
+                      <label *ngIf="cf.firstName.errors.required">First name is required</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="six wide column">
+                  <div class="required field" [ngClass]="{ 'error': cfSubmitted && cf.lastName.errors }">
+                    <label>{{resourceService?.frmelmnts?.lbl?.lastName}}</label>
+                    <input formControlName="lastName" type="text" placeholder="Last name">
+                    <div *ngIf="cfSubmitted && cf.lastName.errors">
+                      <label *ngIf="cf.lastName.errors.required">Last name is required</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="six wide column">
+                  <div class="required field" [ngClass]="{ 'error': cfSubmitted && cf.email.errors }">
+                    <label>{{resourceService?.frmelmnts?.lbl?.email}}</label>
+                    <input formControlName="email" type="email" placeholder="Email ID">
+                    <div *ngIf="cfSubmitted && cf.email.errors">
+                      <label *ngIf="cf.email.errors.required">Email is required</label>
+                      <label *ngIf="cf.email.errors.email">Please enter valid email address</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="six wide column">
+                  <div class="required field" [ngClass]="{ 'error': cfSubmitted && cf.phonenumber.errors }">
+                    <label>{{resourceService?.frmelmnts?.lbl?.phonenumber}}</label>
+                    <input formControlName="phonenumber" type="text" placeholder="Phone Number">
+                    <div *ngIf="cfSubmitted && cf.phonenumber.errors">
+                      <label *ngIf="cf.phonenumber.errors.required">Phone number is required</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="six wide column">
+                  <div class="field">
+                    <label>{{resourceService?.frmelmnts?.lbl?.username}}</label>
+                    <input formControlName="username" type="text" placeholder="User Name">
+                  </div>
+                </div>
+                <div class="six wide column">
+                  <div class="field">
+                    <label>Member Organization</label>
+                    <div class="field">
+                      <sui-select [isSearchable]="false" class="selection" formControlName="organisationId"
+                        [options]="organizationsList" labelField="orgName" valueField="organisationId"
+                        name="organisationId" placeholder="Select Organization">
+                        <sui-select-option *ngFor="let orgDetail of organizationsList" [value]="orgDetail">
+                        </sui-select-option>
+                      </sui-select>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="six wide column">
+                  <div class="field">
+                    <label>{{resourceService?.frmelmnts?.lbl?.password}}</label>
+                    <input formControlName="password" type="text" placeholder="Password">
+                  </div>
+                </div> -->
+              </div>
+            </form>
+            <sui-accordion class="mt-30">
+              <sui-accordion-panel>
+                <div title>
+                  <i class="dropdown icon"></i>
+                  Add External Id
+                </div>
+                <div content>
+                  <form class="ui form">
+                    <div class="ui centered grid mt-20">
+                      <div class="five column centered row">
+                        <div class="column">
+                          <div class="field">
+                            <label>Id</label>
+                            <input type="text" name="id" placeholder="Id" [(ngModel)]="externalIdsModal.id">
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="field">
+                            <label>Provider</label>
+                            <input type="text" name="provider" placeholder="Provider"
+                              [(ngModel)]="externalIdsModal.provider">
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="field">
+                            <label>Id Type</label>
+                            <input type="text" name="idType" placeholder="Id Type"
+                              [(ngModel)]="externalIdsModal.idType">
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="ui buttons mt-20">
+                            <button class="sb-btn sb-btn-normal sb-btn-outline-primary mr-10"
+                              (click)="externalIdsCrud('clear','')">{{externalIdEdit ? 'Cancel':'Clear'}}</button>
+                            <button class="sb-btn sb-btn-normal sb-btn-primary"
+                              (click)="externalIdsCrud('add','')">{{externalIdEdit ? 'Update':'Add'}}</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ui grid">
+                      <div class="eight wide centered column" *ngIf="externalIdList.length > 0">
+                        <label><b>External Ids</b></label>
+                        <table class="ui celled striped table">
+                          <thead>
+                            <tr>
+                              <th>Id</th>
+                              <th>Provider</th>
+                              <th>Id Type</th>
+                              <th class="center aligned">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let extId of externalIdList;let i=index;">
+                              <td class="collapsing">{{extId.id}}</td>
+                              <td class="collapsing">{{extId.provider}}</td>
+                              <td class="collapsing">{{extId.idType}}</td>
+                              <td class="center aligned collapsing">
+                                <i class="edit icon" style="cursor: pointer;color: #2196f3;"
+                                  (click)="externalIdsCrud('edit',i)"></i>&nbsp;
+                                <i class="trash alternate outline icon" style="cursor: pointer;color: #F44336;"
+                                  (click)="externalIdsCrud('confirm',i)"></i>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </sui-accordion-panel>
+            </sui-accordion>
+          </div>
+          <div class="ui bottom attached segment" suiTabContent="assignUser"
+            style="border-width: 0px 1px 1px;border-style: solid;border-color: #ddd;">
+            <form class="ui form" [formGroup]="assignUserForm">
+              <div class="ui grid">
+                <div class="six wide column">
+                  <div class="required field" [ngClass]="{ 'error': afSubmitted && af.userId.errors }">
+                    <label>User</label>
+                    <p-autoComplete formControlName="userId" [suggestions]="filteredUsers" [size]="55" appendTo="body"
+                      (keyup.enter)="searchUsers(userIdSuggestions.inputEL.nativeElement.value)" field="fullName"
+                      placeholder="Search Users" [minLength]="1" (onSelect)="useridReadonly=true;"
+                      [readonly]="useridReadonly" #userIdSuggestions>
+                    </p-autoComplete>
+                    <i class="pi pi-search search-users"
+                      (click)="searchUsers(userIdSuggestions.inputEL.nativeElement.value)"></i>
+                    <i *ngIf="useridReadonly" class="pi pi-times clear-userid"
+                      (click)="useridReadonly = false;assignUserForm.reset();"></i>
+                    <!-- <input type="text" formControlName="userId" placeholder="User Id" autofocus> -->
+                    <div *ngIf="afSubmitted && af.userId.errors">
+                      <label *ngIf="af.userId.errors.required">User is required</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="six wide column">
+                  <div class="required field" [ngClass]="{ 'error': afSubmitted && af.organisationId.errors}">
+                    <label>Member Organization</label>
+                    <div class="field">
+                      <sui-select [isSearchable]="false" class="selection" formControlName="organisationId"
+                        [options]="organizationsList" labelField="orgName" valueField="organisationId"
+                        name="organisationId" placeholder="Select Organization">
+                        <sui-select-option *ngFor="let orgDetail of organizationsList" [value]="orgDetail">
+                        </sui-select-option>
+                      </sui-select>
+                    </div>
+                    <div *ngIf="afSubmitted && af.organisationId.errors">
+                      <label *ngIf="af.organisationId.errors.required">Member Organization is required</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="six wide column">
+                  <div class="required field" [ngClass]="{ 'error': afSubmitted && af.roles.errors }">
+                    <label>{{resourceService?.frmelmnts?.lbl?.roles}}</label>
+                    <div class="field">
+                      <sui-multi-select [isSearchable]="false" class="selection" formControlName="roles"
+                        [options]="allRoles" labelField="roleName" valueField="role" name="role"
+                        placeholder="{{resourceService?.frmelmnts?.btn?.selrole}}" #allroles>
+                        <sui-select-option *ngFor="let role of allroles.filteredOptions" [value]="role">
+                        </sui-select-option>
+                      </sui-multi-select>
+                    </div>
+                    <div *ngIf="afSubmitted && af.roles.errors">
+                      <label *ngIf="af.roles.errors.required">Roles are required</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </sui-tabset>
+      </div>
+    </div>
+  </div>
+  <!--/Content-->
+  <!--Actions-->
+  <div class="sb-modal-actions" style="flex-direction: row;">
+    <button *ngIf="selectedTab != 'createUser'" appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject"
+      [telemetryInteractEdata]="createUserInteractEdata" class="sb-btn sb-btn-normal sb-btn-primary"
+      (click)="createUserSubmit()" style="position: absolute;right: 17px;">
+      {{resourceService?.frmelmnts?.btn?.submit}}
+    </button>
+    <button *ngIf="selectedTab != 'assignUser'" appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject"
+      [telemetryInteractEdata]="assignUserInteractEdata" class="sb-btn sb-btn-normal sb-btn-primary"
+      (click)="assignUserSubmit()" style="position: absolute;right: 17px;">
+      {{resourceService?.frmelmnts?.btn?.submit}}
+    </button>
+    <div *ngIf="createUserErrorMessage != null && selectedTab != 'createUser'" class="errorMsg">
+      {{createUserErrorMessage}}</div>
+    <div *ngIf="createdUserId != null && selectedTab != 'createUser'" class="successMsg">
+      <span style="display: block">The user was successfully created. And the user id is</span>
+      <span style="display: block">{{createdUserId}}</span>
+    </div>
+    <div *ngIf="assignUserErrorMessage != null && selectedTab != 'assignUser'" class="errorMsg">
+      {{assignUserErrorMessage}}</div>
+    <div *ngIf="assignUserSuccess && selectedTab != 'assignUser'" class="successMsg">
+      The user was successfully assigned
+    </div>
+  </div>
+  <!--/Actions-->
+</sui-modal>
+<!-- External ID Delete Modal Starts Here -->
+<sui-modal [mustScroll]="true" [isClosable]="true" [transitionDuration]="0" [size]="'small'" class="sb-modal"
+  appBodyScroll (dismissed)="showConfirmationModal=false;deleteModal.deny();" #deleteModal
+  *ngIf="showConfirmationModal">
+  <!--Header-->
+  <div class="sb-modal-header" [appTelemetryImpression]="telemetryImpression">
+    Confirmation
+  </div>
+  <!--/Header-->
+  <!--Content-->
+  <div class="sb-modal-content onboard-user-modal" style="height: auto;">
+    <div class="ui stackable grid">
+      <div class="twelve wide column workspacesegment mt-20 ml-20">
+        <h5>Are you sure you want to delete this id?</h5>
+      </div>
+    </div>
+  </div>
+  <!--/Content-->
+  <!--Actions-->
+  <div class="sb-modal-actions">
+    <button class="sb-btn sb-btn-normal sb-btn-primary"
+      (click)="externalIdsCrud('delete','');showConfirmationModal=false;deleteModal.deny();">
+      {{resourceService?.frmelmnts?.lbl?.tcyes}}
+    </button>
+    <button class="sb-btn sb-btn-normal sb-btn-outline-primary"
+      (click)="showConfirmationModal=false;deleteModal.deny();">
+      {{resourceService?.frmelmnts?.lbl?.tcno}}
+    </button>
+  </div>
+  <!--/Actions-->
+</sui-modal>
+<!-- External ID Delete Modal Ends Here -->

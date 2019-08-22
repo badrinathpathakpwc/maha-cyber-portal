@@ -1,0 +1,94 @@
+.reset-button {
+    float: right;
+}
+.dashBoardCardText {
+    text-transform: uppercase;
+}
+.card {
+    -webkit-box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.26) !important;
+    &.active {
+        border-bottom: 5px solid #fe7a51 !important;
+        -webkit-box-shadow: inset 2px 3px 10px 0px rgba(0, 0, 0, 0.26) !important;
+        .dashboardCardSubText,.dashBoardCardText {
+            color:#fe7a51 !important;
+        }
+    }
+}
+.ui-table.ui-widget.ui-table-resizable.ui-table-resizable-fit {
+    font-size:11px !important;
+}
+span.ui-button-text.ui-clickable {
+    font-size: 11px;
+}
+a.ui-paginator-page.ui-paginator-element.ui-state-default.ui-corner-all.ui-state-active {
+    background-color: #f2711c !important;
+}
+button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left {
+    background-color: #f2711c !important;
+    border:1px solid #f2711c !important;
+}
+.dashed-border {
+    border-bottom: 1px dashed #9e9e9e;
+    width: 100%;
+    padding: 2px;
+    display: block;
+}
+/*Org Chart Styles*/
+.oc-border {
+    border: 1px solid #6d6e71;
+}
+ 
+.oc-background {
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.40);
+}
+
+.oc-name {
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+    white-space: nowrap;
+}
+ 
+.oc-designation {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+    white-space: nowrap;
+}
+ 
+.oc-img {
+    margin-left: -10px;
+    width: 60px;
+    height: 60px;
+    display: none;
+}
+
+.oc-h-bar.ng-star-inserted {
+    height: 1.5em !important;
+}
+
+.oc-content {
+    text-align: center
+}
+
+.oc-name {
+    font-weight: bold;
+}
+.panelHeader {
+    border: 1px solid #e1e1e1;
+    margin:10px !important;
+    border-radius:3px;
+    .panelTitle {
+        border-bottom: 1px solid #e1e1e1;
+        background-color: #e1e1e1;
+        height:35px;
+    }
+    h5 {
+        line-height: 5px;
+    }
+}
+.role-label {
+    margin-left: 10px;
+    padding: 3px 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+    webkit-box-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.26) !important;
+}

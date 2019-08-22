@@ -1,0 +1,78 @@
+<sui-modal 
+  [mustScroll]="true" 
+  [isClosable]="true"
+  [transitionDuration]="0"
+  [size]="'normal'"
+  class="sb-modal"
+  appBodyScroll
+  (dismissed)="closeModal();" 
+  #userDetailsModal>
+
+  <!--Header-->
+  <div class="sb-modal-header">
+    {{resourceService?.frmelmnts?.lbl?.editPersonalDetails}}&lrm;
+  </div>
+  <!--/Header-->
+
+  <!--Content-->
+  <div class="sb-modal-content">
+    <form class="ui form" [formGroup]="userDetailsForm">
+      <div class="required field">
+        <label *ngIf="!(userDetailsForm?.controls.firstName.touched && userDetailsForm?.controls['firstName'].errors)">{{resourceService?.frmelmnts?.lbl?.firstName}}:</label>
+        <div class="field">
+          <input formControlName="firstName" type="text" name="firstName" placeholder="{{resourceService?.frmelmnts?.lbl?.firstName}}">
+        </div>
+        <label class="ui basic blue error label p-0" *ngIf="userDetailsForm?.controls.firstName.touched && userDetailsForm?.controls['firstName'].errors && userDetailsForm?.controls['firstName'].errors.required">{{resourceService?.frmelmnts?.lbl?.firstNameRequired}}</label>
+        <label class="ui basic blue error label p-0" *ngIf="userDetailsForm?.controls.firstName.touched && userDetailsForm?.controls['firstName'].errors && userDetailsForm?.controls['firstName'].errors.pattern">{{resourceService?.frmelmnts?.lbl?.enterValidName}}</label>
+      </div>
+      <div class="required field">
+        <label *ngIf="!(userDetailsForm?.controls.lastName.touched && userDetailsForm?.controls['lastName'].errors)">{{resourceService?.frmelmnts?.lbl?.lastName}}:</label>
+        <div class="field">
+          <input formControlName="lastName" type="text" name="lastName" placeholder="{{resourceService?.frmelmnts?.lbl?.lastName}}">
+        </div>
+        <label class="ui basic blue error label p-0" *ngIf="userDetailsForm?.controls.lastName.touched && userDetailsForm?.controls['lastName'].errors && userDetailsForm?.controls['lastName'].errors.required">{{resourceService?.frmelmnts?.lbl?.lastNameRequired}}</label>
+        <label class="ui basic blue error label p-0" *ngIf="userDetailsForm?.controls.lastName.touched && userDetailsForm?.controls['lastName'].errors && userDetailsForm?.controls['lastName'].errors.pattern">{{resourceService?.frmelmnts?.lbl?.enterValidName}}</label>
+      </div>
+      <!-- #MyJBR change: District and State Fields are commented -->
+      <!-- <div class="field">
+        <label>{{resourceService?.frmelmnts?.lbl?.state}}:</label>
+        <div class="field">
+          <sui-select [isSearchable]="true" class="selection" formControlName="state" [options]="allStates" labelField="name" valueField="code"
+            name="state" placeholder="{{resourceService?.frmelmnts?.lbl?.selectState}}" #stateDiv>
+            <sui-select-option *ngFor="let state of stateDiv.filteredOptions | slice:0:100" [value]="state"></sui-select-option>
+          </sui-select>
+        </div>
+      </div>
+      <div class="field">
+        <label>{{resourceService?.frmelmnts?.lbl?.district}}:</label>
+        <div class="field">
+          <div class="ui segment" *ngIf="showDistrictDivLoader">
+            <div class="ui active inverted dimmer">
+              <div class="ui mini text loader">{{resourceService?.messages?.stmsg?.m0130}}</div>
+            </div>
+          </div>
+          <sui-select *ngIf="!showDistrictDivLoader" [isSearchable]="true" class="selection" formControlName="district" [options]="allDistricts"
+            labelField="name" valueField="code" name="district" placeholder="{{resourceService?.frmelmnts?.lbl?.selectDistrict}}"
+            #districtDiv>
+            <sui-select-option *ngFor="let district of districtDiv.filteredOptions | slice:0:100" [value]="district"></sui-select-option>
+          </sui-select>
+        </div>
+      </div> -->
+    </form>
+  </div>
+  <!--/Content-->
+
+  <!--Actions-->
+  <div class="sb-modal-actions">
+    <button appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject"
+    [telemetryInteractEdata]="submitInteractEdata"
+      class="sb-btn sb-btn-normal sb-btn-primary" 
+      [disabled]="!enableSubmitBtn" 
+      (click)="onSubmitForm()"
+    >
+      {{resourceService?.frmelmnts?.btn?.submitbtn}}
+    </button>
+  </div>
+  <!--/Actions-->
+
+</sui-modal>

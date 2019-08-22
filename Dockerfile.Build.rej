@@ -1,0 +1,9 @@
+diff a/Dockerfile.Build b/Dockerfile.Build	(rejected hunks)
+@@ -16,7 +16,6 @@
+ RUN npm i -g npm@3.10.10
+ RUN npm install --production  --unsafe-perm  
+ WORKDIR /opt/player/app
+-RUN cp -r tenant/ app_dist/
+ # passing commit hash as build arg
+ ARG commit_hash=0
+ ENV commit_hash ${commit_hash}

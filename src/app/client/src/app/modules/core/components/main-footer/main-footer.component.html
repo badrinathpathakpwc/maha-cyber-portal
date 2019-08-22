@@ -1,0 +1,93 @@
+<!-- #NUIH change: Diksha Footer Commented-->
+<!-- <div class="download-diksha">
+  <div class="diksha-logo p-15">
+    <div class="mobile-circles">
+      <div class="big-box border-round border-r50"></div>
+      <div class="oval-box border-round ml-20 ml-10"></div>
+      <div class="small-box border-round border-r50 ml-20 mr-10"></div>
+      <div class="small-box border-round border-r50"></div>
+    </div>
+    <label class="d-block pb-10">{{resourceService.frmelmnts?.lbl?.download}} {{resourceService.frmelmnts?.lnk?.footerNUIHForMobile}}</label>
+    <a class="d-block pb-10 app-download" href="https://play.google.com/store/apps/details?id=in.gov.diksha.app">
+      <img class="playStore-img" src="/assets/images/google_playstore.png" alt="{{resourceService.frmelmnts?.lnk?.footerNUIHForMobile}}">
+    </a>
+    <p class="d-block">{{resourceService.frmelmnts?.lbl?.getUnlimitedAccess}}</p>
+  </div>
+</div> -->
+
+<footer class="footer" *ngIf="showFooter" style="padding: 1px 0;">
+  <div class="ui container">
+    <div class="ui grid stackable" style="margin-top:40px;">
+      <div class="four wide column footerMenu mr-auto">
+        <ul class="p-0 m-0">
+          <!-- <li class="mb-15">
+            <a href="/verticals/profile-registry/">
+              {{resourceService.frmelmnts?.lnk?.footerNUIHVerticals}}
+            </a>
+          </li>
+          <li class="mb-15">
+            <a href="/help/getting-started/explore-diksha/index.html">
+              {{resourceService.frmelmnts?.lnk?.footerHelpCenter}}
+            </a>
+          </li>
+          <li class="mb-15">
+            <a href="/partners/">
+              {{resourceService.frmelmnts?.lnk?.footerPartners}}
+            </a>
+          </li> -->
+        </ul>
+      </div>
+      <!--  <div class="four wide column center aligned playStore">
+          <label class="d-block mb-10">{{resourceService.frmelmnts?.lnk?.footerNUIHForMobile}}</label>
+          <a class="d-block" href="https://play.google.com/store/apps/details?id=in.gov.diksha.app">
+            <img class="playStore-img" src="/assets/images/google_playstore.png" alt="{{resourceService.frmelmnts?.lnk?.footerNUIHForMobile}}">
+          </a> 
+  
+        
+        </div>-->
+      <div class="four wide column contantDetails">
+        <!-- <label class="d-block mb-10">
+          {{resourceService.frmelmnts?.lnk?.footerContact}} 
+        </label>
+        <a class="d-block mb-30" href="mailto:support@nuis.org">
+          support@nuis.org
+        </a> -->
+        <!-- <label class="d-block">
+          <a href="javascript:">
+            {{resourceService.frmelmnts?.lnk?.footerTnC}}
+          </a>
+          <span>| &copy; {{date | date:'yyyy'}}, PwC</span>
+        </label> -->
+      </div>
+    </div>
+    <div class="ui section divider" style="border: .04em solid #e1e1e1;margin: 7px 0"></div>
+    <div class="twelve wide column contantDetails">
+      <!-- <p style="text-align: center;font-size: 10px;">© 2019 PwC. All rights reserved. PwC refers to the US member firm
+        of the PwC network or one of its subsidiaries or affiliates.{{resourceService.frmelmnts?.lnk?.footerTnC}}</p> -->
+        <div class="border-top mt-5 pt-1 pb-lg-0 pb-3 text-center">
+          <!-- <p class="copy-right-grids mt-lg-1">© 2019. All Rights Reserved.
+
+          </p> -->
+          <p style="margin-bottom: 10px;text-align: left;font-size: 13px;" class="copy-right-grids mt-lg-1">©&nbsp;2019 PwC. All rights reserved. PwC refers to the PwC network and/or one or more of its member firms,<br> each of which is a separate legal entity. Please see <a href="http://www.pwc.com/structure" target="_blank" style="color:#ffffff">www.pwc.com/structure</a> for further details.</p>
+          <div class="row" style="margin-bottom: 20px;">
+          <div class="col-md-4 w3l-footer">
+              <div class="nav-w3-l" style="text-align: left;">
+                <ul class="list-unstyled" style="display: -webkit-inline-box;margin-left: -12px;">
+                  <li style="margin-left:-27px;width: 80px;">
+                    <a href="javascript:">Terms</a>
+                  </li>
+                  <li style="width: 80px;">
+                    <a href="javascript:">Privacy</a>
+                  </li>
+  
+                  <li style="width: 80px;">
+                    <a href="javascript:">Cookies</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</footer>

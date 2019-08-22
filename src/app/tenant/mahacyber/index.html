@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
+  <link rel="manifest" href="img/site.webmanifest">
+  <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>MyJBR</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800|Montserrat:300,400,700"
+    rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+  <!-- Slick Slider Starts Here -->
+  <link rel="stylesheet" type="text/css" href="slick/slick.css" />
+  <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+  <script>
+    if (localStorage.getItem('isLogged') == 'true') {
+      window.location.href = "/learn";
+    }
+  </script>
+</head>
+
+<body id="body">
+
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+          <div>
+            <img src="logo.png" class="logo-image">
+            <div class="logo-text">Learning Hub</div>
+          </div>
+          <!-- <div class="logo-center">
+            <img src="img/banner-image.gif">
+          </div> -->
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span> </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <!-- <li class="nav-item"> <a class="nav-link js-scroll-trigger nav-active" href="#about">About Us</a> </li>
+                  <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#services">Learn</a> </li>
+                  <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#portfolio">Innovate</a> </li> -->
+              <li class="nav-item" style="margin-right: 25px">
+                <div class="input-group">
+                  <input id="ableSearch" class="form-control border-secondary py-2" type="search"
+                    placeholder="Search in Library" autocomplete="off">
+                  <div class="input-group-append" onclick="navigateToExplore()">
+                    <button class="btn btn-outline-secondary" type="button">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- <form class="form-inline search" id="searchForm">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search in Contents" aria-label="Search"
+                        id="ableSearch" autocomplete="off" style="width: 355px;border-radius: 5px 0 0 5px;">
+                      <button class="btn btn-outline-success my-2 my-sm-0 search" type="button">
+                        <img src="img/search_ico.gif"
+                          width="100%" height="100%" alt="" onclick="navigateToExplore()"
+                          style="border-radius: 0 20% 20% 0;">
+                        </button>
+                    </form> -->
+              </li>
+              <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/explore/1">Explore</a> </li>
+              <li class="nav-item"> <a class="nav-link js-scroll-trigger"
+                  href="https://pwcdemoinstance.ddns.net/support/docs/">Support</a> </li>
+              <!-- <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/explore-course">Explore Courses</a> -->
+              </li>
+              <li class="nav-item"> <a class="btn btn-primary" href="/learn">Sign In</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!-- <div class="container">
+      <nav class="navbar navbar-light justify-content-between">
+        <a class="navbar-brand" href="#"><img src="img/able-logo.png" style="width: 142px;" alt=""></a>
+        <form class="form-inline search" id="searchForm">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search in Contents" aria-label="Search"
+            id="ableSearch" autocomplete="off" style="width: 260px;border-radius: 5px 0 0 5px;">
+          <button class="btn btn-outline-success my-2 my-sm-0 search" type="button"><img src="img/search_ico.gif"
+              width="100%" height="100%" alt="" onclick="navigateToExplore()"
+              style="border-radius: 0 20% 20% 0;"></button>
+
+
+          <div class="dropdown" style="margin: 0px 11px;">
+            <a href="/explore/1" class="btn btn-outline-success my-2 my-sm-0 ex"
+              style="padding-top:3px;color: #fff;background-color: #ca5a2c;border-color: #ca5a2c;">
+              Explore
+            </a>
+          </div>
+
+
+          <div class="dropdown">
+            <a href="/learn" class="btn btn-outline-success my-2 my-sm-0" style="padding-top:3px;">
+              Login
+            </a>
+
+          </div>
+
+
+        </form>
+      </nav>
+    </div> -->
+  </header>
+  <!-- #header -->
+
+  <section id="intro">
+
+    <div class="intro-content">
+
+    </div>
+    <div id="intro-carousel" class="owl-carousel">
+      <!-- <div class="overlay-color"></div> -->
+      <div class="item" style="background-image: url('img/intro-carousel/GettyImages-1035176106.jpg');"></div>
+      <!-- <div class="item"
+        style="background-image: url('img/intro-carousel/Skills _ education - lecturer teaching class.jpg');"></div>
+      <div class="item"
+        style="background-image: url('img/intro-carousel/Skills _ education - Computer classroom.jpg');"></div> -->
+      <!-- <div class="item" style="background-image: url('img/intro-carousel/Innovate.jpg');"></div> -->
+
+    </div>
+  </section>
+  <br>
+  <section>
+    <div class="row" style="padding: 0 105px 0 100px;">
+      <div class="col-md-12" style="padding-left: 0;">
+        <h5 class="pageSection-heading" style="margin-left: 10px !important;"><b>Focus on</b></h5>
+      </div>
+    </div>
+    <div style="padding: 0 65px 0 90px;">
+      <div class="row white-drop" style="margin-top: 10px;border-radius: 5px;">
+        <div style="width:100%;padding: 0 20px;">
+          <div class="col-md-3 pull-left" onclick="redirectToExplore('Soft Skills');">
+            <div class="card-counter primary cursor-pointer">
+              <i class="fa fa-code-fork"></i>
+              <span class="count-numbers">
+                <h3 class="title">Soft Skills</h3>
+              </span>
+              <span class="count-name">
+                Improve your soft skills proficiency by leveraging high-quality learning content in multiple
+                areas.</span>
+
+              <span class="col-md-12">
+                <h3 class="title pull-right"><a href="#">>></h3> </a>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-md-3 pull-left" onclick="redirectToExplore('Technical Trainings');">
+            <div class="card-counter danger cursor-pointer">
+              <i class="fa fa-ticket"></i>
+              <span class="count-numbers">
+                <h3 class="title">Technical Areas</h3>
+              </span>
+              <span class="count-name">
+                Developing your techinical skills.
+              </span>
+
+              <span class="col-md-12">
+                <h3 class="title pull-right"><a href="#">>></h3> </a>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-md-3 pull-left" onclick="redirectToExplore('Technology Trainings');">
+            <div class="card-counter success cursor-pointer">
+              <i class="fa fa-database"></i>
+              <span class="count-numbers">
+                <h3 class="title">Technology Areas</h3>
+              </span>
+              <span class="count-name">
+                Find all technology related contents. </span>
+
+              <span class="col-md-12">
+                <h3 class="title pull-right"><a href="#">>></h3> </a>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-md-3 pull-left" onclick="redirectToExplore('Practice Specific Trainings');">
+            <div class="card-counter info cursor-pointer">
+              <i class="fa fa-users"></i>
+              <span class="count-numbers">
+                <h3 class="title">Advisory, Tax &amp; Assurance</h3>
+              </span>
+              <span class="count-name">
+                Access all available learnings in each Line of Service. </span>
+
+              <span class="col-md-12">
+                <h3 class="title pull-right"><a href="#">>></h3> </a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- #intro -->
+  <br>
+  <section class="resource-section">
+    <div class="row">
+      <div style="width: 100%;padding:0 80px;">
+        <div class="d-flex flex-ai-center" style="margin: 10px 25px 0px 20px;">
+          <h5 class="ui header m-0 mr-5 pageSection-heading" style="margin-bottom: 5px !important;">
+            <b>Latest Trainings&nbsp;</b>
+            <span class="ui primary label pageSection-count"></span>
+          </h5>
+        </div>
+        <div class="pin resource-contents" id="resource-contents-section">
+          Loading.......
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--==========================
+    Footer
+  ============================-->
+  <footer>
+    <div class="w3ls-footer-grids">
+      <div class="container py-xl- py-lg-3">
+        <div class="border-top mt-5 pt-1 pb-lg-0 pb-3 text-center">
+          <!-- <p class="copy-right-grids mt-lg-1">© 2019. All Rights Reserved.
+
+          </p> -->
+          <p style="margin-bottom: 10px;text-align: left;font-size: 13px;" class="copy-right-grids mt-lg-1">©&nbsp;2019
+            PwC. All rights reserved. PwC refers to the PwC network and/or one or more of its member firms,<br> each of
+            which is a separate legal entity. Please see <a href="http://www.pwc.com/structure" target="_blank"
+              style="color:#ffffff">www.pwc.com/structure</a> for further details.</p>
+          <div class="row" style="margin-bottom: 20px;">
+
+            <div class="col-md-4 w3l-footer">
+
+              <div class="nav-w3-l">
+                <ul class="list-unstyled">
+                  <li style="margin-left:-27px;">
+                    <a href="javascript:">Terms</a>
+                  </li>
+                  <li>
+                    <a href="javascript:">Privacy</a>
+                  </li>
+
+                  <li>
+                    <a href="javascript:">Cookies</a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.1/jquery-migrate.js"></script>
+  <script type="text/javascript" src="slick/slick.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.0/jquery.easing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+
+
+  <script>
+
+    (function (factory) {
+      if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+      } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = factory(require('jquery'));
+      } else {
+        // Browser globals
+        factory(jQuery);
+      }
+    }(function ($) {
+      var slice = Array.prototype.slice; // save ref to original slice()
+      var splice = Array.prototype.splice; // save ref to original slice()
+
+      var defaults = {
+        topSpacing: 0,
+        bottomSpacing: 0,
+        className: 'is-sticky',
+        wrapperClassName: 'sticky-wrapper',
+        center: false,
+        getWidthFrom: '',
+        widthFromWrapper: true, // works only when .getWidthFrom is empty
+        responsiveWidth: false,
+        zIndex: 'auto'
+      },
+        $window = $(window),
+        $document = $(document),
+        sticked = [],
+        windowHeight = $window.height(),
+        scroller = function () {
+          var scrollTop = $window.scrollTop(),
+            documentHeight = $document.height(),
+            dwh = documentHeight - windowHeight,
+            extra = (scrollTop > dwh) ? dwh - scrollTop : 0;
+
+          for (var i = 0, l = sticked.length; i < l; i++) {
+            var s = sticked[i],
+              elementTop = s.stickyWrapper.offset().top,
+              etse = elementTop - s.topSpacing - extra;
+
+            //update height in case of dynamic content
+            s.stickyWrapper.css('height', s.stickyElement.outerHeight());
+
+            if (scrollTop <= etse) {
+              if (s.currentTop !== null) {
+                s.stickyElement
+                  .css({
+                    'width': '',
+                    'position': '',
+                    'top': '',
+                    'z-index': ''
+                  });
+                s.stickyElement.parent().removeClass(s.className);
+                s.stickyElement.trigger('sticky-end', [s]);
+                s.currentTop = null;
+              }
+            }
+            else {
+              var newTop = documentHeight - s.stickyElement.outerHeight()
+                - s.topSpacing - s.bottomSpacing - scrollTop - extra;
+              if (newTop < 0) {
+                newTop = newTop + s.topSpacing;
+              } else {
+                newTop = s.topSpacing;
+              }
+              if (s.currentTop !== newTop) {
+                var newWidth;
+                if (s.getWidthFrom) {
+                  newWidth = $(s.getWidthFrom).width() || null;
+                } else if (s.widthFromWrapper) {
+                  newWidth = s.stickyWrapper.width();
+                }
+                if (newWidth == null) {
+                  newWidth = s.stickyElement.width();
+                }
+                s.stickyElement
+                  .css('width', newWidth)
+                  .css('position', 'fixed')
+                  .css('top', newTop)
+                  .css('z-index', s.zIndex);
+
+                s.stickyElement.parent().addClass(s.className);
+
+                if (s.currentTop === null) {
+                  s.stickyElement.trigger('sticky-start', [s]);
+                } else {
+                  // sticky is started but it have to be repositioned
+                  s.stickyElement.trigger('sticky-update', [s]);
+                }
+
+                if (s.currentTop === s.topSpacing && s.currentTop > newTop || s.currentTop === null && newTop < s.topSpacing) {
+                  // just reached bottom || just started to stick but bottom is already reached
+                  s.stickyElement.trigger('sticky-bottom-reached', [s]);
+                } else if (s.currentTop !== null && newTop === s.topSpacing && s.currentTop < newTop) {
+                  // sticky is started && sticked at topSpacing && overflowing from top just finished
+                  s.stickyElement.trigger('sticky-bottom-unreached', [s]);
+                }
+
+                s.currentTop = newTop;
+              }
+
+              // Check if sticky has reached end of container and stop sticking
+              var stickyWrapperContainer = s.stickyWrapper.parent();
+              var unstick = (s.stickyElement.offset().top + s.stickyElement.outerHeight() >= stickyWrapperContainer.offset().top + stickyWrapperContainer.outerHeight()) && (s.stickyElement.offset().top <= s.topSpacing);
+
+              if (unstick) {
+                s.stickyElement
+                  .css('position', 'absolute')
+                  .css('top', '')
+                  .css('bottom', 0)
+                  .css('z-index', '');
+              } else {
+                s.stickyElement
+                  .css('position', 'fixed')
+                  .css('top', newTop)
+                  .css('bottom', '')
+                  .css('z-index', s.zIndex);
+              }
+            }
+          }
+        },
+        resizer = function () {
+          windowHeight = $window.height();
+
+          for (var i = 0, l = sticked.length; i < l; i++) {
+            var s = sticked[i];
+            var newWidth = null;
+            if (s.getWidthFrom) {
+              if (s.responsiveWidth) {
+                newWidth = $(s.getWidthFrom).width();
+              }
+            } else if (s.widthFromWrapper) {
+              newWidth = s.stickyWrapper.width();
+            }
+            if (newWidth != null) {
+              s.stickyElement.css('width', newWidth);
+            }
+          }
+        },
+        methods = {
+          init: function (options) {
+            return this.each(function () {
+              var o = $.extend({}, defaults, options);
+              var stickyElement = $(this);
+
+              var stickyId = stickyElement.attr('id');
+              var wrapperId = stickyId ? stickyId + '-' + defaults.wrapperClassName : defaults.wrapperClassName;
+              var wrapper = $('<div></div>')
+                .attr('id', wrapperId)
+                .addClass(o.wrapperClassName);
+
+              stickyElement.wrapAll(function () {
+                if ($(this).parent("#" + wrapperId).length == 0) {
+                  return wrapper;
+                }
+              });
+
+              var stickyWrapper = stickyElement.parent();
+
+              if (o.center) {
+                stickyWrapper.css({ width: stickyElement.outerWidth(), marginLeft: "auto", marginRight: "auto" });
+              }
+
+              if (stickyElement.css("float") === "right") {
+                stickyElement.css({ "float": "none" }).parent().css({ "float": "right" });
+              }
+
+              o.stickyElement = stickyElement;
+              o.stickyWrapper = stickyWrapper;
+              o.currentTop = null;
+
+              sticked.push(o);
+
+              methods.setWrapperHeight(this);
+              methods.setupChangeListeners(this);
+            });
+          },
+
+          setWrapperHeight: function (stickyElement) {
+            var element = $(stickyElement);
+            var stickyWrapper = element.parent();
+            if (stickyWrapper) {
+              stickyWrapper.css('height', element.outerHeight());
+            }
+          },
+
+          setupChangeListeners: function (stickyElement) {
+            if (window.MutationObserver) {
+              var mutationObserver = new window.MutationObserver(function (mutations) {
+                if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) {
+                  methods.setWrapperHeight(stickyElement);
+                }
+              });
+              mutationObserver.observe(stickyElement, { subtree: true, childList: true });
+            } else {
+              if (window.addEventListener) {
+                stickyElement.addEventListener('DOMNodeInserted', function () {
+                  methods.setWrapperHeight(stickyElement);
+                }, false);
+                stickyElement.addEventListener('DOMNodeRemoved', function () {
+                  methods.setWrapperHeight(stickyElement);
+                }, false);
+              } else if (window.attachEvent) {
+                stickyElement.attachEvent('onDOMNodeInserted', function () {
+                  methods.setWrapperHeight(stickyElement);
+                });
+                stickyElement.attachEvent('onDOMNodeRemoved', function () {
+                  methods.setWrapperHeight(stickyElement);
+                });
+              }
+            }
+          },
+          update: scroller,
+          unstick: function (options) {
+            return this.each(function () {
+              var that = this;
+              var unstickyElement = $(that);
+
+              var removeIdx = -1;
+              var i = sticked.length;
+              while (i-- > 0) {
+                if (sticked[i].stickyElement.get(0) === that) {
+                  splice.call(sticked, i, 1);
+                  removeIdx = i;
+                }
+              }
+              if (removeIdx !== -1) {
+                unstickyElement.unwrap();
+                unstickyElement
+                  .css({
+                    'width': '',
+                    'position': '',
+                    'top': '',
+                    'float': '',
+                    'z-index': ''
+                  })
+                  ;
+              }
+            });
+          }
+        };
+
+      // should be more efficient than using $window.scroll(scroller) and $window.resize(resizer):
+      if (window.addEventListener) {
+        window.addEventListener('scroll', scroller, false);
+        window.addEventListener('resize', resizer, false);
+      } else if (window.attachEvent) {
+        window.attachEvent('onscroll', scroller);
+        window.attachEvent('onresize', resizer);
+      }
+
+      $.fn.sticky = function (method) {
+        if (methods[method]) {
+          return methods[method].apply(this, slice.call(arguments, 1));
+        } else if (typeof method === 'object' || !method) {
+          return methods.init.apply(this, arguments);
+        } else {
+          $.error('Method ' + method + ' does not exist on jQuery.sticky');
+        }
+      };
+
+      $.fn.unstick = function (method) {
+        if (methods[method]) {
+          return methods[method].apply(this, slice.call(arguments, 1));
+        } else if (typeof method === 'object' || !method) {
+          return methods.unstick.apply(this, arguments);
+        } else {
+          $.error('Method ' + method + ' does not exist on jQuery.sticky');
+        }
+      };
+      $(function () {
+        setTimeout(scroller, 0);
+      });
+    }));
+
+
+
+    // sticky end
+
+
+
+
+    (function ($) {
+      $.fn.countTo = function (options) {
+        options = options || {};
+
+        return $(this).each(function () {
+          // set options for current element
+          var settings = $.extend({}, $.fn.countTo.defaults, {
+            from: $(this).data('from'),
+            to: $(this).data('to'),
+            speed: $(this).data('speed'),
+            refreshInterval: $(this).data('refresh-interval'),
+            decimals: $(this).data('decimals')
+          }, options);
+
+          // how many times to update the value, and how much to increment the value on each update
+          var loops = Math.ceil(settings.speed / settings.refreshInterval),
+            increment = (settings.to - settings.from) / loops;
+
+          // references & variables that will change with each update
+          var self = this,
+            $self = $(this),
+            loopCount = 0,
+            value = settings.from,
+            data = $self.data('countTo') || {};
+
+          $self.data('countTo', data);
+
+          // if an existing interval can be found, clear it first
+          if (data.interval) {
+            clearInterval(data.interval);
+          }
+          data.interval = setInterval(updateTimer, settings.refreshInterval);
+
+          // initialize the element with the starting value
+          render(value);
+
+          function updateTimer() {
+            value += increment;
+            loopCount++;
+
+            render(value);
+
+            if (typeof (settings.onUpdate) == 'function') {
+              settings.onUpdate.call(self, value);
+            }
+
+            if (loopCount >= loops) {
+              // remove the interval
+              $self.removeData('countTo');
+              clearInterval(data.interval);
+              value = settings.to;
+
+              if (typeof (settings.onComplete) == 'function') {
+                settings.onComplete.call(self, value);
+              }
+            }
+          }
+
+          function render(value) {
+            var formattedValue = settings.formatter.call(self, value, settings);
+            $self.html(formattedValue);
+          }
+        });
+      };
+
+      $.fn.countTo.defaults = {
+        from: 0,               // the number the element should start at
+        to: 0,                 // the number the element should end at
+        speed: 1000,           // how long it should take to count between the target numbers
+        refreshInterval: 100,  // how often the element should be updated
+        decimals: 0,           // the number of decimal places to show
+        formatter: formatter,  // handler for formatting the value before rendering
+        onUpdate: null,        // callback method for every time the element is updated
+        onComplete: null       // callback method for when the element finishes updating
+      };
+
+      function formatter(value, settings) {
+        return value.toFixed(settings.decimals);
+      }
+    }(jQuery));
+
+    jQuery(function ($) {
+      // custom formatting example
+      $('.count-number').data('countToOptions', {
+        formatter: function (value, options) {
+          return value.toFixed(options.decimals).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+        }
+      });
+
+      // start all the timers
+      $('.timer').each(count);
+
+      function count(options) {
+        var $this = $(this);
+        options = $.extend({}, options || {}, $this.data('countToOptions') || {});
+        $this.countTo(options);
+      }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+    jQuery(document).ready(function ($) {
+
+      // Back to top button
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+          $('.back-to-top').fadeIn('slow');
+        } else {
+          $('.back-to-top').fadeOut('slow');
+        }
+      });
+      $('.back-to-top').click(function () {
+        $('html, body').animate({
+          scrollTop: 0
+        }, 1500, 'easeInOutExpo');
+        return false;
+      });
+
+      // Stick the header at top on scroll
+      $("#header").sticky({
+        topSpacing: 0,
+        zIndex: '50'
+      });
+
+      // Intro background carousel
+      $("#intro-carousel").owlCarousel({
+        autoplay: true,
+        dots: false,
+        loop: true,
+        animateOut: 'fadeOut',
+        items: 1
+      });
+
+      // Initiate the wowjs animation library
+      new WOW().init();
+
+      // Initiate superfish on nav menu
+      $('.nav-menu').superfish({
+        animation: {
+          opacity: 'show'
+        },
+        speed: 400
+      });
+
+      // Mobile Navigation
+      if ($('#nav-menu-container').length) {
+        var $mobile_nav = $('#nav-menu-container').clone().prop({
+          id: 'mobile-nav'
+        });
+        $mobile_nav.find('> ul').attr({
+          'class': '',
+          'id': ''
+        });
+        $('body').append($mobile_nav);
+        $('body').prepend('<button type="button" id="mobile-nav-toggle"><i class="fa fa-bars"></i></button>');
+        $('body').append('<div id="mobile-body-overly"></div>');
+        $('#mobile-nav').find('.menu-has-children').prepend('<i class="fa fa-chevron-down"></i>');
+
+        $(document).on('click', '.menu-has-children i', function (e) {
+          $(this).next().toggleClass('menu-item-active');
+          $(this).nextAll('ul').eq(0).slideToggle();
+          $(this).toggleClass("fa-chevron-up fa-chevron-down");
+        });
+
+        $(document).on('click', '#mobile-nav-toggle', function (e) {
+          $('body').toggleClass('mobile-nav-active');
+          $('#mobile-nav-toggle i').toggleClass('fa-times fa-bars');
+          $('#mobile-body-overly').toggle();
+        });
+
+        $(document).click(function (e) {
+          var container = $("#mobile-nav, #mobile-nav-toggle");
+          if (!container.is(e.target) && container.has(e.target).length === 0) {
+            if ($('body').hasClass('mobile-nav-active')) {
+              $('body').removeClass('mobile-nav-active');
+              $('#mobile-nav-toggle i').toggleClass('fa-times fa-bars');
+              $('#mobile-body-overly').fadeOut();
+            }
+          }
+        });
+      } else if ($("#mobile-nav, #mobile-nav-toggle").length) {
+        $("#mobile-nav, #mobile-nav-toggle").hide();
+      }
+
+      // Smooth scroll for the menu and links with .scrollto classes
+      $('.nav-menu a, #mobile-nav a, .scrollto').on('click', function () {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+          var target = $(this.hash);
+          if (target.length) {
+            var top_space = 0;
+
+            if ($('#header').length) {
+              top_space = $('#header').outerHeight();
+
+              if (!$('#header').hasClass('header-fixed')) {
+                top_space = top_space - 20;
+              }
+            }
+
+            $('html, body').animate({
+              scrollTop: target.offset().top - top_space
+            }, 1500, 'easeInOutExpo');
+
+            if ($(this).parents('.nav-menu').length) {
+              $('.nav-menu .menu-active').removeClass('menu-active');
+              $(this).closest('li').addClass('menu-active');
+            }
+
+            if ($('body').hasClass('mobile-nav-active')) {
+              $('body').removeClass('mobile-nav-active');
+              $('#mobile-nav-toggle i').toggleClass('fa-times fa-bars');
+              $('#mobile-body-overly').fadeOut();
+            }
+            return false;
+          }
+        }
+      });
+
+
+      // Porfolio - uses the magnific popup jQuery plugin
+      $('.portfolio-popup').magnificPopup({
+        type: 'image',
+        removalDelay: 300,
+        mainClass: 'mfp-fade',
+        gallery: {
+          enabled: true
+        },
+        zoom: {
+          enabled: true,
+          duration: 300,
+          easing: 'ease-in-out',
+          opener: function (openerElement) {
+            return openerElement.is('img') ? openerElement : openerElement.find('img');
+          }
+        }
+      });
+
+      // Testimonials carousel (uses the Owl Carousel library)
+      $(".testimonials-carousel").owlCarousel({
+        autoplay: true,
+        dots: true,
+        loop: true,
+        responsive: {
+          0: {
+            items: 1
+          },
+          768: {
+            items: 2
+          },
+          900: {
+            items: 3
+          }
+        }
+      });
+
+      // Clients carousel (uses the Owl Carousel library)
+      $(".clients-carousel").owlCarousel({
+        autoplay: true,
+        dots: true,
+        loop: true,
+        responsive: {
+          0: {
+            items: 2
+          },
+          768: {
+            items: 4
+          },
+          900: {
+            items: 6
+          }
+        }
+      });
+
+
+    });
+    // Able Code Changes are Starts Here
+    function navigateToExplore() {
+      if ($("#ableSearch").val().trim() != '') {
+        location.href = "/explore/1?key=" + $("#ableSearch").val().trim();
+      }
+    }
+    function redirectToExplore(param) {
+      location.href = "/explore/1?key=" + param;
+    }
+    function calculateTimeAgo(lastUpdatedOn) {
+      const local = moment(lastUpdatedOn).local().format('YYYY-MM-DD HH:mm:ss');
+      return moment(local).fromNow();
+    }
+    $(function () {
+      var tenantName = !_.isEmpty(_.replace(_.replace(window.location.pathname, '/', ''), '/', '')) ? _.capitalize(_.replace(_.replace(window.location.pathname, '/', ''), '/', '')) : 'mahacyber';
+      $.ajax({
+        url: window.location.origin + '/api/data/v1/page/assemble?orgdetails=orgName,email',
+        type: "POST",
+        data: '{"request":{"source":"web","name":"Course","filters":{"organisation":"' + tenantName + '"},"limit": 20,"sort_by":{"lastUpdatedOn":"desc"},"mode":"soft"}}',
+        processData: false,
+        contentType: 'application/json',
+        success: function (response) {
+          var latestCourses = _.find(response.result.response.sections, { name: 'Latest Courses' });
+          $(".pageSection-count").html(latestCourses.count);
+          var resourceContents = '';
+          $.each(latestCourses.contents, function (index, value) {
+            resourceContents += '<div class="resource-card-new">';
+            resourceContents += '<div class="thumbnail content-pin scale-effect">';
+            resourceContents += '<input type="hidden" value="' + value.identifier + '">';
+            resourceContents += '<div class="grid">';
+            resourceContents += '<div class="content-imp">';
+            resourceContents += '<span class="lesson-title"><span>' + value.name + '</span></span>';
+            resourceContents += '<div class="content-info"><p class="type">' + value.resourceType + '</p></div></div>';
+            resourceContents += '<div class="content-pin-img"><div class="content-pin-inner">';
+            if (value.appIcon != undefined) {
+              resourceContents += '<img class="lazy" src="' + value.appIcon + '" alt="' + value.name + '">';
+            }
+            else {
+              resourceContents += '<img class="lazy" src="img/book.png" alt="' + value.name + '">';
+            }
+            resourceContents += '</div><div class="content-imp-top"><div class="content-imp-top-inner"><div class="language-grade-age"><span><i class="fa fa-check"aria-hidden="true"></i>&nbsp;' + value.status + '</span><span style="float:right"><i class="fa fa-history"aria-hidden="true"></i>&nbsp;' + calculateTimeAgo(value.lastUpdatedOn) + '</span></div></div></div></div>';
+            resourceContents += '<div class="caption"><div class="description hasTooltip" title="">' + value.description + '</div>';
+            resourceContents += '<div class="row creator"><div class="col-xs-12 col-sm-12 col-md-12 hasTooltip" title=""><span><b>' + value.organisation[0] + '</b></span></div></div></div>';
+            resourceContents += '<div class="content-imp-top static"><div class="content-imp-top-inner"><div class="language-grade-age"><div class="lesson-ratings jq-ry-container" readonly="readonly" style="width: 89px;"><div class="jq-ry-group-wrapper"><div class="jq-ry-normal-group jq-ry-group"><ul class="post-info"><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i>(0)</li><li style="float:right;margin-right:-20px"><i class="fa fa-commenting" aria-hidden="true"></i>(0)</li></ul></div></div></div></div></div></div></div></div></div>';
+            // resourceContents += '<div class="resource-card">';
+            // resourceContents += '<div class="resource-header">';
+            // resourceContents += '<div class="resource-image">';
+            // if (value.appIcon != undefined) {
+            //   resourceContents += '<img src="' + value.appIcon + '" alt="' + value.name + '">';
+            // }
+            // else {
+            //   resourceContents += '<img src="img/book.png" alt="' + value.name + '">';
+            // }
+            // resourceContents += '</div>';
+            // resourceContents += '<div class="resource-meta">';
+            // resourceContents += '<div class="resource-label-section">';
+            // resourceContents += '<div class="resource-label-data">' + value.resourceType + '</div>';
+            // resourceContents += '</div>';
+            // resourceContents += '<div class="subject ellipsis mt-3" title="Overview">Category : ' + value.board + '</div>';
+            // resourceContents += '<div class="class ellipsis mt-3" title="Mission">Sub-Category : ' + value.gradeLevel + '</div>';
+            // resourceContents += '<div class="medium ellipsis mt-3" title="English">Language : ' + value.medium + '</div>';
+            // resourceContents += '</div>';
+            // resourceContents += '</div>';
+            // resourceContents += '<div class="resource-sub-header">';
+            // resourceContents += '<h4 class="resource-title"> ' + value.name + ' </h4>';
+            // resourceContents += '<div class="resource-creator ellipsis"> ' + value.organisation + ' </div>';
+            // resourceContents += '</div>';
+            // resourceContents += '<div class="py-2"></div>';
+            // resourceContents += '</div>';
+          });
+          $("#resource-contents-section").html(resourceContents);
+          $('#resource-contents-section').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            arrows: true,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 3,
+                  infinite: false,
+                  dots: false
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 2
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1
+                }
+              }
+            ]
+          });
+        },
+      });
+      $("#resource-contents-section").on("click", ".resource-card-new", function () {
+        location.href = '/explore-course/course/' + $(this).find('input').val();
+      })
+      $("#searchForm").on("submit", function () {
+        return false;
+      })
+      $("#ableSearch").on("keydown", function (e) {
+        if ($("#ableSearch").val().trim() != '') {
+          e.keyCode == 13 ? location.href = "/explore/1?key=" + $("#ableSearch").val().trim() : '';
+        }
+      });
+    });
+    // Able Code Changes are Ends Here
+  </script>
+</body>
+
+</html>

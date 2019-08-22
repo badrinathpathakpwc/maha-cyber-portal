@@ -1,0 +1,108 @@
+<sui-modal [mustScroll]="true" [isClosable]="true" [transitionDuration]="0" [size]="'normal'" class="sb-modal"
+  appBodyScroll (dismissed)="redirect();modal.deny();" #modal>
+
+  <!--Header-->
+  <div class="sb-modal-header" [appTelemetryImpression]="telemetryImpression">
+    {{resourceService?.frmelmnts?.instn?.t0016}} in {{userProfile.rootOrgName}}
+  </div>
+  <!--/Header-->
+
+  <!--Content-->
+  <div class="sb-modal-content">
+    <div *ngIf="showLoader">
+      <app-loader></app-loader>
+    </div>
+    <form *ngIf="!processId && !showLoader" class="ui form" id="bulkUsers" [formGroup]="uploadUserForm">
+      <!-- <div class="ui grid" *ngIf="!processId">
+        <div class="six wide column">
+          <div class="required field">
+            <label>{{resourceService?.frmelmnts?.lbl?.provider}}</label>
+            <input formControlName="provider" type="text" placeholder="OrgProvider" autofocus>
+          </div>
+        </div>
+        <div class="six wide column">
+          <div class="required field">
+            <label>{{resourceService?.frmelmnts?.lbl?.extlid}}</label>
+            <input formControlName="externalId" type="text" placeholder="OrgExternalId">
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!processId" class="ui horizontal divider mt-40">
+        Or
+      </div> -->
+      <!-- <div class="ui grid" *ngIf="!processId">
+        <div class="six wide column">
+          <div class="one field">
+            <div class=" required field">
+              <label>{{resourceService?.frmelmnts?.lbl?.orgid}}</label>
+              <input formControlName="organisationId" type="text" placeholder="OrgId">
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="ui grid" *ngIf="!processId">
+        <div class="six wide column">
+          <div class="required field">
+            <label>Member Organization</label>
+            <div class="field">
+              <sui-select [isSearchable]="false" class="selection" formControlName="orgId" [options]="organizationsList"
+                (ngModelChange)="validateOrg()" labelField="orgName" valueField="organisationId" name="orgId"
+                placeholder="Select Organization">
+                <sui-select-option *ngFor="let orgDetail of organizationsList" [value]="orgDetail">
+                </sui-select-option>
+              </sui-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="ui negative message" *ngIf="bulkUploadError">
+      <i class="close icon" (click)="closeBulkUploadError()"></i>
+      <p>{{bulkUploadErrorMessage}}</p>
+    </div>
+    <h5 *ngIf="fileName">
+      <i class="file outline icon"></i>{{resourceService?.frmelmnts?.lbl?.upldfile}}: {{fileName}}
+    </h5>
+    <div *ngIf="processId">
+      <h5>{{resourceService?.frmelmnts?.lbl?.processid}}: {{processId}}</h5>
+      <p>{{resourceService?.frmelmnts?.instn?.t0012}}</p>
+    </div>
+    <div *ngIf="!processId && !showLoader" class="ui horizontal divider mt-40">
+
+    </div>
+    <div *ngIf="resourceService.frmelmnts && !processId && !showLoader" class="ui info message">
+      <div class="header">
+        {{resourceService?.frmelmnts?.scttl?.instructions}}
+      </div>
+      <ol class="ui list">
+        <li *ngFor="let instn of userUploadInstructions">{{instn.instructions}}
+          <ol *ngIf="instn.subinstructions">
+            <li *ngFor="let subinstn of instn.subinstructions">{{subinstn.instructions}}</li>
+          </ol>
+        </li>
+      </ol>
+      <!-- <div>{{resourceService?.frmelmnts?.instn?.t0076}} <a href={{uploadUserRefLink}} target="_blank">{{resourceService?.frmelmnts?.instn?.t0077}}</a></div> -->
+      <div>Note: All other columns in the CSV file are optional</div>
+    </div>
+  </div>
+  <!--/Content-->
+
+  <!--Actions-->
+  <div class="sb-modal-actions">
+    <button appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject"
+      [telemetryInteractEdata]="userUploadInteractEdata" [disabled]="processId"
+      class="sb-btn sb-btn-normal sb-btn-primary" (click)="openImageBrowser(inputbtn)">
+      {{resourceService?.frmelmnts?.btn?.uploadusrscsv}}
+    </button>
+    <span class="mr-auto" style="color: #f44336" *ngIf="showOrgError">Please select the member organization</span>
+    <button appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject"
+      [telemetryInteractEdata]="downloadCSVInteractEdata" class="sb-btn sb-btn-normal sb-btn-outline-gray mr-auto"
+      (click)="downloadSampleCSV()">
+      {{resourceService?.frmelmnts?.btn?.smplcsv}}
+    </button>
+    <input #inputbtn type="file" accept=".csv" class="content-input ui small d-none" id="uploadUsrsCSV"
+      onclick="this.value = null" (change)="uploadUsersCSV($event.target.files)" required="" />
+  </div>
+  <!--/Actions-->
+
+</sui-modal>

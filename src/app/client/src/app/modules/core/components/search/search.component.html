@@ -1,0 +1,25 @@
+<div 
+    class="ui fluid ui left action input searchbox-inner" 
+    id="search-input-container"
+    >
+    <input 
+        type="text" 
+        id="keyword" 
+        name="filter_search"
+        class="searchinput br-0"
+        title="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}" 
+        placeholder="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}"
+        [(ngModel)]="key" 
+        (keyup.enter)="onEnter(key)" 
+        [disabled]="!showInput"
+        [ngClass]="{'disabled': !showInput }" 
+    />
+    <button class="ui icon button" [ngClass]="{'disabled': !showInput }" >
+        <i 
+            class="search blue icon br-0"
+            (click)="onEnter(key)"
+            title="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}"
+            tabindex="0"
+            ></i>
+    </button>
+</div>
