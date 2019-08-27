@@ -102,7 +102,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
 
   public isCachedDataExists: boolean;
 
-  public framework: string;
+  public framework: any;
   /**
 	* telemetryImpression
 	*/
@@ -339,7 +339,9 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
     if (framework) {
       return of(framework);
     } else {
-      const fid = this.userService.frameworkID[0];
+      // const fid = this.userService.frameworkID[0];
+      //Hard coded framework data due to api issue
+      const fid = "mahacyber_framework";
       const response = {
         'id': 'courseFrameworkId',
         'field': 'courseFrameworkId',

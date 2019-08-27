@@ -5,7 +5,7 @@ import { UsageService } from './../../services';
 import * as _ from 'lodash';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserService, PermissionService } from '@sunbird/core';
-import { ToasterService, ResourceService, INoResultMessage, ConfigService } from '@sunbird/shared';
+import { ToasterService, ResourceService, INoResultMessage, ConfigService, IUserProfile } from '@sunbird/shared';
 import { UUID } from 'angular2-uuid';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from '../../services/reports/reports.service';
@@ -23,6 +23,7 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
   public unsubscribe = new Subject<void>();
   noResult: boolean = false;
   value: Date;
+  userProfile: IUserProfile;
   currentDate: Date = new Date();
   fromDate: any;
   toDate: any;
@@ -39,6 +40,7 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
   telemetryImpression: IImpressionEventInput;
   isOrgAdmin: boolean = false;
   isCreator: boolean = false;
+  slideConfig: any;
   constructor(private usageService: UsageService, private sanitizer: DomSanitizer, private configService: ConfigService,
     public userService: UserService, public permissionService: PermissionService, private toasterService: ToasterService,
     public resourceService: ResourceService, activatedRoute: ActivatedRoute, private router: Router, public reportService: ReportService, private datePipe: DatePipe
@@ -47,11 +49,17 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getContentCreationStaticsReport('14d');
+    this.slideConfig = this.configService.appConfig.CoursePageSection.slideConfig;
     //Check Org Admin Role
     this.isOrgAdmin = this.permissionService.checkRolesPermissions(this.configService.rolesConfig.headerDropdownRoles.adminDashboard);
     //Check Creator Role
     this.isCreator = this.permissionService.checkRolesPermissions(this.configService.rolesConfig.headerDropdownRoles.myActivityRole);
+    this.userService.userData$.subscribe(userdata => {
+      if (userdata && !userdata.err) {
+        this.userProfile = userdata.userProfile;
+      }
+    });
+    this.getContentCreationStaticsReport('14d');
   }
   getContentCreationStaticsReport(dateRange) {
     this.selectedDateRange = dateRange;
@@ -147,8 +155,8 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
     this.cols = [
       { field: 'name', header: 'Name', width: '166px' },
       { field: 'board', header: 'Category', width: '198px' },
-      { field: 'subject', header: 'Sub-Category', width: '98px' },
-      { field: 'gradeLevel', header: 'Topic', width: '250px' },
+      { field: 'subject', header: 'Level', width: '98px' },
+      { field: 'gradeLevel', header: 'Module', width: '250px' },
       { field: 'createdOn', header: 'Creation Date', width: '99px' },
       { field: 'creator', header: 'Creator', width: '108px' },
       { field: 'contentType', header: 'Content Type', width: '101px' },
