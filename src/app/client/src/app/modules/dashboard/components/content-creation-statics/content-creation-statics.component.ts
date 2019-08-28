@@ -80,7 +80,7 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
         "sort_by": {
           "lastUpdatedOn": "desc"
         },
-        "fields": ["identifier", "creator", "name", "contentType", "mimeType", "createdFor", "channel", "board", "medium", "gradeLevel", "subject", "lastUpdatedOn", "status", "createdBy", "framework", "createdOn"]
+        "fields": ["identifier", "creator", "name", "contentType", "mimeType", "createdFor", "channel", "board", "medium", "gradelevel", "subject", "lastUpdatedOn", "status", "createdBy", "framework", "createdOn"]
       }
     };
     this.reportService.getContentCreationStaticsReport(data).subscribe((response) => {
@@ -155,8 +155,8 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
     this.cols = [
       { field: 'name', header: 'Name', width: '166px' },
       { field: 'board', header: 'Category', width: '198px' },
-      { field: 'subject', header: 'Level', width: '98px' },
-      { field: 'gradeLevel', header: 'Module', width: '250px' },
+      { field: 'gradelevel', header: 'Level', width: '98px' },
+      { field: 'subject', header: 'Module', width: '250px' },
       { field: 'createdOn', header: 'Creation Date', width: '99px' },
       { field: 'creator', header: 'Creator', width: '108px' },
       { field: 'contentType', header: 'Content Type', width: '101px' },

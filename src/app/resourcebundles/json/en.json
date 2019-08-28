@@ -386,7 +386,7 @@
                 "selectAll": "Select All",
                 "graphs": "Graphs",
                 "tables": "Data",
-                "trainingstats": "Your Learnings",
+                "trainingstats": "Your Courses",
                 "trainingdashboard": "Batches",
                 "createUser": "Create User",
                 "assignUser": "Assign user to Member Org",
@@ -512,7 +512,7 @@
             "tab": {
                 "home": "Home",
                 "all": "All",
-                "courses": "Learnings",
+                "courses": "Courses",
                 "resources": "Library",
                 "users": "Users",
                 "community": "Groups",
