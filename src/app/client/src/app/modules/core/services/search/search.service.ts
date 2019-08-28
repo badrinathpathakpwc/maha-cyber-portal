@@ -170,7 +170,23 @@ export class SearchService {
       }
     };
     const objectType = requestParam && requestParam.filters && requestParam.filters.objectType;
-    return this.content.post(option);
+    // up for review filter modifications
+    if (option.data.request.filters.status && option.data.request.filters.status[0] === 'Review') {
+      const cf = option.data.request.filters.createdFor;
+      if (cf && cf.length > 0) {
+        const rID = this.user._rootOrgId;
+        const newcf = [];
+        for (let i = 0; i < cf.length; i++) {
+              if (cf[i] !== rID) {
+                newcf.push(cf[i]);
+          }
+        }
+        option.data.request.filters.createdFor = newcf;
+      }
+      return this.content.post(option);
+    } else {
+      return this.content.post(option);
+    }
   }
   /**
    * User Search.
