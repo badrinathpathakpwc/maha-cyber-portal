@@ -24,6 +24,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { PermissionDirective } from './directives';
 //Imported Org Charts Modules
 import { OrgChartModule } from 'ng2-org-chart';
@@ -42,6 +43,7 @@ import { SlickModule } from 'ngx-slick';
     DiscussionModule,
     CalendarModule,
     TableModule,
+    MultiSelectModule,
     ChartModule,
     DropdownModule,
     OrgChartModule,

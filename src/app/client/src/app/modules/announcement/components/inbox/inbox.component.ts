@@ -7,7 +7,7 @@ import { AnnouncementService } from '@sunbird/core';
 import { ResourceService, ConfigService, PaginationService, ToasterService, ServerResponse } from '@sunbird/shared';
 import { IAnnouncementListData, IPagination } from '@sunbird/announcement';
 import { IEndEventInput, IStartEventInput, IImpressionEventInput, IInteractEventInput } from '@sunbird/telemetry';
-
+import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 /**
  * The announcement inbox component displays all
@@ -115,7 +115,8 @@ export class InboxComponent implements OnInit, OnDestroy {
     resourceService: ResourceService,
     paginationService: PaginationService,
     toasterService: ToasterService,
-    config: ConfigService) {
+    config: ConfigService,
+    private _location: Location) {
     this.announcementService = announcementService;
     this.route = route;
     this.activatedRoute = activatedRoute;
@@ -252,7 +253,9 @@ export class InboxComponent implements OnInit, OnDestroy {
       }
     };
   }
-
+  goBack() {
+    this._location.back();
+  }
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();

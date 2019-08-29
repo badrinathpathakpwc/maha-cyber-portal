@@ -23,18 +23,20 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
   public unsubscribe = new Subject<void>();
   noResult: boolean = false;
   value: Date;
-  userProfile: IUserProfile;
+  userProfile: any;
   currentDate: Date = new Date();
   fromDate: any;
   toDate: any;
   tableData: any = [];
   selectedTableData: any = [];
-  polarChartData: any;
+  polarChartData: Object;
   polarChartOptions: any;
   selectedDateRange: string;
   selectedCategory: string = '';
   interactObject: any;
   cols: any[];
+  orgList: any;
+  contentTypeList: any;
   noResultMessage: INoResultMessage;
   private activatedRoute: ActivatedRoute;
   telemetryImpression: IImpressionEventInput;
@@ -62,11 +64,14 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
     this.getContentCreationStaticsReport('14d');
   }
   getContentCreationStaticsReport(dateRange) {
+    this.polarChartData = null;
     this.selectedDateRange = dateRange;
     this.toDate = new Date();
     this.fromDate = (dateRange === "14d") ? moment().subtract('14', 'days') : ((dateRange === "2m") ? moment().subtract('2', 'months') : moment().subtract('6', 'months'));
     let createdByFilter = this.isOrgAdmin ? [] : [this.userService.userid];
-    const data = {
+    let currentOrgId = _.difference(_.cloneDeep(this.userProfile).organisationIds, [this.userProfile.rootOrgId]);
+    let createdForFilter = this.isOrgAdmin ? currentOrgId : [];
+    let data = {
       "request": {
         "query": "",
         "filters": {
@@ -74,13 +79,14 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
             "Live"
           ],
           "createdBy": createdByFilter,
+          "createdFor": createdForFilter,
           "createdOn": { ">=": this.datePipe.transform(this.fromDate, 'yyyy-MM-ddTHH:MM'), "<=": this.datePipe.transform(this.toDate, 'yyyy-MM-ddTHH:MM') }
         },
         "limit": "100",
         "sort_by": {
           "lastUpdatedOn": "desc"
         },
-        "fields": ["identifier", "creator", "name", "contentType", "mimeType", "createdFor", "channel", "board", "medium", "gradelevel", "subject", "lastUpdatedOn", "status", "createdBy", "framework", "createdOn"]
+        "fields": ["identifier", "creator", "name", "contentType", "mimeType", "createdFor", "channel", "board", "medium", "gradelevel", "subject", "lastUpdatedOn", "status", "createdBy", "framework", "createdOn", "organisation"]
       }
     };
     this.reportService.getContentCreationStaticsReport(data).subscribe((response) => {
@@ -91,8 +97,15 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
           obj.subject = _.isEmpty(obj.subject) ? 'N/A' : obj.subject;
           obj.createdOn = self.datePipe.transform(obj.createdOn, 'dd-MMM-yyyy');
           obj.contentType = (obj.contentType === 'Resource') ? obj.contentType + " (" + _.replace(_.upperCase(_.split(obj.mimeType, '/')[1]), ' ', '') + ")" : obj.contentType;
+          obj.orgName = _.toString(obj.organisation.length > 1 ? _.difference(obj.organisation, [_.cloneDeep(self.userProfile).rootOrgName]) : obj.organisation[0]);
         });
         this.selectedTableData = _.cloneDeep(this.tableData);
+        this.orgList = _.map(_.uniqBy(this.selectedTableData, 'orgName'), function (obj) {
+          return { label: _.get(obj, 'orgName'), value: _.get(obj, 'orgName') }
+        });
+        this.contentTypeList = _.map(_.uniqBy(this.selectedTableData, 'contentType'), function (obj) {
+          return { label: _.toString(_.get(obj, 'contentType')), value: _.toString(_.get(obj, 'contentType')) }
+        });
         this.noResult = false;
         if (_.isEmpty(this.tableData)) {
           this.noResultMessage = {
@@ -130,7 +143,8 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
     }
   }
   initializePolarChart(uniqData, uniqLabel) {
-    this.polarChartData = {
+    this.polarChartData = null;
+    let tempData = {
       datasets: [{
         data: uniqData,
         backgroundColor: [
@@ -143,6 +157,7 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
       }],
       labels: uniqLabel
     }
+    this.polarChartData = tempData;
     this.polarChartOptions = {
       // scale: {
       //   ticks: {
@@ -154,12 +169,13 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
   initializeColumns() {
     this.cols = [
       { field: 'name', header: 'Name', width: '166px' },
-      { field: 'board', header: 'Category', width: '198px' },
+      { field: 'board', header: 'Category', width: '170px' },
       { field: 'gradelevel', header: 'Level', width: '98px' },
-      { field: 'subject', header: 'Module', width: '250px' },
-      { field: 'createdOn', header: 'Creation Date', width: '99px' },
+      { field: 'subject', header: 'Module', width: '160px' },
       { field: 'creator', header: 'Creator', width: '108px' },
+      { field: 'orgName', header: 'Organization', width: '111px' },
       { field: 'contentType', header: 'Content Type', width: '101px' },
+      { field: 'createdOn', header: 'Creation Date', width: '99px' },
       { field: 'status', header: 'Status', width: '64px' }
       // { field: 'identifier', header: 'Identifier' },
       // { field: 'medium', header: 'Medium' },

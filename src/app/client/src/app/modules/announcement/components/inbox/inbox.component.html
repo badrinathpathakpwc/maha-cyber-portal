@@ -2,7 +2,7 @@
   <div class="ui grid" [appTelemetryImpression]="telemetryImpression">
     <div class="twelve wide column mt-20">
       <h4 class="ui header tiny">
-        <i class="arrow left icon"></i>
+        <i class="arrow left icon" style="cursor: pointer" (click)="goBack();"></i>
         <div class="content">
             {{resourceService.frmelmnts?.lbl?.anncmntall}}
         </div>

@@ -4,9 +4,15 @@ body .ui-datepicker table td {
 body .ui-button {
     font-size: 12px !important;
 }
+body .ui-widget {
+    font-size: 11px !important
+}
 .my-13 {
     margin-top: 13px !important;
 }
 ::placeholder {
     font-size: 12px;
-  }
+}
+.ui-multiselect-panel {
+    z-index: 980 !important;
+}

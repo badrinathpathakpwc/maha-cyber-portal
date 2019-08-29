@@ -119,6 +119,15 @@
                             {{col.header}}
                         </th>
                     </tr>
+                    <tr>
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                            <p-multiSelect *ngSwitchCase="'orgName'" [options]="orgList" defaultLabel="All"
+                                appendTo="body" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>
+                            <p-multiSelect *ngSwitchCase="'contentType'" [options]="contentTypeList" defaultLabel="All"
+                                appendTo="body" (onChange)="dt.filter($event.value, col.field, 'in')">
+                            </p-multiSelect>
+                        </th>
+                    </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr>
