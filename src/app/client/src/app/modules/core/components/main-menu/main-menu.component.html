@@ -5,7 +5,7 @@
 	<ng-container *ngIf="userService.loggedIn">
 		<a class="item" [class.active]="router.isActive('/home')" appTelemetryInteract
 			[telemetryInteractEdata]="homeMenuIntractEdata" routerLink="/home">
-			{{resourceService.frmelmnts?.lbl?.anncmnt}}
+			{{resourceService.frmelmnts?.tab?.home}}
 		</a>
 		<a class="item" [class.active]="router.isActive('/search/Library') || router.isActive('/resources')"
 			appTelemetryInteract [telemetryInteractEdata]="libraryMenuIntractEdata" routerLink="/resources">

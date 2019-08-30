@@ -65,6 +65,7 @@ export class MainHomeComponent implements OnInit, OnDestroy {
    * Contains details of userprofile and enrolled courses.
    */
   toDoList: Array<object> = [];
+  completedList: Array<object> = [];
   /**
   * Contains config service reference
   */
@@ -196,7 +197,9 @@ export class MainHomeComponent implements OnInit, OnDestroy {
           };
           const courses = this.utilService.getDataForCard(data.enrolledCourses,
             constantData, dynamicFields, metaData);
-          this.toDoList = this.toDoList.concat(courses);
+          this.toDoList = _.cloneDeep(this.toDoList.concat(courses));
+          this.completedList = _.filter(_.cloneDeep(this.toDoList),{status:2});
+          this.toDoList = _.filter(_.cloneDeep(this.toDoList),{status:0});
         } else if (data && data.err) {
           this.showLoader = false;
           this.toasterService.error(this.resourceService.messages.fmsg.m0001);

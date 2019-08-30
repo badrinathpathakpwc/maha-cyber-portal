@@ -25,6 +25,30 @@
           </div>
         </div>
       </div>
+      <div class="twelve wide column mt-30">
+        <div *ngIf="completedList.length > 0 && !showLoader" class="ui styled accordion p-15 width-100">
+          <span class="todo-heading">Completed</span>
+          <span class="ui red d-inline label small ml-5 py-3">{{completedList.length}}</span>
+          <span title="{{collapse1==true?'Expand':'Collapse'}}"
+            popupInverted>
+            <i 
+              class="large angle down icon pt-5 right-float link" 
+              [ngStyle]="{'transform': collapse1 === true ? 'rotate(0deg)' : 'rotate(180deg)'}"
+              (click)="collapse1 = !collapse1">
+            </i>
+          </span>
+          <div class="ui active" [suiCollapse]="collapse1" [appTelemetryImpression]="telemetryImpression">
+            <ngx-slick in-view-container (inview)="inview($event)" [throttle]="[1000]" [trigger]="completedList" class="carousel" #slickModal="slick-modal"
+              [config]="slideConfig" (afterChange)="inviewChange(completedList,$event)" (beforeChange)="checkSlide($event)" appTelemetryInteract  [telemetryInteractEdata]="{id: btnArrow, type: 'click', pageid: 'home', extra: { section: 'ToDo'}}">
+              <div in-view-item ngxSlickItem *ngFor="let item of completedList; trackBy: trackByFn;let i = index" class="slide" [id]="i" [data]="item">
+                <div *ngIf=" item.type !== 'profile'">
+                  <app-card appContentDirection [data]="item" (clickEvent)="playContent($event)" [customClass]="'pr-20'" class="pr-20 d-block"></app-card>
+                </div>
+              </div>
+            </ngx-slick>
+          </div>
+        </div>
+      </div>
       <div class="twelve wide column mt-20" *ngIf="showLoader">
         <app-loader [data]='loaderMessage'></app-loader>
       </div>

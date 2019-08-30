@@ -193,8 +193,8 @@ export class UsageReportsComponent implements OnInit, OnDestroy {
       { field: 'batchName', header: 'Batch Name', width: '219px' },
       { field: 'courseName', header: 'Course Name', width: '219px' },
       { field: 'enrollmentType', header: 'Type', width: '81px' },
-      { field: 'startDate', header: 'Start Date', width: '90px' },
       { field: 'enrollmentDate', header: 'Enrolled Date', width: '102px' },
+      { field: 'startDate', header: 'Start Date', width: '90px' },
       { field: 'endDate', header: 'Target Date', width: '98px' },
       { field: 'completedOn', header: 'Completion Date', width: '116px' },
       { field: 'statusName', header: 'Status', width: '86px' },
@@ -293,11 +293,15 @@ export class UsageReportsComponent implements OnInit, OnDestroy {
     this.selectedBatchRange = dateRange;
     let toDate = new Date();
     let fromDate = (dateRange === "14d") ? moment().subtract('14', 'days') : ((dateRange === "2m") ? moment().subtract('2', 'months') : moment().subtract('6', 'months'));
-    const data = {
+    let createdByFilter = this.isOrgAdmin ? [] : [this.userService.userid];
+    let currentOrgId = _.difference(_.cloneDeep(this.userProfile).organisationIds, [this.userProfile.rootOrgId]);
+    let createdForFilter = this.isOrgAdmin ? currentOrgId : [];
+    let data = {
       'request': {
         'filters': {
           'status': ['0', '1', '2'],
-          'createdBy': this.userService.userid,
+          "createdBy": createdByFilter,
+          "createdFor": createdForFilter,
           "createdDate": { ">=": this.datePipe.transform(fromDate, 'yyyy-MM-ddTHH:MM'), "<=": this.datePipe.transform(toDate, 'yyyy-MM-ddTHH:MM') }
         },
         'sort_by': { 'createdDate': 'desc' }
