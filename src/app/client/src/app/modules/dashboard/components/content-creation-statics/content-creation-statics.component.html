@@ -64,7 +64,7 @@
             </div>
         </div>
     </form>
-    <div class="ui grid" *ngIf="!noResult && tableData.length > 0">
+    <div class="ui grid" *ngIf="!noResult && selectedTableData.length > 0">
         <div class="userDetailsBlockSection">
             <ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig">
                 <div ngxSlickItem class="userDetailsBlockCard mt-20 mb-20 ml-20"

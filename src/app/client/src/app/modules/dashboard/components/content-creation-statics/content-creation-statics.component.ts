@@ -128,8 +128,10 @@ export class ContentCreationStaticsComponent implements OnInit, OnDestroy {
     let uniqData = [];
     let uniqLabel = [];
     _.map(_.uniqBy(self.tableData, 'board'), function (obj) {
-      uniqData.push(_.filter(self.tableData, { board: _.get(obj, 'board') }).length);
-      uniqLabel.push(_.get(obj, 'board'));
+      if (!_.isEmpty(_.get(obj, 'board'))) {
+        uniqData.push(_.filter(self.tableData, { board: _.get(obj, 'board') }).length);
+        uniqLabel.push(_.get(obj, 'board'));
+      }
     });
     this.initializePolarChart(uniqData, uniqLabel);
   }
