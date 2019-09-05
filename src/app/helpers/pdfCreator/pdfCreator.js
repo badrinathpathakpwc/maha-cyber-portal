@@ -154,9 +154,9 @@ function createPDF (data, filePath, callback) {
     var instructor = data.instructor || certificateInstructor
     var courseCompletionDate = getCertificateDate(data.createdDate || new Date())
     var courseName = data.courseName
-    if(data.marks.scoredMarks !== null) {
-      var marksScored = data.marks ? data.marks.scoredMarks + ' / ' +  data.marks.maxMarks : '';
-    }
+    // if(data.marks.scoredMarks !== null) {
+    //   var marksScored = data.marks ? data.marks.scoredMarks + ' / ' +  data.marks.maxMarks : '';
+    // }
     var doc = new PDFDocument({ autoFirstPage: false })
 
     var stream = doc.pipe(FileSystem.createWriteStream(filePath))
@@ -165,18 +165,18 @@ function createPDF (data, filePath, callback) {
       // layout: 'landscape',
       margin:0
     })
-    if(data.marks.scoredMarks !== null) {
-    doc.image(backgroundImgMarks, {
-      width: 700
-    })
-    doc.font('Helvetica-Bold').fontSize(15).text(marksScored, 230, 398, { align: 'center' })
-  }
-  else {
+  //   if(data.marks.scoredMarks !== null) {
+  //   doc.image(backgroundImgMarks, {
+  //     width: 700
+  //   })
+  //   doc.font('Helvetica-Bold').fontSize(15).text(marksScored, 230, 398, { align: 'center' })
+  // }
+  // else {
     doc.image(backgroundImg, {
       // width: 795,
       // height:615
     })
-  }
+  // }
   doc.font('helpers/pdfCreator/fonts/charter-itc-tt.ttf').fontSize(17).text(title + ' ' + name, 0, 273, { align: 'center' })
   doc.font('helpers/pdfCreator/fonts/charter-bd-osf-bt.ttf').fontSize(20).text(courseName, 0, 365, { align: 'center' })
     // if(platformName) {

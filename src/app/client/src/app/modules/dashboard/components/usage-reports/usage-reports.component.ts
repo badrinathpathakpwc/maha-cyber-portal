@@ -383,7 +383,8 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
       "request": {
         "filters": {
           "createdDate": { ">=": this.datePipe.transform(this.fromDate, 'yyyy-MM-ddTHH:MM'), "<=": this.datePipe.transform(this.toDate, 'yyyy-MM-ddTHH:MM') },
-          "rootOrgId": this.userProfile.rootOrgId
+          "rootOrgId": this.userProfile.rootOrgId,
+          "status": '1'
         }
       }
     };
