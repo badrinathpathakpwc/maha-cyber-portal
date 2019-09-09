@@ -3,7 +3,7 @@
         <div class="twelve wide column">
             <div class='mt-5 videosegment ui segment'>
                 <div class='content-player-body'>
-                    <div *ngIf="showPlayer && contentData" class="videosegment  ui clearing segment">
+                    <div *ngIf="showPlayer && contentData" class="videosegment  ui clearing segment ml-20 mr-30">
                         <div [appTelemetryImpression]="telemetryImpression" class="ui grid">
                             <div class="row ">
                                 <div class="twelve wide column">
@@ -19,6 +19,14 @@
                                             class="ui right floated basic icon circular button  mouse-pointer"
                                             (click)="close()">
                                             <i class="ui remove icon"></i>
+                                        </h5>
+                                        <h5 class="ui right floated basic icon circular button mouse-pointer" [ngClass]="{'disabled': currentSize >= 1 }"
+                                            (click)="zoomInContentPlayer()">
+                                            <i class="ui zoom in icon"></i>
+                                        </h5>
+                                        <h5 class="ui right floated basic icon circular button mouse-pointer" [ngClass]="{'disabled': currentSize <= 0.50 }"
+                                            (click)="zoomOutContentPlayer()">
+                                            <i class="ui zoom out icon"></i>
                                         </h5>
                                     </div>
                                 </div>

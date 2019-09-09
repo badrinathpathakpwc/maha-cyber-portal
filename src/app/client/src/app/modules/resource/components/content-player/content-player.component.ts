@@ -86,6 +86,9 @@ export class ContentPlayerComponent implements OnInit {
   public feedbackModal: Boolean = false;
   public telemetryFeedbackObject: IFeedbackObject;
   closeUrl: any;
+  //Zoom In/Out Features
+  private scaleFactor: number = 0.05;
+  private currentSize: number = 0.75;
   constructor(public activatedRoute: ActivatedRoute, public navigationHelperService: NavigationHelperService,
     public userService: UserService, public resourceService: ResourceService, public router: Router,
     public toasterService: ToasterService, public windowScrollService: WindowScrollService, public playerService: PlayerService,
@@ -214,6 +217,20 @@ export class ContentPlayerComponent implements OnInit {
   }
   createEventEmitter(data) {
     this.createNoteData = data;
+  }
+  public zoomInContentPlayer() {
+    //calculating required zoomed-In size
+    const zoomedSize = _.round(this.currentSize + this.scaleFactor, 2);
+    $('#contentPlayer').css({'transform': 'scale(' + zoomedSize + ')'});
+    this.currentSize = zoomedSize;
+  }
+
+  public zoomOutContentPlayer() {
+    //calculating required zoomed-Out size
+    const zoomedSize = _.round(this.currentSize - this.scaleFactor, 2);
+    $('#contentPlayer').css({'transform': 'scale(' + zoomedSize + ')'});
+    this.currentSize = zoomedSize;
+
   }
   onShareLink() {
     this.shareLink = this.contentUtilsServiceService.getPublicShareUrl(this.contentId, this.contentData.mimeType);
