@@ -111,7 +111,9 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   public collectionTreeOptions: ICollectionTreeOptions;
 
   public unsubscribe = new Subject<void>();
-
+  //Zoom In/Out Features
+  private scaleFactor: number = 0.05;
+  private currentSize: number = 0.75;
   constructor(public activatedRoute: ActivatedRoute, private configService: ConfigService,
     private courseConsumptionService: CourseConsumptionService, public windowScrollService: WindowScrollService,
     public router: Router, public navigationHelperService: NavigationHelperService, private userService: UserService,
@@ -193,6 +195,19 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     _.forEach(mimeTypeCount, (value, key) => {
       this.curriculum.push({ mimeType: key, count: value });
     });
+  }
+  public zoomInContentPlayer() {
+    //calculating required zoomed-In size
+    const zoomedSize = _.round(this.currentSize + this.scaleFactor, 2);
+    $('#contentPlayer').css({'transform': 'scale(' + zoomedSize + ')'});
+    this.currentSize = zoomedSize;
+  }
+
+  public zoomOutContentPlayer() {
+    //calculating required zoomed-Out size
+    const zoomedSize = _.round(this.currentSize - this.scaleFactor, 2);
+    $('#contentPlayer').css({'transform': 'scale(' + zoomedSize + ')'});
+    this.currentSize = zoomedSize;
   }
   private getContentState() {
     const req = {
