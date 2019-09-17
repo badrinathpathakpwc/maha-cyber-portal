@@ -4,6 +4,7 @@ import * as  dropDownConfig from './dropdown.config.json';
 import * as  rolesConfig from './roles.config.json';
 import * as  appConfig from './app.config.json';
 import * as editorConfig from './editor.config.json';
+import * as cyberProfileConfig from './cyber-profile.config.json';
 
 
 /**
@@ -37,5 +38,10 @@ export class ConfigService {
   *
   */
   editorConfig = (<any>editorConfig.default);
+  /**
+  * property containing cyber profile config
+  *
+  */
+ cyberProfileConfig = (<any>cyberProfileConfig.default);
 }
 

@@ -149,3 +149,17 @@ input[type=number]::-webkit-outer-spin-button {
   margin-top: 60px;
   position: fixed;
 }
+.ui-inputtext.ui-widget {
+  border-bottom: none !important;
+  border: 1px solid #969696 !important;
+  border-radius: 5px 0px 0px 5px !important;
+}
+.ui-calendar-w-btn {
+  width:92%;
+}
+.ui.dropdown:not(.button)>.default.text {
+  color: #000000;
+}
+.ui.button:disabled {
+  cursor: not-allowed;
+}

@@ -1,0 +1,335 @@
+{
+	"channel": "mh_cyber",
+	"framework": "mhcyber",
+	"userType": [
+		{
+			"type": "Field Police Personnel",
+			"roles": [
+				"PUBLIC"
+			],
+			"designations": [
+				{
+					"name": "Constable(PC)"
+				},
+				{
+					"name": "Police Naik(PN)"
+				},
+				{
+					"name": "Woman Police Naik(WPN)"
+				},
+				{
+					"name": "Woman Constable(WPC)"
+				},
+				{
+					"name": "Head Constable(HC)"
+				},
+				{
+					"name": "Head Woman Constable(HWC)"
+				}
+			],
+			"taxonomy": [
+				"First Responder",
+				"Digital Forensics",
+				"Investigations",
+				"SOP"
+			]
+		},
+		{
+			"type": "Investigating Officer",
+			"roles": [
+				"PUBLIC"
+			],
+			"designations": [
+				{
+					"name": "Police Sub Inspector(PSI)"
+				},
+				{
+					"name": "Assistant Police Inspector(ASI)"
+				},
+				{
+					"name": "Police Inspector(PI)"
+				},
+				{
+					"name": "Dy. Superintendent of Police(DSP)"
+				},
+				{
+					"name": "Assistant Commissioner of Police(ACP)"
+				}
+			],
+			"taxonomy": [
+				"Digital Forensics",
+				"Investigations",
+				"Intelligence",
+				"SOP"
+			]
+		},
+		{
+			"type": "Senior Management",
+			"roles": [
+				"ORG_ADMIN",
+				"CONTENT_CREATOR",
+				"CONTENT_REVIEWER",
+				"ANNOUNCEMENT_SENDER",
+				"COURSE_MENTOR"
+			],
+			"designations": [
+				{
+					"name": "Superintendent of Police(SP)"
+				},
+				{
+					"name": "Commissioner of Police CP)"
+				},
+				{
+					"name": "Addl. Superintendent of Police(ACP)"
+				},
+				{
+					"name": "Deputy Commissioner of Police(DCP)"
+				}
+			],
+			"taxonomy": [
+				"Digital Forensics",
+				"Investigations",
+				"Intelligence",
+				"Management Tracks",
+				"SOP"
+			]
+		},
+		{
+			"type": "External Users",
+			"roles": [
+				"PUBLIC"
+			],
+			"designations": [
+				{
+					"name": "District Judge"
+				},
+				{
+					"name": "High Court Judge"
+				},
+				{
+					"name": "Supreme Court Judge"
+				},
+				{
+					"name": "Prosecutor"
+				},
+				{
+					"name": "Forensic Lab"
+				}
+			],
+			"taxonomy": [
+				"Judicial Track / Forensic Lab"
+			]
+		}
+	],
+	"ranges": [
+		{
+			"name": "Mumbai",
+			"policeStations": [
+				{
+					"name": "Mumbai City"
+				},
+				{
+					"name": "Navi Mumbai"
+				},
+				{
+					"name": "Mumbai Railway"
+				},
+				{
+					"name": "WTC"
+				},
+				{
+					"name": "ATS"
+				},
+				{
+					"name": "SID"
+				}
+			]
+		},
+		{
+			"name": "Nashik",
+			"policeStations": [
+				{
+					"name": "Nashik City"
+				},
+				{
+					"name": "Nashik Rural"
+				},
+				{
+					"name": "Jalgaon"
+				},
+				{
+					"name": "Dhule"
+				},
+				{
+					"name": "Nadurbar"
+				},
+				{
+					"name": "Ahemadnagar"
+				}
+			]
+		},
+		{
+			"name": "Nanded",
+			"policeStations": [
+				{
+					"name": "Solapur City"
+				},
+				{
+					"name": "Pune Railway"
+				},
+				{
+					"name": "Nanded"
+				},
+				{
+					"name": "Latur"
+				},
+				{
+					"name": "Parbhani"
+				},
+				{
+					"name": "Hingoli"
+				}
+			]
+		},
+		{
+			"name": "Amaravati",
+			"policeStations": [
+				{
+					"name": "Amaravati City"
+				},
+				{
+					"name": "Amaravati Rural"
+				},
+				{
+					"name": "Akola"
+				},
+				{
+					"name": "Buldhana"
+				},
+				{
+					"name": "Washim"
+				},
+				{
+					"name": "Yavatmaal"
+				}
+			]
+		},
+		{
+			"name": "Konkan",
+			"policeStations": [
+				{
+					"name": "Thane City"
+				},
+				{
+					"name": "Thane Rural"
+				},
+				{
+					"name": "Sindhudurg"
+				},
+				{
+					"name": "Ratnagiri"
+				},
+				{
+					"name": "Raigad"
+				},
+				{
+					"name": "Palghar"
+				}
+			]
+		},
+		{
+			"name": "Kolhapur",
+			"policeStations": [
+				{
+					"name": "Pune City"
+				},
+				{
+					"name": "Pune Rural"
+				},
+				{
+					"name": "Satara"
+				},
+				{
+					"name": "Sangali"
+				},
+				{
+					"name": "Solapur Rural"
+				},
+				{
+					"name": "Kolhapur"
+				},
+				{
+					"name": "Pimpri Chinchwad"
+				}
+			]
+		},
+		{
+			"name": "Auragabad",
+			"policeStations": [
+				{
+					"name": "Auragabad City"
+				},
+				{
+					"name": "Auragabad Rural"
+				},
+				{
+					"name": "Aurangabad Railway"
+				},
+				{
+					"name": "Beed"
+				},
+				{
+					"name": "Jalana"
+				},
+				{
+					"name": "Osmanabaad"
+				}
+			]
+		},
+		{
+			"name": "Nagpur",
+			"policeStations": [
+				{
+					"name": "Nagpur City"
+				},
+				{
+					"name": "Nagpur Rural"
+				},
+				{
+					"name": "Nagpur Railway"
+				},
+				{
+					"name": "Wardha"
+				},
+				{
+					"name": "Bhandara"
+				},
+				{
+					"name": "Gondia"
+				},
+				{
+					"name": "Chandrapur"
+				},
+				{
+					"name": "Gadchiroli"
+				}
+			]
+		}
+	],
+	"userprofilevisibility": {
+		"request": {
+			"userid": "",
+			"private": [],
+			"public": [
+				"firstName",
+				"lastName",
+				"gender",
+				"userName",
+				"dob",
+				"grade",
+				"location",
+				"jobProfile"
+			]
+		}
+	}
+}

@@ -68,6 +68,9 @@ const routes: Routes = [
     path: 'signup', loadChildren: './module/signup/signup.module#SignupModule'
   },
   {
+    path: 'register', loadChildren: './module/self-register/self-register.module#SelfRegisterModule'
+  },
+  {
     path: ':slug/sign-in/sso', loadChildren: './module/sign-in/sso/sso.module#SsoModule'
   },
   {

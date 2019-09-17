@@ -44,7 +44,7 @@ module.exports = (app, keycloak) => {
     next()
   })
 
-  app.all(['/', '/get', '/get/dial/:dialCode', '/explore',
+  app.all(['/', '/get', '/get/dial/:dialCode', '/explore','/register',
     '/explore/*', '/:slug/explore', '/:slug/explore/*', '/explore-course',
     '/explore-course/*', '/:slug/explore-course', '/:slug/explore-course/*',
     '/:slug/signup', '/signup', '/:slug/sign-in/*', '/sign-in/*','/nuis','/lms','/innovate','/smartgov','/iudx','/aboutus','/comingsoon'], indexPage)

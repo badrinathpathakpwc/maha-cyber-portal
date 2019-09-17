@@ -6,7 +6,7 @@ import {
   NavigationHelperService, ConfigService, BrowserCacheTtlService
 } from '@sunbird/shared';
 import { Component, HostListener, OnInit, ViewChild, Inject } from '@angular/core';
-import { UserService, PermissionService, CoursesService, TenantService, OrgDetailsService, DeviceRegisterService } from '@sunbird/core';
+import { FrameworkService, UserService, PermissionService, CoursesService, TenantService, OrgDetailsService, DeviceRegisterService } from '@sunbird/core';
 import * as _ from 'lodash';
 import { ProfileService } from '@sunbird/profile';
 import { Observable, of, throwError, combineLatest } from 'rxjs';
@@ -66,7 +66,9 @@ export class AppComponent implements OnInit {
   */
   showAppPopUp = false;
   viewinBrowser = false;
-  constructor(private cacheService: CacheService, private browserCacheTtlService: BrowserCacheTtlService,
+  cyberProfileConfig: any;
+  frameworkData: any;
+  constructor(private frameworkService: FrameworkService, private cacheService: CacheService, private browserCacheTtlService: BrowserCacheTtlService,
     public userService: UserService, private navigationHelperService: NavigationHelperService,
     private permissionService: PermissionService, public resourceService: ResourceService,
     private deviceRegisterService: DeviceRegisterService, private courseService: CoursesService, private tenantService: TenantService,
@@ -93,6 +95,7 @@ export class AppComponent implements OnInit {
     this.telemetryService.syncEvents();
   }
   ngOnInit() {
+    this.cyberProfileConfig = _.cloneDeep(this.configService.cyberProfileConfig);
     this.resourceService.initialize();
     combineLatest(this.setSlug(), this.setDeviceId()).pipe(
       mergeMap(data => {
@@ -112,6 +115,7 @@ export class AppComponent implements OnInit {
         this.telemetryService.initialize(this.getTelemetryContext());
         this.deviceRegisterService.registerDevice(this.channel);
         this.checkTncAndFrameWorkSelected();
+        this.checkProfileVisibility();
         this.initApp = true;
       }, error => {
         this.initApp = true;
@@ -128,7 +132,27 @@ export class AppComponent implements OnInit {
       || _.indexOf(_.split(window.location.href, '/'), 'comingsoon') > -1 ?
       false : true;
   }
-
+  readFramework() {
+    this.frameworkService.getFrameworkCategories(this.cyberProfileConfig.framework).subscribe(response => {
+      this.frameworkData = response.result.framework;
+      this.updateFrameWork();
+    },
+      err => {
+        this.toasterService.warning(this.resourceService.messages.emsg.m0012);
+      });
+  }
+  /**
+ * Check Profile Visibility of the user for the first time login
+ */
+  checkProfileVisibility() {
+    if (this.userProfile.profileVisibility.grade === 'private') {
+      this.cyberProfileConfig.userprofilevisibility.request.userid = this.userProfile.userId;
+      this.profileService.updateProfileFieldVisibility(this.cyberProfileConfig.userprofilevisibility.request).subscribe(response => {
+      }, err => {
+        this.toasterService.warning(this.resourceService.messages.emsg.m0012);
+      })
+    }
+  }
   /**
    * checks if user has accepted the tnc and show tnc popup.
    */
@@ -148,9 +172,10 @@ export class AppComponent implements OnInit {
     const frameWorkPopUp: boolean = this.cacheService.get('showFrameWorkPopUp');
     if (frameWorkPopUp) {
       this.showFrameWorkPopUp = false;
-    } else {
+    }
+    else {
       if (this.userService.loggedIn && _.isEmpty(_.get(this.userProfile, 'framework'))) {
-        this.showFrameWorkPopUp = true;
+        this.readFramework();
       }
     }
   }
@@ -282,20 +307,32 @@ export class AppComponent implements OnInit {
   /**
    * updates user framework. After update redirects to library
    */
-  public updateFrameWork(event) {
+  public updateFrameWork() {
+    let self = this;
+    let tempData = _.find(this.cyberProfileConfig.userType, function (obj) {
+      if (!_.isEmpty(_.find(obj.designations, { name: _.toString(self.userProfile.grade) }))) {
+        return obj;
+      }
+    });
     const req = {
-      framework: event
+      framework: {
+        "board": [tempData.type],
+        "subject": tempData.taxonomy,
+        "gradeLevel": _.map(_.get(_.find(this.frameworkData.categories, { code: 'gradeLevel' }), 'terms'), 'name'),
+        "medium": _.map(_.get(_.find(this.frameworkData.categories, { code: 'medium' }), 'terms'), 'name'),
+        "id": this.cyberProfileConfig.framework
+      }
     };
     this.profileService.updateProfile(req).subscribe(res => {
-      this.frameWorkPopUp.modal.deny();
-      this.showFrameWorkPopUp = false;
-      this.utilService.toggleAppPopup();
-      this.showAppPopUp = this.utilService.showAppPopUp;
+      // this.frameWorkPopUp.modal.deny();
+      // this.showFrameWorkPopUp = false;
+      // this.utilService.toggleAppPopup();
+      // this.showAppPopUp = this.utilService.showAppPopUp;
     }, err => {
       this.toasterService.warning(this.resourceService.messages.emsg.m0012);
-      this.frameWorkPopUp.modal.deny();
-      this.router.navigate(['/resources']);
-      this.cacheService.set('showFrameWorkPopUp', 'installApp');
+      // this.frameWorkPopUp.modal.deny();
+      // this.router.navigate(['/resources']);
+      // this.cacheService.set('showFrameWorkPopUp', 'installApp');
     });
   }
   viewInBrowser() {
