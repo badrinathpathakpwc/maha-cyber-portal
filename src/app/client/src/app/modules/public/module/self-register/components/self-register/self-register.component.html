@@ -23,13 +23,13 @@
             <div class="description">Choose your job profile</div>
           </div>
         </div>
-        <div class="step">
+        <!-- <div class="step">
           <i class="fa fa-graduation-cap fa-3x mr-10"></i>
           <div class="content">
             <div class="title">Education</div>
             <div class="description">Enter your education details</div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <form class="ui form borderd" [formGroup]="basicDetailsForm" autocomplete="off" id="basicDetailsForm"
@@ -294,9 +294,10 @@
       <div class="mt-20" style="float: right">
         <button *ngIf="formIndex>1" type="button" class="ui default button mr-10"
           (click)="formIndex=formIndex-1">Previous</button>
-        <button *ngIf="formIndex===1" type="button" class="ui green button"
+        <button *ngIf="formIndex===1" type="button" class="ui green button" [disabled]="basicDetailsForm.invalid"
           (click)="formIndex=formIndex+1">Next</button>
-        <button *ngIf="formIndex===2" type="button" class="ui green button" (click)="createCyberUser()">Submit</button>
+        <button *ngIf="formIndex===2" type="button" class="ui green button" [disabled]="jobProfileForm.invalid"
+          (click)="createCyberUser()">Submit</button>
       </div>
     </div>
   </div>
@@ -309,3 +310,30 @@
   </div>
 </sui-modal> -->
 <!-- Loader Modal Ends Here -->
+<!-- External ID Delete Modal Starts Here -->
+<sui-modal [mustScroll]="true" [isClosable]="false" [transitionDuration]="0" [size]="'small'" class="sb-modal"
+  appBodyScroll (dismissed)="showConfirmationModal=false;confirmationModal.deny();redirect();" #confirmationModal
+  *ngIf="showConfirmationModal">
+  <!--Header-->
+  <div class="sb-modal-header" [appTelemetryImpression]="telemetryImpression">
+    Confirmation
+  </div>
+  <!--/Header-->
+  <!--Content-->
+  <div class="sb-modal-content onboard-user-modal" style="height: auto;">
+    <div class="ui stackable grid">
+      <div class="twelve wide column workspacesegment mt-20 ml-20">
+        <h5>You have successfully registered. Click ok to login</h5>
+      </div>
+    </div>
+  </div>
+  <!--/Content-->
+  <!--Actions-->
+  <div class="sb-modal-actions">
+    <button class="sb-btn sb-btn-normal sb-btn-primary" (click)="confirmationModal.deny();">
+      Ok
+    </button>
+  </div>
+  <!--/Actions-->
+</sui-modal>
+<!-- External ID Delete Modal Ends Here -->

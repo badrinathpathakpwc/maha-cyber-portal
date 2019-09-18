@@ -13,6 +13,7 @@ import { Observable, of, throwError, combineLatest } from 'rxjs';
 import { first, filter, mergeMap, tap, map } from 'rxjs/operators';
 import { CacheService } from 'ng2-cache-service';
 import { DOCUMENT } from '@angular/platform-browser';
+import { UserSearchService } from './modules/search/services/user-search/user-search.service';
 
 /**
  * main app component
@@ -68,7 +69,7 @@ export class AppComponent implements OnInit {
   viewinBrowser = false;
   cyberProfileConfig: any;
   frameworkData: any;
-  constructor(private frameworkService: FrameworkService, private cacheService: CacheService, private browserCacheTtlService: BrowserCacheTtlService,
+  constructor(private userSearchService: UserSearchService, private frameworkService: FrameworkService, private cacheService: CacheService, private browserCacheTtlService: BrowserCacheTtlService,
     public userService: UserService, private navigationHelperService: NavigationHelperService,
     private permissionService: PermissionService, public resourceService: ResourceService,
     private deviceRegisterService: DeviceRegisterService, private courseService: CoursesService, private tenantService: TenantService,
@@ -115,7 +116,9 @@ export class AppComponent implements OnInit {
         this.telemetryService.initialize(this.getTelemetryContext());
         this.deviceRegisterService.registerDevice(this.channel);
         this.checkTncAndFrameWorkSelected();
-        this.checkProfileVisibility();
+        if (this.userService.loggedIn) {
+          this.checkProfileVisibility();
+        }
         this.initApp = true;
       }, error => {
         this.initApp = true;
@@ -323,6 +326,28 @@ export class AppComponent implements OnInit {
         "id": this.cyberProfileConfig.framework
       }
     };
+    let orgFilter = {
+      filters: {
+        orgName: this.userProfile.location
+      },
+      limit: 1
+    }
+    this.orgDetailsService.fetchOrgs(orgFilter).subscribe(response => {
+      let roleData = {
+        userId: this.userProfile.userId,
+        orgId: response.result.response.content[0].id,
+        roles: tempData.roles
+      }
+      this.userSearchService.updateRoles(roleData).subscribe(response => {
+        window.location.reload();
+      }, err => {
+        console.log(err);
+        this.toasterService.error(this.resourceService.messages.emsg.m0005);
+      });
+    }, err => {
+      console.log(err);
+      this.toasterService.error(this.resourceService.messages.emsg.m0005);
+    })
     this.profileService.updateProfile(req).subscribe(res => {
       // this.frameWorkPopUp.modal.deny();
       // this.showFrameWorkPopUp = false;

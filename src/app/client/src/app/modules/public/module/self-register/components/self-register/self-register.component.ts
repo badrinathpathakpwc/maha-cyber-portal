@@ -9,7 +9,6 @@ import { IStartEventInput, IImpressionEventInput, IInteractEventEdata } from '@s
 import { ActivatedRoute } from '@angular/router';
 import { SignupService } from '../../../signup';
 import { OrgManagementService } from '../../../../../../modules/org-management/services/org-management/org-management.service';
-import { UserSearchService } from '../../../../../../modules/search/services/user-search/user-search.service';
 import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-self-register',
@@ -17,6 +16,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./self-register.component.scss']
 })
 export class SelfRegisterComponent implements OnInit, OnDestroy {
+  showConfirmationModal: boolean = false;
   genderList: any = [];
   formIndex: number = 1;
   psDisabled: boolean = true;
@@ -38,15 +38,13 @@ export class SelfRegisterComponent implements OnInit, OnDestroy {
   positionList: any = [];
   orgManagementService: OrgManagementService;
   orgDetailsService: OrgDetailsService;
-  userSearchService: UserSearchService;
   createdUserId: any;
   organizationId: any;
-  constructor(userSearchService: UserSearchService, orgDetailsService: OrgDetailsService, private datePipe: DatePipe, orgManagementService: OrgManagementService, public configService: ConfigService, public selfRegisterService: SignupService, formBuilder: FormBuilder, public resourceService: ResourceService, public toasterService: ToasterService, public activatedRoute: ActivatedRoute, public telemetryService: TelemetryService) {
+  constructor(orgDetailsService: OrgDetailsService, private datePipe: DatePipe, orgManagementService: OrgManagementService, public configService: ConfigService, public selfRegisterService: SignupService, formBuilder: FormBuilder, public resourceService: ResourceService, public toasterService: ToasterService, public activatedRoute: ActivatedRoute, public telemetryService: TelemetryService) {
     this.basicDetailsFormBuilder = formBuilder;
     this.jobProfileFormBuilder = formBuilder;
     this.orgManagementService = orgManagementService;
     this.orgDetailsService = orgDetailsService;
-    this.userSearchService = userSearchService;
   }
 
   ngOnInit() {
@@ -228,15 +226,6 @@ export class SelfRegisterComponent implements OnInit, OnDestroy {
     }
     this.orgDetailsService.fetchOrgs(orgFilter).subscribe(response => {
       this.organizationId = response.result.response.content[0].id;
-      console.log("Form Details");
-      console.log(this.basicDetailsForm);
-      console.log(this.jobProfileForm);
-      let self = this;
-      var tempData = _.find(this.cyberProfileConfig.userType, function (obj) {
-        if (!_.isEmpty(_.find(obj.designations, { name: self.jobProfileForm.value.position }))) {
-          return obj;
-        }
-      });
       let data = {
         "request": {
           "email": this.basicDetailsForm.value.email,
@@ -272,21 +261,10 @@ export class SelfRegisterComponent implements OnInit, OnDestroy {
           ]
         }
       }
-      console.log("User Creation Model");
-      console.log(data);
       this.orgManagementService.createUser(data).subscribe(response => {
         if (_.get(response, 'responseCode') === 'OK') {
+          this.showConfirmationModal = true;
           this.createdUserId = response.result.userId;
-          let roleData = {
-            userId: this.createdUserId,
-            orgId: this.organizationId,
-            roles: tempData.roles
-          }
-          this.userSearchService.updateRoles(roleData).subscribe(response => {
-
-          }, err => {
-            this.toasterService.error(this.resourceService.messages.emsg.m0005);
-          })
         } else {
           this.toasterService.error(this.resourceService.messages.emsg.m0005);
         }
@@ -298,6 +276,9 @@ export class SelfRegisterComponent implements OnInit, OnDestroy {
       console.log(err);
       this.toasterService.error(this.resourceService.messages.emsg.m0005);
     })
+  }
+  redirect() {
+    window.location.href = '/resources';
   }
   ngOnDestroy() {
     if (this.tenantDataSubscription) {

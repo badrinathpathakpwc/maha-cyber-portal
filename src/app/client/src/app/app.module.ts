@@ -19,6 +19,7 @@ import { CacheSessionStorage } from 'ng2-cache-service/dist/src/services/storage
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import {DiscussionModule} from '../app/modules/discussion/discussion.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserSearchService } from './modules/search/services/user-search/user-search.service';
 @NgModule({
   declarations: [
     AppComponent
@@ -44,7 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   entryComponents: [AppComponent],
   bootstrap: [AppComponent],
   providers: [
-    CacheService,
+    CacheService,UserSearchService,
     { provide: CacheStorageAbstract, useClass: CacheSessionStorage },
   ]
 })
