@@ -17,6 +17,7 @@ import { DatePipe } from '@angular/common';
 })
 export class SelfRegisterComponent implements OnInit, OnDestroy {
   showConfirmationModal: boolean = false;
+  telemetryImpression: IImpressionEventInput;
   genderList: any = [];
   formIndex: number = 1;
   psDisabled: boolean = true;
