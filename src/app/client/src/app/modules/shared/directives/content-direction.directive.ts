@@ -23,12 +23,14 @@ export class ContentDirectionDirective implements AfterViewInit  {
       const langCode = _.get(this.mediumCode, _.lowerCase(this.data.medium));
       if (this.cacheService.get('resourcebundlesearch')) {
         const data = this.cacheService.get('resourcebundlesearch');
-        const item =  (_.find(data[0].range, ['value', langCode]));
+        //Hardcode Language due to API issue
+        const item =  (_.find([{ 'value': 'en', 'label': 'English', 'dir': 'ltr' }], ['value', langCode]));
         if (item) {
           this.renderer.setAttribute(this.elRef.nativeElement, 'lang' , item.value);
           this.renderer.setAttribute(this.elRef.nativeElement, 'dir' , item.dir);
         } else {
-          const englishLanguage = (_.find(data[0].range, ['value', 'en']));
+          //Hardcode Language due to API issue
+          const englishLanguage = (_.find([{ 'value': 'en', 'label': 'English', 'dir': 'ltr' }], ['value', 'en']));
           this.renderer.setAttribute(this.elRef.nativeElement, 'lang' , englishLanguage.value);
           this.renderer.setAttribute(this.elRef.nativeElement, 'dir' , englishLanguage.dir);
         }

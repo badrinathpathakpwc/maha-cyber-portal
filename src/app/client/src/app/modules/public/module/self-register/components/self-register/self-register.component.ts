@@ -225,6 +225,12 @@ export class SelfRegisterComponent implements OnInit, OnDestroy {
       },
       limit: 1
     }
+    let self = this;
+    let tempData = _.find(this.cyberProfileConfig.userType, function (obj) {
+      if (!_.isEmpty(_.find(obj.designations, { name: _.toString(self.jobProfileForm.value.position) }))) {
+        return obj;
+      }
+    });
     this.orgDetailsService.fetchOrgs(orgFilter).subscribe(response => {
       this.organizationId = response.result.response.content[0].id;
       let data = {
@@ -243,6 +249,8 @@ export class SelfRegisterComponent implements OnInit, OnDestroy {
           "grade": [this.jobProfileForm.value.position],
           "location": this.jobProfileForm.value.range,
           "organisationId": this.organizationId,
+          "profileSummary": this.jobProfileForm.value.policeStation,
+          "subject": [tempData.type],
           "jobProfile": [
             {
               "jobName": this.jobProfileForm.value.position,

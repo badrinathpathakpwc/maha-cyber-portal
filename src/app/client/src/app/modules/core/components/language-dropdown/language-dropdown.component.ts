@@ -77,7 +77,8 @@ export class LanguageDropdownComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe))
         .subscribe(
           (data: ServerResponse) => {
-            this.languages = data[0].range;
+            //Hard code language due to API issue
+            this.languages = [{ 'value': 'en', 'label': 'English', 'dir': 'ltr' }];
             this._cacheService.set(this.filterEnv + this.formAction, data,
               {
                 maxAge: this.configService.appConfig.cacheServiceConfig.setTimeInMinutes *
