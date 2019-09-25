@@ -10,9 +10,9 @@ import { UUID } from 'angular2-uuid';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
-import { IEmployee } from 'ng2-org-chart';
 import { Subject } from 'rxjs';
 import { ContentCreationStaticsComponent } from '../content-creation-statics/content-creation-statics.component';
+import { TreeNode } from 'primeng/api';
 @Component({
   selector: 'app-usage-reports',
   templateUrl: './usage-reports.component.html',
@@ -31,12 +31,15 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   enrolledCourseData: any = [];
   selectedEnrolledCourseData: any = [];
   selectedBatch: object;
+  selectedOrganization: any;
   userProfile: IUserProfile;
   public unsubscribe = new Subject<void>();
   cols: any = [];
   courseDashboardColumns: any = [];
   batchList: any = [];
+  batchDropDown: any = [];
   orgList: any = [];
+  allOrgdetails: any = [];
   selectedUserDashboardData: any = [];
   selectedOrg: string = '';
   courseDashboardData: any = [];
@@ -67,13 +70,16 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   userDashboardData: any = [];
   userDetailsBlock: any = [];
   trainingDetailsBlock: any = [];
-  orgChartData: IEmployee;
+  orgChartData: TreeNode[];
   showTrainingstats: boolean = true;
   showTrainingdashboard: boolean = true;
   showUserDetailsReport: boolean = true;
   isOrgAdmin: boolean = false;
   isCreator: boolean = false;
   slideConfig: any;
+  allOrgList: any = [];
+  rangeWiseGroupData: any = [];
+  allRangeData: any;
   constructor(public configService: ConfigService, private usageService: UsageService, private sanitizer: DomSanitizer,
     public userService: UserService, public permissionService: PermissionService, private toasterService: ToasterService,
     public resourceService: ResourceService, activatedRoute: ActivatedRoute, private router: Router, private datePipe: DatePipe
@@ -114,9 +120,10 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isOrgAdmin = this.permissionService.checkRolesPermissions(this.adminDashboard);
     //Check Creator Role
     this.isCreator = this.permissionService.checkRolesPermissions(this.configService.rolesConfig.headerDropdownRoles.myActivityRole);
-    this.getBatches('14d');
+    // this.getBatches('14d');
     // this.getUserDetailsReport('14d');
     this.getOrgDetails();
+    this.getAllOrgDetails();
   }
   setTelemetryInteractObject(val) {
     return {
@@ -210,7 +217,7 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   initializeCourseDashboardColumns() {
     this.courseDashboardColumns = [
       { field: 'username', header: 'User Name' },
-      { field: 'orgName', header: 'Organization Name' },
+      { field: 'orgName', header: 'Range' },
       { field: 'phone', header: 'Mobile Number' },
       { field: 'enrolledOn', header: 'Enrolled On' },
       { field: 'progress', header: 'Status' }
@@ -293,31 +300,105 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.table.data = _.get(table, 'values') || _.get(data, _.get(table, 'valuesExpr'));
     this.isTableDataLoaded = true;
   }
-  getBatches(dateRange) {
-    this.selectedBatchRange = dateRange;
-    let toDate = new Date();
-    let fromDate = (dateRange === "14d") ? moment().subtract('14', 'days') : ((dateRange === "2m") ? moment().subtract('2', 'months') : moment().subtract('6', 'months'));
-    let createdByFilter = this.isOrgAdmin ? [] : [this.userService.userid];
+  loadBatchDropDown(selectedOrganization) {
+    this.batchDropDown = [];
+    if (selectedOrganization.name != 'All') {
+      this.batchDropDown = _.get(this.rangeWiseGroupData, selectedOrganization.name);
+      this.populateCourseDashboardData(this.batchDropDown[0]);
+    }
+  }
+  getBatches() {
+    // this.selectedBatchRange = dateRange;
+    // let toDate = new Date();
+    // let fromDate = (dateRange === "14d") ? moment().subtract('14', 'days') : ((dateRange === "2m") ? moment().subtract('2', 'months') : moment().subtract('6', 'months'));
+    // let createdByFilter = this.isOrgAdmin ? [] : [this.userService.userid];
     let currentOrgId = _.difference(_.cloneDeep(this.userProfile).organisationIds, [this.userProfile.rootOrgId]);
-    let createdForFilter = this.isOrgAdmin ? currentOrgId : [];
+    // let createdForFilter = this.isOrgAdmin ? currentOrgId : [];
+    let createdForFilter = this.userProfile.organisationIds.length > 1 ? currentOrgId : this.userProfile.organisationIds;
     let data = {
       'request': {
         'filters': {
           'status': ['0', '1', '2'],
-          "createdBy": createdByFilter,
+          // "createdBy": createdByFilter,
           "createdFor": createdForFilter,
-          "createdDate": { ">=": this.datePipe.transform(fromDate, 'yyyy-MM-ddTHH:MM'), "<=": this.datePipe.transform(toDate, 'yyyy-MM-ddTHH:MM') }
+          // "createdDate": { ">=": this.datePipe.transform(fromDate, 'yyyy-MM-ddTHH:MM'), "<=": this.datePipe.transform(toDate, 'yyyy-MM-ddTHH:MM') }
         },
         'sort_by': { 'createdDate': 'desc' }
       }
     };
     this.usageService.getBatches(data).subscribe(response => {
       this.batchList = [];
+      this.allOrgList = [];
+      this.rangeWiseGroupData = [];
       this.courseDashboardData = [];
+      let self = this;
       if (_.get(response, 'responseCode') === 'OK') {
         if (response.result.response.content.length > 0) {
           this.batchList = response.result.response.content;
-          this.populateCourseDashboardData(this.batchList[0]);
+          let currentOrgId;
+          _.map(this.batchList, function (obj) {
+            currentOrgId = _.difference(obj.createdFor, [self.userProfile.rootOrgId]);
+            obj.orgId = obj.createdFor.length > 1 ? _.toString(currentOrgId) : _.toString(obj.createdFor);
+            obj.orgName = _.get(_.find(self.allOrgdetails, { id: obj.orgId }), 'orgName');
+          });
+          this.allOrgList = _.uniqBy(_.map(this.batchList, (value) => ({ name: value.orgName })), 'name');
+          this.allOrgList.splice(0, 0, { name: "All" });
+          this.selectedOrganization = this.allOrgList[0];
+          if (this.selectedOrganization.name === 'All') {
+            this.showAllRangeDashboard();
+          }
+          this.rangeWiseGroupData = _.groupBy(this.batchList, 'orgName');
+        }
+      } else {
+        this.toasterService.error(this.resourceService.messages.emsg.m0005);
+      }
+    }, (err) => {
+      console.log(err);
+      this.noResultMessage = {
+        'messageText': 'messages.stmsg.m0131'
+      };
+    })
+  }
+  showAllRangeDashboard() {
+    let rangeData = _.uniq(_.map(this.batchList, 'orgName'));
+    let self = this;
+    this.allRangeData = {
+      labels: rangeData,
+      datasets: [
+        {
+          label: 'Not Started',
+          backgroundColor: '#ef5350',
+          borderColor: '#ef5350',
+          data: _.map(rangeData, (value) => _.filter(_.filter(self.batchList, { orgName: value }), { status: 0 }).length)
+        },
+        {
+          label: 'In Progress',
+          backgroundColor: '#ffa726',
+          borderColor: '#ffa726',
+          data: _.map(rangeData, (value) => _.filter(_.filter(self.batchList, { orgName: value }), { status: 1 }).length)
+        },
+        {
+          label: 'Completed',
+          backgroundColor: '#4caf50',
+          borderColor: '#4caf50',
+          data: _.map(rangeData, (value) => _.filter(_.filter(self.batchList, { orgName: value }), { status: 2 }).length)
+        }
+      ]
+    };
+  }
+  getAllOrgDetails() {
+    const data = {
+      "request": {
+        "filters": {
+          "status": "1"
+        }
+      }
+    };
+    this.usageService.getOrgDetails(data).subscribe(response => {
+      if (_.get(response, 'responseCode') === 'OK') {
+        if (response.result.response.content.length > 0) {
+          this.allOrgdetails = response.result.response.content;
+          this.getBatches();
         }
       } else {
         this.toasterService.error(this.resourceService.messages.emsg.m0005);
@@ -345,25 +426,20 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
           let subOrgs = _.filter(_.cloneDeep(this.orgList), { isRootOrg: false });
           let tempRootOrgs: any;
           let tempSubOrgs: any;
-          let self = this;
-          _.map(rootOrgs, function (parentObj, parentIndex) {
+          _.map(rootOrgs, function (parentObj) {
             tempRootOrgs = {};
-            tempRootOrgs.name = _.get(parentObj, 'orgName');
-            tempRootOrgs.designation = '';
-            // tempRootOrgs.designation = '(' + _.get(parentObj, 'identifier') + ')';
-            tempRootOrgs.img = "";
-            tempRootOrgs.subordinates = [];
+            tempRootOrgs.label = _.get(parentObj, 'orgName');
+            tempRootOrgs.expanded = true;
+            tempRootOrgs.children = [];
             _.map(_.filter(_.cloneDeep(subOrgs), { rootOrgId: _.get(parentObj, 'rootOrgId') }), function (childObj) {
               tempSubOrgs = {};
-              tempSubOrgs.name = _.get(childObj, 'orgName');
-              tempSubOrgs.designation = '';
-              // tempSubOrgs.designation = '(' + _.get(childObj, 'identifier') + ')';
-              tempSubOrgs.img = "";
-              tempSubOrgs.subordinates = [];
-              tempRootOrgs.subordinates.push(tempSubOrgs);
+              tempSubOrgs.label = _.get(childObj, 'orgName');
+              tempSubOrgs.expanded = true;
+              // tempSubOrgs.children = _.map(_.split(_.get(childObj, 'description'), ','), (value) => ({ label: value }));
+              tempRootOrgs.children.push(tempSubOrgs);
             });
           });
-          this.orgChartData = tempRootOrgs;
+          this.orgChartData = [tempRootOrgs];
         }
       } else {
         this.toasterService.error(this.resourceService.messages.emsg.m0005);
@@ -474,7 +550,6 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   filterUserDashboardData(orgName) {
     if (this.selectedOrg != orgName) {
       if (orgName != 'Total Users') {
-
         this.selectedOrg = orgName;
         this.selectedUserDashboardData = _.filter(_.cloneDeep(this.userDashboardData), function (obj) {
           if (_.indexOf(obj.organizationArray, orgName) > -1) {

@@ -370,8 +370,11 @@ export class AppComponent implements OnInit {
   changeLanguageAttribute() {
     this.resourceService.languageSelected$
       .subscribe(item => {
-        this._document.documentElement.lang = item.value;
-        this._document.documentElement.dir = item.dir;
+        //Hard code language due to API issue
+        // this._document.documentElement.lang = item.value;
+        // this._document.documentElement.dir = item.dir;
+        this._document.documentElement.lang = 'en';
+        this._document.documentElement.dir = 'ltr';
       });
   }
 }

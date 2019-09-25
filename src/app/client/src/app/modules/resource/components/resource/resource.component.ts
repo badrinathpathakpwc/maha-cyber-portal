@@ -105,7 +105,7 @@ export class ResourceComponent implements OnInit, OnDestroy {
     const option: any = {
       source: 'web',
       name: 'Resource',
-      filters: _.get(this.queryParams, 'appliedFilters') ?  filters : { board: _.get(this.frameworkData, 'board'), gradeLevel: _.get(this.frameworkData, 'gradeLevel'), medium: _.get(this.frameworkData, 'medium') },
+      filters: _.get(this.queryParams, 'appliedFilters') ?  filters : { board: _.get(this.frameworkData, 'board'), gradeLevel: _.get(this.frameworkData, 'gradeLevel'), subject: _.get(this.frameworkData, 'subject'), medium: _.get(this.frameworkData, 'medium') },
       // mode: _.get(manipulatedData, 'mode'),
       exists: [],
       params : this.configService.appConfig.Library.contentApiQueryParams
