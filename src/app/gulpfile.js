@@ -11,7 +11,6 @@ const exec = require('child_process').exec
 const contentEditor = 'https://s3.ap-south-1.amazonaws.com/ekstep-public-dev/artefacts/editor/content-editor-iframe-1.14.2.zip'
 const collectionEditor = 'https://s3.ap-south-1.amazonaws.com/ekstep-public-dev/artefacts/editor/collection-editor-iframe-1.14.2.zip'
 const genericEditor = 'https://s3.ap-south-1.amazonaws.com/ekstep-public-dev/artefacts/editor/generic-editor-iframe-1.14.2.zip'
-const contentPlayer = 'https://pwc114.blob.core.windows.net/able-public-dev/content-player.zip'
 const editorsDestPath = 'client/src/thirdparty/editors/'
 
 gulp.task('clean:editors', () => {
@@ -22,11 +21,6 @@ gulp.task('download:content:editor', () => {
     return download(contentEditor)
         .pipe(decompress())
         .pipe(gulp.dest(editorsDestPath + 'content-editor'))
-})
-gulp.task('download:content:player', () => {
-    return download(contentPlayer)
-        .pipe(decompress())
-        .pipe(gulp.dest(editorsDestPath + 'content-player'))
 })
 
 gulp.task('download:collection:editor', () => {
@@ -48,7 +42,7 @@ gulp.task('gzip:editors', () => {
         .pipe(gulp.dest('./client/src/thirdparty/editors'))
 })
 
-gulp.task('download:editors', gulpSequence('clean:editors', ['download:content:editor', 'download:content:player', 'download:collection:editor', 'download:generic:editor'], 'gzip:editors'))
+gulp.task('download:editors', gulpSequence('clean:editors', ['download:content:editor', 'download:collection:editor', 'download:generic:editor'], 'gzip:editors'))
 
 gulp.task('clean:client:install', (done) => {
     return gulp.src('./client/node_modules', { read: false })
@@ -123,7 +117,6 @@ gulp.task('deploy',
     gulpSequence('clean:app:dist',
         'clean:editors',
         ['download:content:editor',
-            'download:content:player',
             'download:collection:editor',
             'download:generic:editor'],
         'gzip:editors',
