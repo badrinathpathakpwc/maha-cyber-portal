@@ -293,6 +293,61 @@
                             <p-chart type="bar" [data]="allRangeData" height="220px"
                                 width="{{userProfile?.rootOrgAdmin ? '100%':'400px'}}"></p-chart>
                         </div>
+                        <div class="twelve wide column">
+                            <p-table #dtAllBatchList [value]="batchList" [columns]="allBatchListColumns"
+                                [paginator]="true" [rows]="10" [resizableColumns]="true">
+                                <ng-template pTemplate="caption">
+                                    <div class="ui small left icon input" style="float: left">
+                                        <i class="search icon"></i>
+                                        <input type="text" pInputText placeholder="Search"
+                                            (input)="dtAllBatchList.filterGlobal($event.target.value, 'contains')"
+                                            style="width: 210px;">
+                                    </div>
+                                    <div class="ui-helper-clearfix">
+                                        <button type="button" pButton icon="fa fa-file" iconPos="left" label="Export"
+                                            (click)="dtAllBatchList.exportCSV()" style="float:right"></button>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr>
+                                        <th *ngFor="let col of columns" pResizableColumn [style.width]="col.width">
+                                            {{col.header}}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                            <p-multiSelect *ngSwitchCase="'orgName'" [options]="orgNameFilter"
+                                                defaultLabel="All" appendTo="body"
+                                                (onChange)="dtAllBatchList.filter($event.value, col.field, 'in')">
+                                            </p-multiSelect>
+                                            <p-multiSelect *ngSwitchCase="'enrollmentType'"
+                                                [options]="enrollmentTypeFilter" defaultLabel="All" appendTo="body"
+                                                (onChange)="dtAllBatchList.filter($event.value, col.field, 'in')">
+                                            </p-multiSelect>
+                                            <p-multiSelect *ngSwitchCase="'batchMonth'" [options]="batchMonthFilter"
+                                                defaultLabel="All" appendTo="body"
+                                                (onChange)="dtAllBatchList.filter($event.value, col.field, 'in')">
+                                            </p-multiSelect>
+                                            <p-multiSelect *ngSwitchCase="'batchYear'" [options]="batchYearFilter"
+                                                defaultLabel="All" appendTo="body"
+                                                (onChange)="dtAllBatchList.filter($event.value, col.field, 'in')">
+                                            </p-multiSelect>
+                                            <p-multiSelect *ngSwitchCase="'batchStatus'" [options]="batchStatusFilter"
+                                                defaultLabel="All" appendTo="body"
+                                                (onChange)="dtAllBatchList.filter($event.value, col.field, 'in')">
+                                            </p-multiSelect>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                    <tr>
+                                        <td *ngFor="let col of columns" class="ui-resizable-column">
+                                            {{rowData[col.field]}}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
                     </div>
                     <div class="ui grid"
                         *ngIf="selectedOrganization?.name != 'All' && showTrainingdashboard && courseDashboardData?.data?.length > 0">

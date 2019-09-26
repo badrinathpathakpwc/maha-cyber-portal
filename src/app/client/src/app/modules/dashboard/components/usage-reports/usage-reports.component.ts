@@ -36,6 +36,7 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   public unsubscribe = new Subject<void>();
   cols: any = [];
   courseDashboardColumns: any = [];
+  allBatchListColumns: any = [];
   batchList: any = [];
   batchDropDown: any = [];
   orgList: any = [];
@@ -80,6 +81,11 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   allOrgList: any = [];
   rangeWiseGroupData: any = [];
   allRangeData: any;
+  orgNameFilter: any = [];
+  enrollmentTypeFilter: any = [];
+  batchMonthFilter: any = [];
+  batchYearFilter: any = [];
+  batchStatusFilter: any = [];
   constructor(public configService: ConfigService, private usageService: UsageService, private sanitizer: DomSanitizer,
     public userService: UserService, public permissionService: PermissionService, private toasterService: ToasterService,
     public resourceService: ResourceService, activatedRoute: ActivatedRoute, private router: Router, private datePipe: DatePipe
@@ -223,6 +229,19 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
       { field: 'progress', header: 'Status' }
     ]
   }
+  initializeAllBatchListDashboardColumns() {
+    this.allBatchListColumns = [
+      { field: 'orgName', header: 'Organization Name', width: '152px' },
+      { field: 'name', header: 'Batch Name', width: '145px' },
+      { field: 'courseName', header: 'Course Name', width: '174px' },
+      { field: 'enrollmentType', header: 'Batch Type', width: '114px' },
+      { field: 'startDate', header: 'Start Date', width: '100px' },
+      { field: 'endDate', header: 'End Date', width: '94px' },
+      { field: 'batchMonth', header: 'Month', width: '118px' },
+      { field: 'batchYear', header: 'Year', width: '82px' },
+      { field: 'batchStatus', header: 'Status', width: '107px' }
+    ]
+  }
   reportType(reportType) {
     this.telemetryInteractDirective.telemetryInteractObject = this.setTelemetryInteractObject(_.get(this.currentReport, 'id'));
     this.telemetryInteractDirective.telemetryInteractEdata = {
@@ -340,7 +359,19 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
             currentOrgId = _.difference(obj.createdFor, [self.userProfile.rootOrgId]);
             obj.orgId = obj.createdFor.length > 1 ? _.toString(currentOrgId) : _.toString(obj.createdFor);
             obj.orgName = _.get(_.find(self.allOrgdetails, { id: obj.orgId }), 'orgName');
+            obj.startDate = self.datePipe.transform(obj.startDate, 'dd-MMM-yyyy');
+            obj.endDate = self.datePipe.transform(obj.endDate, 'dd-MMM-yyyy');
+            obj.batchMonth = self.datePipe.transform(obj.endDate, 'MMMM');
+            obj.batchYear = self.datePipe.transform(obj.endDate, 'yyyy');
+            obj.batchStatus = (obj.status === 0) ? 'Not-Started' : ((obj.status === 1) ? 'In-Progress' : 'Completed');
+            obj.courseName = obj.courseAdditionalInfo.courseName;
           });
+          this.orgNameFilter = _.map(_.uniqBy(this.batchList, 'orgName'), (value) => ({ label: _.get(value, 'orgName'), value: _.get(value, 'orgName') }));
+          this.enrollmentTypeFilter = _.map(_.uniqBy(this.batchList, 'enrollmentType'), (value) => ({ label: _.get(value, 'enrollmentType'), value: _.get(value, 'enrollmentType') }));
+          this.batchMonthFilter = _.map(_.uniqBy(this.batchList, 'batchMonth'), (value) => ({ label: _.get(value, 'batchMonth'), value: _.get(value, 'batchMonth') }));
+          this.batchYearFilter = _.map(_.uniqBy(this.batchList, 'batchYear'), (value) => ({ label: _.get(value, 'batchYear'), value: _.get(value, 'batchYear') }));
+          this.batchStatusFilter = _.map(_.uniqBy(this.batchList, 'batchStatus'), (value) => ({ label: _.get(value, 'batchStatus'), value: _.get(value, 'batchStatus') }));
+          this.initializeAllBatchListDashboardColumns();
           this.allOrgList = _.uniqBy(_.map(this.batchList, (value) => ({ name: value.orgName })), 'name');
           this.allOrgList.splice(0, 0, { name: "All" });
           this.selectedOrganization = this.allOrgList[0];
