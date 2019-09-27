@@ -231,7 +231,6 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   initializeAllBatchListDashboardColumns() {
     this.allBatchListColumns = [
-      { field: 'orgName', header: 'Organization Name', width: '152px' },
       { field: 'name', header: 'Batch Name', width: '145px' },
       { field: 'courseName', header: 'Course Name', width: '174px' },
       { field: 'enrollmentType', header: 'Batch Type', width: '114px' },
@@ -241,6 +240,9 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
       { field: 'batchYear', header: 'Year', width: '82px' },
       { field: 'batchStatus', header: 'Status', width: '107px' }
     ]
+    if (this.userProfile.rootOrgAdmin) {
+      this.allBatchListColumns.splice(0, 0, { field: 'orgName', header: 'Organization Name', width: '152px' });
+    }
   }
   reportType(reportType) {
     this.telemetryInteractDirective.telemetryInteractObject = this.setTelemetryInteractObject(_.get(this.currentReport, 'id'));
