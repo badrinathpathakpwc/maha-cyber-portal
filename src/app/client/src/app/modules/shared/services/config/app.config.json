@@ -672,7 +672,7 @@
       "webm": "video/webm",
       "xUrl": "text/x-url"
     },
-    "baseURL": "/able-content/preview.html?webview=true"
+    "baseURL": "/content/able/preview.html?webview=true"
   },
   "WORKSPACE": {
     "PAGE_LIMIT": 9,
