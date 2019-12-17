@@ -20,14 +20,14 @@
                                             (click)="close()">
                                             <i class="ui remove icon"></i>
                                         </h5>
-                                        <h5 class="ui right floated basic icon circular button mouse-pointer" [ngClass]="{'disabled': currentSize >= 1 }"
+                                        <!-- <h5 class="ui right floated basic icon circular button mouse-pointer" [ngClass]="{'disabled': currentSize >= 1 }"
                                             (click)="zoomInContentPlayer()">
                                             <i class="ui zoom in icon"></i>
                                         </h5>
                                         <h5 class="ui right floated basic icon circular button mouse-pointer" [ngClass]="{'disabled': currentSize <= 0.50 }"
                                             (click)="zoomOutContentPlayer()">
                                             <i class="ui zoom out icon"></i>
-                                        </h5>
+                                        </h5> -->
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="showPlayer && contentData" class="ui stackable twelve column grid pt-30">
+                    <div *ngIf="showPlayer && contentData" class="ui stackable twelve column grid">
                         <div class="ui active inverted dimmer" *ngIf="showCopyLoader">
                             <div class="ui text centered inline loader mt-40">
                                 {{resourceService.frmelmnts.lbl.copycontent}}</div>

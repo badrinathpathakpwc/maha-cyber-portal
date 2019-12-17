@@ -176,6 +176,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     this.courseProgressService.courseProgressData.pipe(
       takeUntil(this.unsubscribe))
       .subscribe(courseProgressData => this.courseProgressData = courseProgressData);
+      window.scrollTo(0, 150);
   }
   private parseChildContent() {
     const model = new TreeModel();

@@ -122,6 +122,7 @@ export class FlagConentplayerComponent implements OnInit {
       this.contentId = params.contentId;
       this.getContent();
     });
+    window.scrollTo(0, 150);
   }
   /**
    * used to fetch content details and player config. On success launches player.

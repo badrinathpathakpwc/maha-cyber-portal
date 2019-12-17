@@ -112,6 +112,7 @@ export class ContentPlayerComponent implements OnInit {
           }
         });
     });
+    window.scrollTo(0, 150);
   }
   setTelemetryData() {
     this.telemetryImpression = {
@@ -170,7 +171,7 @@ export class ContentPlayerComponent implements OnInit {
           }
           this.setTelemetryData();
           this.showPlayer = true;
-          this.windowScrollService.smoothScroll('content-player');
+          // this.windowScrollService.smoothScroll('content-player');
           this.breadcrumbsService.setBreadcrumbs([{ label: this.contentData.name, url: '' }]);
           this.badgeData = _.get(response, 'result.content.badgeAssertions');
         } else {

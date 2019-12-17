@@ -120,6 +120,7 @@ export class CollectionPlayerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.enableDiscussionFeature = (<HTMLInputElement>document.getElementById('enableDiscussionFeature')).value;
     this.getContent();
+    window.scrollTo(0, 150);
   }
 
   ngOnDestroy() {

@@ -70,6 +70,7 @@ export class PublicContentPlayerComponent implements OnInit, OnDestroy {
       this.getContent();
       this.deviceDetector();
     });
+    window.scrollTo(0, 150);
   }
   setTelemetryData() {
     this.telemetryImpression = {

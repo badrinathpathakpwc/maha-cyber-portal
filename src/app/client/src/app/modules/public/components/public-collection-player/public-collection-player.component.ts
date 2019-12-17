@@ -90,6 +90,7 @@ export class PublicCollectionPlayerComponent implements OnInit, OnDestroy {
     this.getContent();
     this.setInteractEventData();
     this.deviceDetector();
+    window.scrollTo(0, 150);
   }
   setTelemetryData() {
     this.telemetryImpression = {
