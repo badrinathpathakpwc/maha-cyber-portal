@@ -33,7 +33,7 @@ export class PlayerComponent implements OnInit, OnChanges {
     this.showPlayer();
   }
   ngAfterViewInit() {
-    $('#contentPlayer').css({'transform': 'scale(0.75)'});
+    $('#contentPlayer').css({'transform': 'scale(0.60)','margin-left': '-15px'});
   }
   ngAfterViewChecked() {
     $('#contentPlayer').contents().find("html").find("#download-btn").hide();

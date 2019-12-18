@@ -8,18 +8,45 @@
                             <div class="row ">
                                 <div class="twelve wide column">
                                     <div class="ten wide column" id="player-auto-scroll">
-                                        <span class="ui HomeAccordianHeading left floated header"
-                                            *ngIf="contentData.name">
-                                            {{contentData.name}}
-                                        </span>
+                                        <div class="ui HomeAccordianHeading header"
+                                            *ngIf="contentData.name" style="margin: 0;">
+                                            {{contentData.name | titlecase}}
+                                        </div>
+                                        <div  *ngIf="contentStatus !== 'Unlisted'">
+                                            <sui-rating [ngClass]="{'black-divider pr-15': badgeData}"
+                                                class="courseHeader-rating ui star rating pt-5" [isReadonly]="true"
+                                                [ngModel]="contentData.me_averageRating || 0" [maximum]="5"></sui-rating>
+                                            &nbsp;&nbsp;
+                                            <app-content-badge [data]="badgeData" class="ml-20 m-responsive-cp-badge-ml">
+                                            </app-content-badge>
+                                            </div>
                                     </div>
-                                    <div class="two wide column">
+                                    <div class="two wide column" style="margin-top: -43px;">
                                         <h5 appTelemetryInteract [telemetryInteractEdata]="closeIntractEdata"
                                             [telemetryInteractObject]="objectInteract"
                                             class="ui right floated basic icon circular button  mouse-pointer"
                                             (click)="close()">
                                             <i class="ui remove icon"></i>
                                         </h5>
+                                        <span style="float: right;margin-right: 20px;margin-top: 7px;" *ngIf="contentStatus !== 'Unlisted'">
+                                            <!-- Temporarily disable flagging-->
+                                            <!-- <a routerLink="flag" class="pr-10 blue-text-color-sunbird">
+                                            <i class="ui large blue flag outline icon"></i>
+                                            {{resourceService?.frmelmnts?.lbl?.report}}
+                                        </a> -->
+                                            <a href="javascript:void(0)" (click)="onShareLink();sharelinkModal=true;"
+                                                class="blue-text-color-sunbird">
+                                                <i class="cursor-pointer large blue share alternate icon"></i>
+                                                {{resourceService?.frmelmnts?.lbl?.share}}
+                                            </a>
+                                            <span *ngIf='permissionService.permissionAvailable' appPermission
+                                                [permission]="['CONTENT_CREATOR', 'CONTENT_REVIEWER']"
+                                                (click)="copyContent(contentData)"
+                                                class="ui mouse-pointer content-font ml-10 blue-text-color-sunbird">
+                                                <i class="ui large blue clone outline icon"></i>
+                                                {{resourceService?.frmelmnts?.lbl?.copy}}
+                                            </span>
+                                        </span>
                                         <!-- <h5 class="ui right floated basic icon circular button mouse-pointer" [ngClass]="{'disabled': currentSize >= 1 }"
                                             (click)="zoomInContentPlayer()">
                                             <i class="ui zoom in icon"></i>
@@ -31,7 +58,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="contentStatus !== 'Unlisted'" class="row  pt-0">
+                            <!-- <div *ngIf="contentStatus !== 'Unlisted'" class="row  pt-0">
                                 <div class="twelve wide column">
                                     <div class="player-badge-alignment">
                                         <sui-rating [ngClass]="{'black-divider pr-15': badgeData}"
@@ -40,13 +67,13 @@
                                         &nbsp;&nbsp;
                                         <app-content-badge [data]="badgeData" class="ml-20 m-responsive-cp-badge-ml">
                                         </app-content-badge>
-                                        <span class="ml-auto">
+                                        <span class="ml-auto"> -->
                                             <!-- Temporarily disable flagging-->
                                             <!-- <a routerLink="flag" class="pr-10 blue-text-color-sunbird">
                                             <i class="ui large blue flag outline icon"></i>
                                             {{resourceService?.frmelmnts?.lbl?.report}}
                                         </a> -->
-                                            <a href="javascript:void(0)" (click)="onShareLink();sharelinkModal=true;"
+                                            <!-- <a href="javascript:void(0)" (click)="onShareLink();sharelinkModal=true;"
                                                 class="pr-10 blue-text-color-sunbird">
                                                 <i class="cursor-pointer large blue share alternate icon"></i>
                                                 {{resourceService?.frmelmnts?.lbl?.share}}
@@ -61,10 +88,10 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
-                    <div *ngIf="showPlayer && contentData" class="ui stackable twelve column grid">
+                    <div *ngIf="showPlayer && contentData" class="ui stackable twelve column grid" style="margin-top: -135px;">
                         <div class="ui active inverted dimmer" *ngIf="showCopyLoader">
                             <div class="ui text centered inline loader mt-40">
                                 {{resourceService.frmelmnts.lbl.copycontent}}</div>
