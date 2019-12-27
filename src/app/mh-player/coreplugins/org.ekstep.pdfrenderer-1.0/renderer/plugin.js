@@ -52,11 +52,14 @@ org.ekstep.contentrenderer.baseLauncher.extend({
     renderPDF: function(path, canvasContainer) {
         EkstepRendererAPI.dispatchEvent("renderer:splash:hide");
         var iframe = document.createElement('iframe');
+        iframe.id= 'able-pdf-viewer';
         iframe.width = '100%';
         iframe.height = '100%';
         iframe.src = './coreplugins/org.ekstep.pdfrenderer-1.0/renderer/libs/viewer/web/viewer.html';
-        
         canvasContainer.appendChild(iframe);
+        document.getElementById("able-pdf-viewer").contentWindow.ableBaseUrl = path;
+        console.log("Pdf viewer has been initialized.");
+        console.log(document.getElementById("able-pdf-viewer").contentWindow);
 
         context.PDF_DOC = 0;
         context.CURRENT_PAGE = 0;

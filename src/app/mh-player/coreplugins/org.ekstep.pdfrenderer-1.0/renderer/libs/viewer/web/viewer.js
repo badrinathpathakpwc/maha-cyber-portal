@@ -1691,7 +1691,7 @@ var PDFViewerApplication = {
 exports.PDFViewerApplication = PDFViewerApplication;
 var validateFileURL;
 {
-  var HOSTED_VIEWER_ORIGINS = ['null', 'http://mozilla.github.io', 'https://mozilla.github.io'];
+  var HOSTED_VIEWER_ORIGINS = ['null', 'http://localhost:3000', 'https://mahacyber.ddns.net'];
 
   validateFileURL = function validateFileURL(file) {
     if (file === undefined) {
@@ -1748,7 +1748,8 @@ function webViewerInitialized() {
   var file;
   var queryString = document.location.search.substring(1);
   var params = (0, _ui_utils.parseQueryString)(queryString);
-  file = 'file' in params ? params.file : _app_options.AppOptions.get('defaultUrl');
+  // file = 'file' in params ? params.file : _app_options.AppOptions.get('defaultUrl');
+  file = ableBaseUrl;
   validateFileURL(file);
   var fileInput = document.createElement('input');
   fileInput.id = appConfig.openFileInputName;
@@ -4122,7 +4123,7 @@ var defaultOptions = {
     kind: OptionKind.VIEWER + OptionKind.PREFERENCE
   },
   defaultUrl: {
-    value: 'compressed.tracemonkey-pldi-09.pdf',
+    value: ableBaseUrl,
     kind: OptionKind.VIEWER
   },
   defaultZoomValue: {
