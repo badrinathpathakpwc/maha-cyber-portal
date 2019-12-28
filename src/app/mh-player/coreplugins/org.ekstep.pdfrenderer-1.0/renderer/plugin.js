@@ -57,7 +57,7 @@ org.ekstep.contentrenderer.baseLauncher.extend({
         iframe.height = '100%';
         iframe.src = './coreplugins/org.ekstep.pdfrenderer-1.0/renderer/libs/viewer/web/viewer.html';
         canvasContainer.appendChild(iframe);
-        document.getElementById("able-pdf-viewer").contentWindow.ableBaseUrl = path;
+        document.getElementById("able-pdf-viewer").contentWindow.ablePdfUrl = path;
         console.log("Pdf viewer has been initialized.");
         console.log(document.getElementById("able-pdf-viewer").contentWindow);
 
