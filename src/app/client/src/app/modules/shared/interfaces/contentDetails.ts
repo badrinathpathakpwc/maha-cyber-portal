@@ -24,6 +24,11 @@ export interface ContentData {
     createdOn?: string;
     creator?: string;
     contributors?: string;
+    orgDetails?: any;
+    board?: string;
+    subject?: string;
+    resourceType?: string;
+    keywords?: string;
     attributions?: Array<string>;
     creators?: string;
     owner?: string;
