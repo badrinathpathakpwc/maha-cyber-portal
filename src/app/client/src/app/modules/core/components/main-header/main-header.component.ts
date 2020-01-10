@@ -17,6 +17,11 @@ declare var jQuery: any;
 })
 export class MainHeaderComponent implements OnInit, OnDestroy {
   /**
+   * Workspace access roles
+   */
+  workSpaceRole: Array<string>;
+  workspaceMenuIntractEdata: IInteractEventEdata;
+  /**
    * reference of tenant service.
    */
   public tenantService: TenantService;
@@ -74,22 +79,23 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     color: '#AAAAAA',
     fontFamily: 'inherit',
     fontSize: '17px',
-    lineHeight: '38px',
+    lineHeight: '30px',
     border: '1px solid #e8e8e8',
     borderRadius: '50%',
-    height: '38px',
-    width: '38px'
+    height: '30px',
+    width: '30px'
   };
   avtarDesktopStyle = {
     backgroundColor: 'transparent',
-    color: '#AAAAAA',
+    color: '#0d47a1',
     fontFamily: 'inherit',
     fontSize: '17px',
-    lineHeight: '38px',
+    lineHeight: '30px',
     border: '1px solid #e8e8e8',
     borderRadius: '50%',
-    height: '38px',
-    width: '38px'
+    height: '30px',
+    width: '30px',
+    'background-color': '#ffffff',
   };
   /**
    * reference of permissionService service.
@@ -113,7 +119,8 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     this.permissionService = permissionService;
     this.userService = userService;
     this.tenantService = tenantService;
-   }
+    this.workSpaceRole = this.config.rolesConfig.headerDropdownRoles.workSpaceRole;
+  }
 
   ngOnInit() {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd))
@@ -202,7 +209,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((urlAfterRedirects: NavigationEnd) => {
       if (_.includes(urlAfterRedirects.url, '/explore')) {
         this.showExploreHeader = true;
-        const url  = urlAfterRedirects.url.split('?')[0].split('/');
+        const url = urlAfterRedirects.url.split('?')[0].split('/');
         if (url.indexOf('explore') === 2) {
           this.exploreRoutingUrl = url[1] + '/' + url[2];
         } else {
@@ -210,7 +217,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
         }
       } else if (_.includes(urlAfterRedirects.url, '/explore-course')) {
         this.showExploreHeader = true;
-        const url  = urlAfterRedirects.url.split('?')[0].split('/');
+        const url = urlAfterRedirects.url.split('?')[0].split('/');
         if (url.indexOf('explore-course') === 2) {
           this.exploreRoutingUrl = url[1] + '/' + url[2];
         } else {
@@ -241,6 +248,11 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       type: 'click',
       pageid: 'explore'
     };
+    this.workspaceMenuIntractEdata = {
+      id: 'workspace-menu-button',
+      type: 'click',
+      pageid: 'workspace'
+    };
   }
 
   getLogoutInteractEdata() {
@@ -268,5 +280,11 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
   }
   showSideBar() {
     jQuery('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
+  }
+  navigateToWorkspace() {
+    const authroles = this.permissionService.getWorkspaceAuthRoles();
+    if (authroles) {
+      return authroles.url;
+    }
   }
 }

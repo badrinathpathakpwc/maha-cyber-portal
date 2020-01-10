@@ -1,8 +1,8 @@
 <div class="ui container" [appTelemetryImpression]="telemetryImpression">
     <div class="ui grid">
-        <div class="twelve wide column mt-15">
+        <div class="twelve wide column" style="padding-bottom: 0;">
             <div class="ui grid top aligned">
-                <div class="twelve wide column" *ngIf="showFilter">
+                <div class="twelve wide column" *ngIf="showFilter" style="padding-bottom: 0;">
                     <app-data-driven-filter [pageId]="'view-all'" *ngIf="filterType" [filterEnv]="filterType"
                         [viewAllMode]="true" [accordionDefaultOpen]=false [isShowFilterLabel]=true [hashTagId]="hashTagId"
                         [formAction]="formAction" [frameworkName]="frameWorkName"></app-data-driven-filter>

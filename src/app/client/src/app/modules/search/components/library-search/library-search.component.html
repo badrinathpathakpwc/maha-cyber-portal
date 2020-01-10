@@ -2,7 +2,7 @@
 <div [appTelemetryImpression]="telemetryImpression" class="ui grid">
     <div class="twelve wide column">
         <div class=" ui grid">
-            <div class="twelve wide column">
+            <div class="twelve wide column" style="padding-bottom: 0;">
                 <app-data-driven-filter [enrichFilters]="facetsList" (dataDrivenFilter)="getFilters($event)" [pageId]="'library-search'" [ignoreQuery]="['key']" *ngIf="initFilters" [filterEnv]="filterType"
                 [accordionDefaultOpen]=false [isShowFilterLabel]=true></app-data-driven-filter>
             </div>
@@ -17,7 +17,7 @@
                 <i class="ui remove icon "></i>
             </h5>
         </div>
-        <div in-view-container (inview)="inView($event)" [throttle]="[1000]" [trigger]="contentList" *ngIf="!showLoader && contentList.length" class="ui stackable four column grid dynamic-section-card ">
+        <div in-view-container (inview)="inView($event)" [throttle]="[1000]" [trigger]="contentList" *ngIf="!showLoader && contentList.length" class="ui stackable four column grid dynamic-section-card " style="margin-top: 0;">
             <div in-view-item [id]="i" [data]="content" class="column py-5 pl-10" *ngFor="let content of contentList;let i = index;">
                 <app-card appContentDirection appTelemetryInteract [telemetryInteractEdata]="cardIntractEdata" 
                 [telemetryInteractObject]="{id:content.metaData.identifier,type:content.metaData.contentType || 'content',ver:'1.0'}"

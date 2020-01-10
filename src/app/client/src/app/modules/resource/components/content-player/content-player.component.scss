@@ -1,3 +1,47 @@
 .click-notify-xurl {
     position: absolute; z-index: 999; top: 17%; left: 34%;
 }
+.ab-accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+  }
+  
+  .ab-active, .ab-accordion:hover {
+    background-color: #ccc;
+  }
+  
+  .ab-accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .ab-active:after {
+    content: "\2212";
+  }
+  
+  .ab-panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+  .content-icons i {
+    font-size: 20px;
+    color: #616161;
+  }
+  .content {
+    padding-top: 10px;
+    font-size: 13px;
+  }

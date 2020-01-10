@@ -1,180 +1,248 @@
-<div class="ui container">
-    <div id="content-player" class="ui grid">
-        <div class="twelve wide column">
-            <div class='mt-5 videosegment ui segment'>
-                <div class='content-player-body'>
-                    <div *ngIf="showPlayer && contentData" class="videosegment  ui clearing segment ml-20 mr-30">
-                        <div [appTelemetryImpression]="telemetryImpression" class="ui grid">
-                            <div class="row ">
-                                <div class="twelve wide column">
-                                    <div class="ten wide column" id="player-auto-scroll">
-                                        <div class="ui HomeAccordianHeading header"
-                                            *ngIf="contentData.name" style="margin: 0;">
-                                            {{contentData.name | titlecase}}
-                                        </div>
-                                        <div  *ngIf="contentStatus !== 'Unlisted'">
-                                            <sui-rating [ngClass]="{'black-divider pr-15': badgeData}"
-                                                class="courseHeader-rating ui star rating pt-5" [isReadonly]="true"
-                                                [ngModel]="contentData.me_averageRating || 0" [maximum]="5"></sui-rating>
-                                            &nbsp;&nbsp;
-                                            <app-content-badge [data]="badgeData" class="ml-20 m-responsive-cp-badge-ml">
-                                            </app-content-badge>
-                                            </div>
-                                    </div>
-                                    <div class="two wide column" style="margin-top: -43px;">
-                                        <h5 appTelemetryInteract [telemetryInteractEdata]="closeIntractEdata"
-                                            [telemetryInteractObject]="objectInteract"
-                                            class="ui right floated basic icon circular button  mouse-pointer"
-                                            (click)="close()">
-                                            <i class="ui remove icon"></i>
-                                        </h5>
-                                        <span style="float: right;margin-right: 20px;margin-top: 7px;" *ngIf="contentStatus !== 'Unlisted'">
-                                            <!-- Temporarily disable flagging-->
-                                            <!-- <a routerLink="flag" class="pr-10 blue-text-color-sunbird">
-                                            <i class="ui large blue flag outline icon"></i>
-                                            {{resourceService?.frmelmnts?.lbl?.report}}
-                                        </a> -->
-                                            <a href="javascript:void(0)" (click)="onShareLink();sharelinkModal=true;"
-                                                class="blue-text-color-sunbird">
-                                                <i class="cursor-pointer large blue share alternate icon"></i>
-                                                {{resourceService?.frmelmnts?.lbl?.share}}
-                                            </a>
-                                            <span *ngIf='permissionService.permissionAvailable' appPermission
-                                                [permission]="['CONTENT_CREATOR', 'CONTENT_REVIEWER']"
-                                                (click)="copyContent(contentData)"
-                                                class="ui mouse-pointer content-font ml-10 blue-text-color-sunbird">
-                                                <i class="ui large blue clone outline icon"></i>
-                                                {{resourceService?.frmelmnts?.lbl?.copy}}
-                                            </span>
-                                        </span>
-                                        <!-- <h5 class="ui right floated basic icon circular button mouse-pointer" [ngClass]="{'disabled': currentSize >= 1 }"
-                                            (click)="zoomInContentPlayer()">
-                                            <i class="ui zoom in icon"></i>
-                                        </h5>
-                                        <h5 class="ui right floated basic icon circular button mouse-pointer" [ngClass]="{'disabled': currentSize <= 0.50 }"
-                                            (click)="zoomOutContentPlayer()">
-                                            <i class="ui zoom out icon"></i>
-                                        </h5> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div *ngIf="contentStatus !== 'Unlisted'" class="row  pt-0">
-                                <div class="twelve wide column">
-                                    <div class="player-badge-alignment">
-                                        <sui-rating [ngClass]="{'black-divider pr-15': badgeData}"
-                                            class="courseHeader-rating ui star rating pt-5" [isReadonly]="true"
-                                            [ngModel]="contentData.me_averageRating || 0" [maximum]="5"></sui-rating>
-                                        &nbsp;&nbsp;
-                                        <app-content-badge [data]="badgeData" class="ml-20 m-responsive-cp-badge-ml">
-                                        </app-content-badge>
-                                        <span class="ml-auto"> -->
-                                            <!-- Temporarily disable flagging-->
-                                            <!-- <a routerLink="flag" class="pr-10 blue-text-color-sunbird">
-                                            <i class="ui large blue flag outline icon"></i>
-                                            {{resourceService?.frmelmnts?.lbl?.report}}
-                                        </a> -->
-                                            <!-- <a href="javascript:void(0)" (click)="onShareLink();sharelinkModal=true;"
-                                                class="pr-10 blue-text-color-sunbird">
-                                                <i class="cursor-pointer large blue share alternate icon"></i>
-                                                {{resourceService?.frmelmnts?.lbl?.share}}
-                                            </a>
-                                            <span *ngIf='permissionService.permissionAvailable' appPermission
-                                                [permission]="['CONTENT_CREATOR', 'CONTENT_REVIEWER']"
-                                                (click)="copyContent(contentData)"
-                                                class="ui mouse-pointer content-font ml-10 blue-text-color-sunbird">
-                                                <i class="ui large blue clone outline icon"></i>
-                                                {{resourceService?.frmelmnts?.lbl?.copy}}
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div> -->
+<div id="content-player" class="ui grid" [appTelemetryImpression]="telemetryImpression"
+    style="margin: 0;margin-top: 2px;">
+    <div class="nine wide column" style="padding: 0;">
+        <app-player *ngIf="showPlayer && contentData" class="content-player" [playerConfig]="playerConfig"
+            (contentProgressEvent)="contentProgressEvent($event)"></app-player>
+    </div>
+    <div class="three wide column p-0" style="background-color: #fff;">
+        <button class="ab-accordion ab-active">{{contentData?.name | titlecase}}</button>
+        <div class="ab-panel" style="max-height: 52px;padding: 15px;">
+            <div *ngIf="contentStatus !== 'Unlisted'">
+                <sui-rating [ngClass]="{'black-divider pr-15': badgeData}"
+                    class="courseHeader-rating ui star rating pt-5" [isReadonly]="true"
+                    [ngModel]="contentData?.me_averageRating || 0" [maximum]="5"></sui-rating>
+                &nbsp;&nbsp;
+                <!-- <app-content-badge [data]="badgeData" class="ml-20 m-responsive-cp-badge-ml">
+                </app-content-badge> -->
+                <span style="float: right;margin-right: 20px;" *ngIf="contentStatus !== 'Unlisted'">
+                    <!-- Temporarily disable flagging-->
+                    <!-- <a routerLink="flag" class="pr-10 blue-text-color-sunbird">
+                <i class="ui large blue flag outline icon"></i>
+                {{resourceService?.frmelmnts?.lbl?.report}}
+            </a> -->
+                    <span appTelemetryInteract [telemetryInteractObject]="objectInteract"
+                        title="{{resourceService?.frmelmnts?.lbl?.takenote}}"
+                        [telemetryInteractEdata]="{id:'take-note', type:'click',pageid:'content-player'}"
+                        class="cursor-pointer content-icons" (click)="showNoteEditor=!showNoteEditor">
+                        <app-popup-editor *ngIf="showNoteEditor" [mode]="'create'" [ids]="{contentId:contentId}"
+                            (exitModal)="showNoteEditor=false" (createEventEmitter)="createEventEmitter($event)">
+                        </app-popup-editor>
+                        <i class="ui edit outline icon mr-10"></i>
+                        <!-- <span>{{resourceService?.frmelmnts?.lbl?.takenote}}</span> -->
+                    </span>
+                    <span href="javascript:void(0)" (click)="onShareLink();sharelinkModal=true;"
+                        title="{{resourceService?.frmelmnts?.lbl?.share}}" class="cursor-pointer content-icons">
+                        <i class="ui share alternate icon mr-10"></i>
+                        <!-- {{resourceService?.frmelmnts?.lbl?.share}} -->
+                    </span>
+                    <span *ngIf='permissionService?.permissionAvailable' appPermission
+                        title="{{resourceService?.frmelmnts?.lbl?.copy}}"
+                        [permission]="['CONTENT_CREATOR', 'CONTENT_REVIEWER']" (click)="copyContent(contentData)"
+                        class="cursor-pointer content-icons">
+                        <i class="ui copy outline icon"></i>
+                        <!-- {{resourceService?.frmelmnts?.lbl?.copy}} -->
+                    </span>
+                </span>
+            </div>
+        </div>
+        <button class="ab-accordion">{{resourceService.frmelmnts.lbl.contentinformation}}</button>
+        <div class="ab-panel">
+            <div class="item p-0">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail">
+                            {{resourceService.frmelmnts.lbl.title}}
                         </div>
                     </div>
-                    <div *ngIf="showPlayer && contentData" class="ui stackable twelve column grid" style="margin-top: -135px;">
-                        <div class="ui active inverted dimmer" *ngIf="showCopyLoader">
-                            <div class="ui text centered inline loader mt-40">
-                                {{resourceService.frmelmnts.lbl.copycontent}}</div>
-                        </div>
-                        <div class="ui warning message click-notify-xurl" *ngIf="showExtContentMsg">
-                            <div class="column twelve wide">
-                                <p>{{resourceService.messages.imsg.m0036}}</p>
-                            </div>
-                        </div>
-                        <app-player class="content-player" [playerConfig]="playerConfig"
-                            (contentProgressEvent)="contentProgressEvent($event)"></app-player>
-                        <div class="twelve wide column contentMetaSection">
-                            <div class="ui stackable grid mt-30">
-                                <div class="row">
-                                    <div class="three wide column "></div>
-                                    <div class="six wide column center aligned">
-                                        <div class="ui grid">
-                                            <div class="row">
-                                                <div class="four wide column "></div>
-                                                <div class="four wide column ">
-                                                    <h2 class="ui centered aligned icon tiny header toc-note">
-                                                        <a appTelemetryInteract
-                                                            [telemetryInteractObject]="objectInteract"
-                                                            [telemetryInteractEdata]="{id:'take-note', type:'click',pageid:'content-player'}"
-                                                            class="ui take-note-card cursor-pointer"
-                                                            (click)="showNoteEditor=!showNoteEditor">
-                                                            <app-popup-editor *ngIf="showNoteEditor" [mode]="'create'"
-                                                                [ids]="{contentId:contentId}"
-                                                                (exitModal)="showNoteEditor=false"
-                                                                (createEventEmitter)="createEventEmitter($event)">
-                                                            </app-popup-editor>
-                                                            <img src="{{'assets/images/takenote.png' | cdnprefixurl }}">
-                                                            <span>{{resourceService?.frmelmnts?.lbl?.takenote}}</span>
-                                                        </a>
-                                                    </h2>
-                                                </div>
-                                            </div>
-                                            <div class="four wide column "></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="three wide column "></div>
-                            <div class="twelve wide column ">
-                                <div class="ui divider"></div>
-                            </div>
-                            <div class="ui stackable grid">
-                                <div class="eight wide column">
-                                    <div class="twelve wide column">
-                                        <app-content-player-metadata [contentData]="contentData">
-                                        </app-content-player-metadata>
-                                    </div>
-                                    <div class="twelve wide column mt-20" *ngIf="enableDiscussionFeature === 'true'">
-                                        <app-discussion></app-discussion>
-                                    </div>
-                                </div>
-                                <div *ngIf="contentStatus !== 'Unlisted'" class="four wide column">
-                                    <app-note-card [ids]="{contentId:contentId}" [createNoteData]="createNoteData">
-                                    </app-note-card>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="showError">
-                        <div class="ui active dimmer inverted">
-                            <div class="content">
-                                <div class="center">
-                                    <h2 class="ui header red">
-                                        {{errorMessage}}
-                                    </h2>
-                                    <span>
-                                        <button class="ui button"
-                                            (click)="tryAgain()">{{resourceService.frmelmnts.btn.tryagain}}</button>
-                                    </span>
-                                    <span>
-                                        <button class="ui red button"
-                                            (click)="close()">{{resourceService.frmelmnts.btn.close}}</button>
-                                    </span>
-                                </div>
-                            </div>
+                    <div class="seven wide column py-0">
+                        <div class="content overflow-word-wrap" *ngIf="contentData?.name">
+                            {{contentData?.name}}
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="item p-0">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail">
+                            {{resourceService.frmelmnts.lbl.ownership}}
+                        </div>
+                    </div>
+                    <div class="seven wide column py-0">
+                        <div class="content" *ngIf="contentData?.owner">
+                            <span class="d-inline-block mr-20">{{contentData?.owner}}</span>
+                            <!-- <a (click)="showContentCreditsPopup()" title="{{resourceService.frmelmnts.lbl.contentCredits}}">{{resourceService.frmelmnts.lbl.contentCredits}}</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item p-0" *ngIf="contentData?.orgDetails && contentData?.orgDetails.orgName">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail">
+                            {{resourceService.frmelmnts.lbl.organization}}
+                        </div>
+                    </div>
+                    <div class="seven wide column py-0">
+                        <div class="content">
+                            <span class="d-inline-block mr-20">{{contentData?.orgDetails?.orgName}}</span>
+                            <a ng-if="contentData?.orgDetails?.email"
+                                href="mailto:{{contentData?.orgDetails?.email}}?subject={{contentData?.name}}">{{contentData?.orgDetails?.email}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item p-0">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail">
+                            {{resourceService.frmelmnts.lbl.author}}
+                        </div>
+                    </div>
+                    <div class="seven wide column py-0">
+                        <div class="content" *ngIf="contentData?.creator">
+                            {{contentData?.creator}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item p-0">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail">
+                            Level
+                        </div>
+                    </div>
+                    <div class="seven wide column py-0">
+                        <div class="content" *ngIf="contentData?.medium">
+                            {{contentData?.medium}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item p-0">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail">
+                            User Role
+                        </div>
+                    </div>
+                    <div class="seven wide column py-0">
+                        <div class="content" *ngIf="contentData?.board">
+                            {{contentData?.board}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item p-0">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail">
+                            Module
+                        </div>
+                    </div>
+                    <div class="seven wide column py-0">
+                        <div class="content" *ngIf="contentData?.gradeLevel">
+                            {{contentData?.gradeLevel}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item p-0">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail">
+                            Taxonomy
+                        </div>
+                    </div>
+                    <div class="seven wide column py-0">
+                        <div class="content" *ngIf="contentData?.subject">
+                            {{contentData?.subject}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item p-0" *ngIf="contentData?.createdOn">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail">
+                            {{resourceService.frmelmnts.lbl.createdon}}
+                        </div>
+                    </div>
+                    <div class="seven wide column py-0">
+                        <div class="content">
+                            {{contentData?.createdOn | dateFormat }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item p-0" *ngIf="contentData?.lastUpdatedOn">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail">
+                            {{resourceService.frmelmnts.lbl.lastupdate}}
+                        </div>
+                    </div>
+                    <div class="seven wide column py-0">
+                        <div class="content">
+                            {{contentData?.lastUpdatedOn | dateFormat }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="item p-0">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail overflow-word-wrap">
+                            {{resourceService.frmelmnts.lbl.concept}}
+                        </div>
+                    </div>
+                    <div class="seven wide column py-0">
+                        <div class="content" *ngIf="contentData?.concepts && contentData?.concepts.length > 0">
+                            {{contentData?.concepts}}
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="item p-0">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail">
+                            {{resourceService.frmelmnts.lbl.resourcetype}}
+                        </div>
+                    </div>
+                    <div class="seven wide column py-0">
+                        <div class="content" *ngIf="contentData?.resourceType">
+                            {{contentData?.resourceType}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item p-0">
+                <div class="ui grid stackable m-0">
+                    <div class="five wide column py-0">
+                        <div class="content content-detail">
+                            {{resourceService.frmelmnts.lbl.keywords}}
+                        </div>
+                    </div>
+                    <div class="seven wide column py-0">
+                        <div class="content" *ngIf="contentData?.keywords">
+                            {{contentData?.keywords}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui active inverted dimmer" *ngIf="showCopyLoader">
+            <div class="ui text centered inline loader mt-40">
+                {{resourceService.frmelmnts.lbl.copycontent}}</div>
+        </div>
+        <div class="ui warning message click-notify-xurl" *ngIf="showExtContentMsg">
+            <div class="column twelve wide">
+                <p>{{resourceService.messages.imsg.m0036}}</p>
             </div>
         </div>
     </div>

@@ -104,7 +104,9 @@
 
 .ui.menu .language-selector {
   font-size: 0.86rem;
-
+  right: 0;
+  position: absolute;
+  top: 8px;
   @media screen and (min-width: 992px) {
     color: $white-color;
   }

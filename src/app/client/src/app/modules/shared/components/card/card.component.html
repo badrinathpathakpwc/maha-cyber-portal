@@ -4,26 +4,31 @@
   [telemetryInteractObject]="{id:data.metaData.identifier,type:data.telemetryObjectType,ver:data.metaData.pkgVersion ? data.metaData.pkgVersion.toString():'1.0'}"
   [telemetryInteractEdata]="data.telemetryInteractEdata" tabindex="0">
   <div class="grid">
-    <div class="content-imp" style="height: 59px !important;">
+    <div class="content-imp" style="height: 35px !important;">
       <span class="lesson-title">
         <span>
           {{data.name | slice:0:23 }}
           <span *ngIf="data.name && data.name.length > 23">...</span>
         </span>
       </span>
-      <div class="content-info">
+      <!-- <div class="content-info">
         <p class="type" *ngIf="data.ribbon && data.ribbon.right && data.ribbon.right.name">{{data.ribbon.right.name}}
         </p>
-      </div>
+      </div> -->
     </div>
     <div class="content-pin-img">
       <div class="content-pin-inner">
         <img src="{{data.ribbon.left.image}}" *ngIf="data.ribbon && data.ribbon.left && data.ribbon.left.image"
           class="lazy" alt="{{data.ribbon.left.name}}">
+          <!-- <i *ngIf="data?.metaData?.mimeType === 'video/mp4'" class="play icon video-icon"></i> -->
+          <img *ngIf="data?.metaData?.mimeType === 'video/mp4' || data?.metaData?.mimeType === 'application/vnd.ekstep.h5p-archive'" src="assets/images/play.png" class="lazy video-icon-img">
+          <!-- <video *ngIf="data?.metaData?.mimeType === 'video/mp4'" class="thevideo" loop preload="none">
+            <source src="{{data?.previewUrl}}" type="video/mp4">
+          </video> -->
         <img *ngIf="data.showImage? false : true" src="{{data.image || 'assets/images/book.png' | cdnprefixurl}}"
           class="lazy" alt="{{data.name}}">
       </div>
-      <div class="content-imp-top" *ngIf="data?.maxCount === undefined">
+      <!-- <div class="content-imp-top" *ngIf="data?.maxCount === undefined">
         <div class="content-imp-top-inner">
           <div class="language-grade-age">
             <span>
@@ -35,28 +40,35 @@
             </span>
           </div>
         </div>
-      </div>
-      <div class="content-imp-top" *ngIf="data?.maxCount && data.progress">
+      </div> -->
+      <!-- <div class="content-imp-top" *ngIf="data?.maxCount && data.progress">
         <div class="content-imp-top-inner">
           <div class="language-grade-age">
             <span class="course-progress">
               {{data.progress/data?.maxCount | percent:0}}
             </span>
-            <span style="float: right;">
+            <span style="float: right;"> -->
               <!-- <i class="fa fa-check" aria-hidden="true"></i> -->
               <!-- {{showCourseStatus(data.progress/data?.maxCount*100)}} -->
-              Enrolled on {{data?.enrolledDate | date :'dd-MMM-yyyy'}}
+              <!-- Enrolled on {{data?.enrolledDate | date :'dd-MMM-yyyy'}}
             </span>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="caption">
-      <div class="description hasTooltip" *ngIf="data.description">
+      <!-- <div class="description hasTooltip" *ngIf="data.description">
         {{data.description | slice:0:65 }}
         <span *ngIf="data.description && data.description.length > 65">...</span>
+      </div> -->
+      <div class="creator">
+        <i class="user circle icon"></i>&nbsp;
+        <b>{{data.orgDetails?.orgName}}</b>
+        <span style="right: 35px;position: absolute;">
+          <i class="fa fa-history" aria-hidden="true"></i>
+          {{data.lastUpdatedOn | fromNow}}
+        </span>
       </div>
-      <div class="creator"><b>{{data.orgDetails?.orgName}}</b></div>
     </div>
     <div class="content-imp-top static">
       <div class="content-imp-top-inner">
@@ -71,7 +83,7 @@
                   <li><i class="fa fa-star" aria-hidden="true"></i></li>
                   <li><i class="fa fa-star" aria-hidden="true"></i></li>
                   <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                  <li><i class="fa fa-star" aria-hidden="true"></i>(0)</li>
+                  <li><i class="fa fa-star" aria-hidden="true"></i>&nbsp;(0)</li>
 
                   <li style="float:right;margin-right:-13px"><i class="fa fa-commenting"
                       aria-hidden="true"></i>&nbsp;(0)</li>
@@ -160,7 +172,7 @@
         <img *ngIf="data.showImage? false : true" src="{{data.image || 'assets/images/book.png' | cdnprefixurl}}"
           class="lazy" alt="{{data.name}}">
       </div>
-      <div class="content-imp-top" *ngIf="data?.maxCount === undefined">
+      <!-- <div class="content-imp-top" *ngIf="data?.maxCount === undefined">
         <div class="content-imp-top-inner">
           <div class="language-grade-age">
             <span>
@@ -172,28 +184,35 @@
             </span>
           </div>
         </div>
-      </div>
-      <div class="content-imp-top" *ngIf="data?.maxCount && data.progress">
+      </div> -->
+      <!-- <div class="content-imp-top" *ngIf="data?.maxCount && data.progress">
         <div class="content-imp-top-inner">
           <div class="language-grade-age">
             <span class="course-progress">
               {{data.progress/data?.maxCount | percent:0}}
             </span>
-            <span style="float: right;">
+            <span style="float: right;"> -->
               <!-- <i class="fa fa-check" aria-hidden="true"></i> -->
               <!-- {{showCourseStatus(data.progress/data?.maxCount*100)}} -->
-              Enrolled on {{data?.enrolledDate | date :'dd-MMM-yyyy'}}
+              <!-- Enrolled on {{data?.enrolledDate | date :'dd-MMM-yyyy'}}
             </span>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="caption">
-      <div class="description hasTooltip" *ngIf="data.description">
+      <!-- <div class="description hasTooltip" *ngIf="data.description">
         {{data.description | slice:0:65 }}
         <span *ngIf="data.description && data.description.length > 65">...</span>
+      </div> -->
+      <div class="creator">
+        <i class="user circle icon"></i>&nbsp;
+        <b>{{data.orgDetails?.orgName}}</b>
+        <span style="right: 35px;position: absolute;">
+          <i class="fa fa-history" aria-hidden="true"></i>
+          {{data.lastUpdatedOn | fromNow}}
+        </span>
       </div>
-      <div class="creator"><b>{{data.orgDetails?.orgName}}</b></div>
     </div>
     <div class="content-imp-top static">
       <div class="content-imp-top-inner">
@@ -208,7 +227,7 @@
                   <li><i class="fa fa-star" aria-hidden="true"></i></li>
                   <li><i class="fa fa-star" aria-hidden="true"></i></li>
                   <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                  <li><i class="fa fa-star" aria-hidden="true"></i>(0)</li>
+                  <li><i class="fa fa-star" aria-hidden="true"></i>&nbsp;(0)</li>
 
                   <li style="float:right;margin-right:-13px"><i class="fa fa-commenting"
                       aria-hidden="true"></i>&nbsp;(0)</li>

@@ -5,21 +5,21 @@
 	<ng-container *ngIf="userService.loggedIn">
 		<a class="item" [class.active]="router.isActive('/home')" appTelemetryInteract
 			[telemetryInteractEdata]="homeMenuIntractEdata" routerLink="/home">
-			{{resourceService.frmelmnts?.tab?.home}}
+			<img src="assets/images/home.png" title="{{resourceService.frmelmnts?.tab?.home}}" style="width: 28px;">
 		</a>
 		<a class="item" [class.active]="router.isActive('/search/Library') || router.isActive('/resources')"
 			appTelemetryInteract [telemetryInteractEdata]="libraryMenuIntractEdata" routerLink="/resources">
-			{{resourceService?.frmelmnts?.tab?.resources}}
+			<img src="assets/images/library.png" title="{{resourceService?.frmelmnts?.tab?.resources}}" style="width: 28px;">
 		</a>
 		<a class="item" [class.active]="router.isActive('/search/Courses') || router.isActive('/learn')"
 			appTelemetryInteract [telemetryInteractEdata]="learnMenuIntractEdata" routerLink="/learn">
-			{{resourceService?.frmelmnts?.tab?.courses}}
+			<img src="assets/images/courses.png" title="{{resourceService?.frmelmnts?.tab?.courses}}" style="width: 28px;">
 		</a>
-		<a class="item" [class.active]="router.isActive('/workspace')" appTelemetryInteract
+		<!-- <a class="item" [class.active]="router.isActive('/workspace')" appTelemetryInteract
 			[telemetryInteractEdata]="workspaceMenuIntractEdata" *ngIf='permissionService.permissionAvailable'
 			appPermission [permission]='workSpaceRole' [routerLink]="[navigateToWorkspace()]" tabindex="0">
 			{{resourceService?.frmelmnts?.tab?.workspace}}
-		</a>
+		</a> -->
 		<a class="item" appTelemetryInteract [telemetryInteractEdata]="helpMenuIntractEdata"
 			*ngIf='permissionService.permissionAvailable && helpLinkVisibility.toLowerCase() === "true"' appPermission
 			[permission]='workSpaceRole' href="/help/creator/content-lifecycle/index.html" target="_blank">
@@ -31,7 +31,7 @@
 	<!--Not Logged in user-->
 	<ng-container *ngIf="!userService.loggedIn">
 		<a class="item" href="/">
-			{{resourceService.frmelmnts?.tab?.home}}
+			<img src="assets/images/home.png" title="{{resourceService.frmelmnts?.tab?.home}}" style="width: 28px;">
 		</a>
 		<button class="ui blue button" *ngIf="router.isActive('', true) && exploreButtonVisibility==='true'"
 			tabindex="0" routerLink="/explore">
@@ -40,7 +40,7 @@
 		<a class="item" [class.active]="router.isActive('/search/explore') || router.isActive('/explore')"
 			*ngIf="!router.isActive('', true)" routerLink="explore" appTelemetryInteract
 			[telemetryInteractEdata]="libraryMenuIntractEdata">
-			{{resourceService?.frmelmnts?.tab?.resources}}
+			<img src="assets/images/library.png" title="{{resourceService?.frmelmnts?.tab?.resources}}" style="width: 28px;">
 		</a>
 		<!-- <a class="item" [class.active]="router.isActive('/search/explore-course') || router.isActive('/explore-course')"
 			*ngIf="!router.isActive('', true)" routerLink="explore-course" appTelemetryInteract

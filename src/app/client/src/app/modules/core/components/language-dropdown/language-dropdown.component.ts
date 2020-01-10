@@ -14,7 +14,7 @@ import { Subject, Subscription} from 'rxjs';
 })
 export class LanguageDropdownComponent implements OnInit, OnDestroy {
   @Input() redirectUrl: string;
-  languages: any;
+  languages: any=[{ 'value': 'en', 'label': 'English', 'dir': 'ltr' }];
   orgDetailsUnsubscribe: Subscription;
   selectedLanguage: string;
   queryParam: any;

@@ -80,7 +80,7 @@ export class ContentPlayerComponent implements OnInit {
   createNoteData: INoteData;
 
   showExtContentMsg = false;
-  enableDiscussionFeature:string;
+  enableDiscussionFeature: string;
   public showRatingModal: Boolean = false;
 
   public feedbackModal: Boolean = false;
@@ -113,6 +113,21 @@ export class ContentPlayerComponent implements OnInit {
         });
     });
     // window.scrollTo(0, 150);
+    $(function () {
+      var acc = document.getElementsByClassName("ab-accordion");
+      var i;
+      for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+          this.classList.toggle("ab-active");
+          var panel = this.nextElementSibling;
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+          }
+        });
+      }
+    });
   }
   setTelemetryData() {
     this.telemetryImpression = {
@@ -222,14 +237,14 @@ export class ContentPlayerComponent implements OnInit {
   public zoomInContentPlayer() {
     //calculating required zoomed-In size
     const zoomedSize = _.round(this.currentSize + this.scaleFactor, 2);
-    $('#contentPlayer').css({'transform': 'scale(' + zoomedSize + ')'});
+    $('#contentPlayer').css({ 'transform': 'scale(' + zoomedSize + ')' });
     this.currentSize = zoomedSize;
   }
 
   public zoomOutContentPlayer() {
     //calculating required zoomed-Out size
     const zoomedSize = _.round(this.currentSize - this.scaleFactor, 2);
-    $('#contentPlayer').css({'transform': 'scale(' + zoomedSize + ')'});
+    $('#contentPlayer').css({ 'transform': 'scale(' + zoomedSize + ')' });
     this.currentSize = zoomedSize;
 
   }
@@ -247,7 +262,7 @@ export class ContentPlayerComponent implements OnInit {
   public contentProgressEvent(event) {
     console.log('Event==========>', event);
     const eid = event.detail.telemetryData.eid;
-    if (eid === 'END' ) {
+    if (eid === 'END') {
       this.showRatingModal = true;
     }
   }

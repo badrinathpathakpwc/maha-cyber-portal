@@ -19,6 +19,17 @@ export class CardComponent {
   constructor(public resourceService: ResourceService) {
     this.resourceService = resourceService;
   }
+  ngOnInit() {
+    $(function() {
+      var figure = $(".video").hover( hoverVideo, hideVideo );
+      function hoverVideo(e) {  
+        (<any>$('video', this).get(0)).play();
+      }
+      function hideVideo(e) {
+        (<any>$('video', this).get(0)).pause();
+      }
+    });
+  }
   public onAction(data, action) {
     this.clickEvent.emit({ 'action': action, 'data': data });
   }

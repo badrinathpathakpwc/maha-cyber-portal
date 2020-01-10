@@ -21,6 +21,8 @@ export interface ICard {
     };
     rating?: number;
     metaData?: any;
+    artifactUrl?: string;
+    previewUrl?: string;
     action?: {
         right?: {
             class: string,

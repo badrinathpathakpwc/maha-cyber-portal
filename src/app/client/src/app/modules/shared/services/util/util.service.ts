@@ -40,7 +40,9 @@ export class UtilService {
       lastUpdatedOn: data.lastUpdatedOn,
       topic: this.getTopicSubTopic('topic', data.topic),
       subTopic: this.getTopicSubTopic('subTopic', data.topic),
-      metaData: {}
+      metaData: {},
+      previewUrl: data.previewUrl,
+      artifactUrl: data.artifactUrl
     };
 
     // this customization is done for enrolled courses

@@ -57,7 +57,7 @@ ul.post-info {
     width: 100%;
     margin-top: 6%;
     font-size: 12px;
-    color: #ad1b02;
+    color: #024f9d;
   }
 }
 .language-grade-age {
@@ -116,7 +116,7 @@ img {
   padding: 0 8px 0 0 !important;
 }
 .sb-content-pin:hover .grid .content-imp {
-  background-color: #2E9FD9;
+  background-color: #024f9d;
   color: #fff;
   border-radius: 5px 5px 0 0;
 }
@@ -125,10 +125,16 @@ img {
   height: auto !important;
 }
 .lesson-title, .lesson-title a, .word-title a {
-  color: #383838;
+  color: #FFFFFF;
   font-weight: 600;
   text-transform: capitalize;
   font-size: 14px !important;
+}
+.content-pin-img {
+  border-bottom: 1px solid #E0E0E0;
+}
+.lesson-title span {
+  font-size: 12px;
 }
 .sbCard {
   width:265px; /*Has been added to fix the related content pin width on concept details view - Himangi*/
@@ -139,7 +145,7 @@ img {
   border-radius:5px;
   cursor: pointer;
   &.sb-content-pin {
-    height: 355px !important;
+    height: 285px !important;
     font-size: 12px;
     color: #888;
   }
@@ -178,16 +184,18 @@ img {
   }
   .grid {
     height: 100%;
-    border: 1px solid #fbfbfb;
+    border: 1px solid #e0e0e0;
     border-radius: 5px;
     background-color: white;
     .content-imp {
       padding: 0 19px;
-      padding-top: 15px;
+      padding-top: 7px;
+      background-color: #024f9d;
+      border-radius: 5px 5px 0 0;
       .content-info{
         line-height: 17px;
         padding-bottom: 10px;
-        color: #383838;
+        color: #fff;
       }
     } 
   }
@@ -271,7 +279,21 @@ img {
     font-weight: bold;
     color: $primary-color !important;
   }
-
+ .video-icon {
+  margin: 57px 95px;
+  position: absolute;
+  color: #fff;
+  font-size: 50px;
+ }
+ .video-icon-img {
+  width: 48px !important;
+  height: 48px !important;
+  position: absolute;
+  margin: 66px 107px;
+}
+ video::-webkit-media-controls {
+  display:none !important;
+}
 /*  .creator {
     font-size: 1rem;
     height: 1.5em;

@@ -1,4 +1,19 @@
-<div 
+<div class="ui mini icon input" style="width: 100%;">
+    <input
+    type="text" 
+    id="keyword" 
+    name="filter_search"
+    title="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}" 
+    placeholder="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}"
+    [(ngModel)]="key" 
+    (keyup.enter)="onEnter(key)" 
+    [disabled]="!showInput"
+    [ngClass]="{'disabled': !showInput }" 
+    >
+    <i class="circular search link icon" [ngClass]="{'disabled': !showInput }" (click)="onEnter(key)"
+    title="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}"></i>
+</div>
+<!-- <div 
     class="ui fluid ui left action input searchbox-inner" 
     id="search-input-container"
     >
@@ -22,4 +37,4 @@
             tabindex="0"
             ></i>
     </button>
-</div>
+</div> -->

@@ -33,10 +33,11 @@ export class PlayerComponent implements OnInit, OnChanges {
     this.showPlayer();
   }
   ngAfterViewInit() {
-    $('#contentPlayer').css({'transform': 'scale(0.60)','margin-left': '-15px'});
+    // $('#contentPlayer').css({'display': 'block','overflow-y': 'hidden','height':'93vh'});
   }
   ngAfterViewChecked() {
     $('#contentPlayer').contents().find("html").find("#download-btn").hide();
+    $('#contentPlayer').contents().find("html").find(".menu-icon").hide();
   }
   /**
    * Initializes player with given config and emits player telemetry events
@@ -61,8 +62,9 @@ export class PlayerComponent implements OnInit, OnChanges {
   adjustPlayerHeight () {
     const playerWidth = $('#contentPlayer').width();
     if (playerWidth) {
-      const height = playerWidth * (9 / 16);
-      $('#contentPlayer').css('height', height + 'px');
+      // const height = playerWidth * (9 / 16);
+      // $('#contentPlayer').css('height', '93vh');
+      $('#contentPlayer').css({'display': 'block','overflow-y': 'hidden','height':'92vh'});
     }
   }
   generateContentReadEvent(event: any) {

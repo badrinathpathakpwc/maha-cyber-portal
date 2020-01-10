@@ -24,7 +24,7 @@ import { UserSearchService } from './modules/search/services/user-search/user-se
 })
 export class AppComponent implements OnInit {
   @ViewChild('frameWorkPopUp') frameWorkPopUp;
-  public showMainHeader = false;
+  public showMainFooter = false;
   /**
    * user profile details.
    */
@@ -125,14 +125,7 @@ export class AppComponent implements OnInit {
       });
     this.changeLanguageAttribute();
     // #NUIH change: Hide main header for Nuih Page
-    this.showMainHeader = _.indexOf(_.split(window.location.href, '/'), 'nuis') > -1
-      || _.indexOf(_.split(window.location.href, '/'), 'lms') > -1
-      || _.indexOf(_.split(window.location.href, '/'), 'innovate') > -1
-      || _.indexOf(_.split(window.location.href, '/'), 'iudx') > -1
-      || _.indexOf(_.split(window.location.href, '/'), 'smartgov') > -1
-      || _.indexOf(_.split(window.location.href, '/'), 'aboutus') > -1
-      || _.indexOf(_.split(window.location.href, '/'), 'signup') > -1
-      || _.indexOf(_.split(window.location.href, '/'), 'comingsoon') > -1 ?
+    this.showMainFooter = _.indexOf(_.split(window.location.href, '/'), 'play') > -1 ?
       false : true;
   }
   readFramework() {
