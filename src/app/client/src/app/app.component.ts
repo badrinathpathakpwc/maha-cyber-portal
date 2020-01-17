@@ -84,6 +84,11 @@ export class AppComponent implements OnInit {
         } else {
           $('body').find(".footer-fix").removeAttr("style");
         }
+        if (_.indexOf(_.split(window.location.href, '/'), 'profile') > -1) {
+          $('body').css("background-color", "#edeff0");
+        } else {
+          $('body').removeAttr("style");
+        }
       }
     });
   }
@@ -141,7 +146,7 @@ export class AppComponent implements OnInit {
  * Check Profile Visibility of the user for the first time login
  */
   checkProfileVisibility() {
-    if (this.userProfile.profileVisibility.grade === 'private') {
+    if (this.userProfile.profileVisibility.address === 'private') {
       this.cyberProfileConfig.userprofilevisibility.request.userid = this.userProfile.userId;
       this.profileService.updateProfileFieldVisibility(this.cyberProfileConfig.userprofilevisibility.request).subscribe(response => {
       }, err => {

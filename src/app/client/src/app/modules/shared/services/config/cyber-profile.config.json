@@ -328,7 +328,10 @@
 				"dob",
 				"grade",
 				"location",
-				"jobProfile"
+				"jobProfile",
+				"address",
+				"education",
+				"avatar"
 			]
 		}
 	}

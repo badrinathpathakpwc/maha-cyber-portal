@@ -15,7 +15,7 @@ import { CacheService } from 'ng2-cache-service';
     templateUrl: './library-search.component.html'
 })
 export class LibrarySearchComponent implements OnInit, OnDestroy {
-
+    public showNLPSearch: boolean = false;
     public showLoader = true;
     public noResultMessage: INoResultMessage;
     public filterType: string;
@@ -51,6 +51,7 @@ export class LibrarySearchComponent implements OnInit, OnDestroy {
         this.sortingOptions = this.configService.dropDownConfig.FILTER.RESOURCES.sortingOptions;
         this.setTelemetryData();
     }
+ 
     ngOnInit() {
         this.userService.userData$.subscribe(userData => {
             if (userData && !userData.err) {
@@ -90,7 +91,7 @@ export class LibrarySearchComponent implements OnInit, OnDestroy {
     }
     private fetchContents() {
         let filters = _.pickBy(this.queryParams, (value: Array<string> | string) => value && value.length);
-        filters = _.omit(filters, ['key', 'sort_by', 'sortType', 'appliedFilters']);
+        filters = _.omit(filters, ['key', 'nlpSearch', 'sort_by', 'sortType', 'appliedFilters']);
         const softConstraintData = {
             filters: {channel: this.userService.hashTagId,
             board: [this.dataDrivenFilters.board]},
@@ -120,6 +121,9 @@ export class LibrarySearchComponent implements OnInit, OnDestroy {
                option.params.framework = _.get(channelData, 'channelData.defaultFramework');
             }
         });
+        if(!_.isEmpty(this.queryParams.nlpSearch)) {
+            option.params.nlpSearch = this.queryParams.nlpSearch;
+        }
         this.searchService.contentSearch(option)
             .subscribe(data => {
                 this.showLoader = false;

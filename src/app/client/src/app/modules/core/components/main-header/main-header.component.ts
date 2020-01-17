@@ -16,6 +16,7 @@ declare var jQuery: any;
   templateUrl: './main-header.component.html'
 })
 export class MainHeaderComponent implements OnInit, OnDestroy {
+  currentSearchMode:string = 'Basic';
   /**
    * Workspace access roles
    */
@@ -108,6 +109,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
   userDataSubscription: Subscription;
   exploreRoutingUrl: string;
   pageId: string;
+  showNLPSearch: boolean = false;
   /*
   * constructor
   */
@@ -121,7 +123,12 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     this.tenantService = tenantService;
     this.workSpaceRole = this.config.rolesConfig.headerDropdownRoles.workSpaceRole;
   }
-
+  ngDoCheck() {
+    this.showNLPSearch = _.split(this.router.url,'/')[1] === 'explore' ? true : false;
+    if(_.split(this.router.url,'/')[1] !== 'explore') {
+      this.currentSearchMode = "Basic";
+    }
+  }
   ngOnInit() {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(event => {
@@ -195,6 +202,9 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     this.key = key;
     this.queryParam = {};
     this.queryParam['key'] = this.key;
+    if(_.split(this.router.url,'/')[1] === 'explore') {
+      this.queryParam['nlpSearch'] = this.currentSearchMode === 'Basic' ? false : true;
+    }
     if (this.key && this.key.length > 0) {
       this.queryParam['key'] = this.key;
     } else {

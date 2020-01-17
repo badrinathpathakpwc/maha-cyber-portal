@@ -94,7 +94,7 @@ export class ExploreContentComponent implements OnInit, OnDestroy {
     }
     private fetchContents() {
         let filters = _.pickBy(this.queryParams, (value: Array<string> | string) => value && value.length);
-        filters = _.omit(filters, ['key', 'sort_by', 'sortType', 'appliedFilters']);
+        filters = _.omit(filters, ['key', 'nlpSearch', 'sort_by', 'sortType', 'appliedFilters']);
           const softConstraintData = {
             filters: {channel: this.hashTagId,
             board: [this.dataDrivenFilters.board]},
@@ -122,6 +122,9 @@ export class ExploreContentComponent implements OnInit, OnDestroy {
             option.params.framework = _.get(channelData, 'channelData.defaultFramework');
           }
         });
+        if(!_.isEmpty(this.queryParams.nlpSearch)) {
+            option.params.nlpSearch = this.queryParams.nlpSearch;
+        }
         this.searchService.contentSearch(option)
         .subscribe(data => {
             this.showLoader = false;

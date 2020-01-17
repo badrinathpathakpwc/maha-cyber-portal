@@ -1,4 +1,12 @@
-<div class="ui mini icon input" style="width: 100%;">
+<div class="ui mini left action right icon input" style="width: 100%;">
+    <div class="ui mini basic floating dropdown button" suiDropdown *ngIf="showNLPSearch" style="background-color: #FFFFFF !important;">
+        <div class="text">{{currentSearchMode}}</div>
+        <i class="dropdown icon"></i>
+        <div class="menu" suiDropdownMenu>
+            <div class="item" (click)="currentSearchMode='Basic'">Basic</div>
+            <div class="item" (click)="currentSearchMode='Advanced'">Advanced</div>
+        </div>
+    </div>
     <input
     type="text" 
     id="keyword" 

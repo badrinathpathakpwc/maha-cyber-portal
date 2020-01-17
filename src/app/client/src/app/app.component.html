@@ -9,4 +9,4 @@
   <!--<app-breadcrumbs *ngIf="userService.loggedIn"></app-breadcrumbs>-->
   <router-outlet *ngIf="initApp"></router-outlet>
 </div>
-<app-footer *ngIf="!router.isActive('resources/play/content', false)"></app-footer>
+<app-footer *ngIf="!router.isActive('resources/play/content', false) && !router.isActive('profile', false)"></app-footer>

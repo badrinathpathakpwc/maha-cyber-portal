@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { UserService } from './../../services';
 import { ResourceService, ConfigService, IUserProfile } from '@sunbird/shared';
 import { Subscription } from 'rxjs';
+import * as _ from 'lodash';
 
 /**
  * Main menu component
@@ -15,6 +16,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  currentSearchMode:string = 'Basic';
+  showNLPSearch: boolean = false;
   /**
    * Sui dropdown initiator
    */
@@ -98,7 +101,12 @@ export class SearchComponent implements OnInit {
       'Users': 'users'
     };
   }
-
+  ngDoCheck() {
+    this.showNLPSearch = _.split(this.route.url,'/')[1] === 'resources' || _.split(this.route.url,'/')[2] === 'Library' ? true : false;
+    if(_.split(this.route.url,'/')[1] !== 'resources' && _.split(this.route.url,'/')[2] !== 'Library') {
+      this.currentSearchMode = "Basic";
+    }
+  }
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(queryParams => {
       this.queryParam = { ...queryParams };
@@ -149,6 +157,9 @@ export class SearchComponent implements OnInit {
     this.key = key;
     this.queryParam = {};
     this.queryParam['key'] = this.key;
+    if(_.split(this.route.url,'/')[1] === 'resources' || _.split(this.route.url,'/')[2] === 'Library') {
+      this.queryParam['nlpSearch'] = this.currentSearchMode === 'Basic' ? false : true;
+    }
     if (this.key && this.key.length > 0) {
       this.queryParam['key'] = this.key;
     } else {

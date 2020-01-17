@@ -50,7 +50,15 @@
 
             <!--Explore Pages-->
             <div class="searchbox ml-0 mr-auto my-0" *ngIf="showExploreHeader">
-                <div class="ui mini icon input" style="width: 100%;">
+                <div class="ui mini left action right icon input" style="width: 100%;">
+                    <div class="ui mini basic floating dropdown button" suiDropdown *ngIf="showNLPSearch" style="background-color: #FFFFFF !important;">
+                        <div class="text">{{currentSearchMode}}</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu" suiDropdownMenu>
+                            <div class="item" (click)="currentSearchMode='Basic'">Basic</div>
+                            <div class="item" (click)="currentSearchMode='Advanced'">Advanced</div>
+                        </div>
+                    </div>
                     <input type="text" id="keyword" name="filter_search" [(ngModel)]="key"
                         placeholder="{{resourceService?.frmelmnts?.prmpt?.search}}"
                         title="{{resourceService?.frmelmnts?.prmpt?.search}}" (keyup.enter)="onEnter(key)">

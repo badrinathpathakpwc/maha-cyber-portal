@@ -14,6 +14,7 @@ import { SubscriptionLike as ISubscription } from 'rxjs';
 import { IInteractEventInput, IImpressionEventInput, IInteractEventEdata, IInteractEventObject } from '@sunbird/telemetry';
 import { ActivatedRoute } from '@angular/router';
 import { CacheService } from 'ng2-cache-service';
+import { IPopup } from "ng2-semantic-ui";
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
@@ -87,34 +88,34 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
    * Slider setting to display number of cards on the slider.
    */
   slideConfig = {
-    'slidesToShow': 4,
-    'slidesToScroll': 4,
+    'slidesToShow': 3,
+    'slidesToScroll': 3,
     'responsive': [
       {
         'breakpoint': 2800,
         'settings': {
-          'slidesToShow': 6,
-          'slidesToScroll': 6
+          'slidesToShow': 3,
+          'slidesToScroll': 3
         }
       },
       {
         'breakpoint': 2200,
         'settings': {
-          'slidesToShow': 5,
-          'slidesToScroll': 5
+          'slidesToShow': 3,
+          'slidesToScroll': 3
         }
       },
       {
         'breakpoint': 2000,
         'settings': {
-          'slidesToShow': 4,
-          'slidesToScroll': 4
+          'slidesToShow': 3,
+          'slidesToScroll': 3
         }
       },
       {
         'breakpoint': 1600,
         'settings': {
-          'slidesToShow': 3.5,
+          'slidesToShow': 3,
           'slidesToScroll': 3
         }
       },
@@ -233,6 +234,35 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     };
     this.setInteractEventData();
     this.addSlideConfig();
+    // Show default image for profile picture
+    // $(document).ready(function(){
+    //   // Looping through all image elements
+    //   $("img").each( function () {
+    //    var element = $(this);
+
+    //    $.ajax({
+    //     url:$(this).attr('src'),
+    //     type:'get',
+    //     async: false,
+    //     error:function(response){
+
+    //      var replace_src = "images/noimage.png";
+    //      // Again check the default image
+    //      $.ajax({
+    //       url: replace_src,
+    //       type:'get',
+    //       async: false,
+    //       success: function(){
+    //        $(element).attr('src', replace_src);
+    //       },
+    //       error:function(response){
+    //        $(element).hide();
+    //       }
+    //     });
+    //    }
+    //   });
+    //   });
+    //  });
   }
 
   getOrgDetails() {
