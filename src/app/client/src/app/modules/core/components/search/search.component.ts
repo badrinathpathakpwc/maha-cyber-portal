@@ -104,7 +104,7 @@ export class SearchComponent implements OnInit {
   ngDoCheck() {
     this.showNLPSearch = _.split(this.route.url,'/')[1] === 'resources' || _.split(this.route.url,'/')[2] === 'Library' ? true : false;
     if(_.split(this.route.url,'/')[1] !== 'resources' && _.split(this.route.url,'/')[2] !== 'Library') {
-      this.currentSearchMode = "Basic";
+      this.getNLPQueryParam();
     }
   }
   ngOnInit() {
@@ -131,8 +131,14 @@ export class SearchComponent implements OnInit {
         this.setSearchPlaceHolderValue();
       }
     );
+    this.getNLPQueryParam();
   }
-
+  getNLPQueryParam() {
+    this.activatedRoute.queryParams.subscribe(queryParams => {
+      let tempParams = { ...queryParams };
+      this.currentSearchMode = tempParams['nlpSearch'] == 'true' ? 'Advanced' : 'Basic';
+    });
+  }
   /**
    * on changing dropdown option
    * it navigate

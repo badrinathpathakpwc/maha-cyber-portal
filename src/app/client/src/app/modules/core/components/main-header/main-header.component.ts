@@ -16,7 +16,7 @@ declare var jQuery: any;
   templateUrl: './main-header.component.html'
 })
 export class MainHeaderComponent implements OnInit, OnDestroy {
-  currentSearchMode:string = 'Basic';
+  currentSearchMode: string = 'Basic';
   /**
    * Workspace access roles
    */
@@ -124,9 +124,9 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     this.workSpaceRole = this.config.rolesConfig.headerDropdownRoles.workSpaceRole;
   }
   ngDoCheck() {
-    this.showNLPSearch = _.split(this.router.url,'/')[1] === 'explore' ? true : false;
-    if(_.split(this.router.url,'/')[1] !== 'explore') {
-      this.currentSearchMode = "Basic";
+    this.showNLPSearch = _.split(this.router.url, '/')[1] === 'explore' ? true : false;
+    if (_.split(this.router.url, '/')[1] !== 'explore') {
+      this.getNLPQueryParam();
     }
   }
   ngOnInit() {
@@ -182,8 +182,14 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
       });
     this.setInteractEventData();
     this.cdr.detectChanges();
+    this.getNLPQueryParam();
   }
-
+  getNLPQueryParam() {
+    this.activatedRoute.queryParams.subscribe(queryParams => {
+      let tempParams = { ...queryParams };
+      this.currentSearchMode = tempParams['nlpSearch'] == 'true' ? 'Advanced' : 'Basic';
+    });
+  }
   getCacheLanguage() {
     const isCachedDataExists = this.cacheService.exists('portalLanguage');
     if (isCachedDataExists) {
@@ -202,7 +208,7 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
     this.key = key;
     this.queryParam = {};
     this.queryParam['key'] = this.key;
-    if(_.split(this.router.url,'/')[1] === 'explore') {
+    if (_.split(this.router.url, '/')[1] === 'explore') {
       this.queryParam['nlpSearch'] = this.currentSearchMode === 'Basic' ? false : true;
     }
     if (this.key && this.key.length > 0) {
