@@ -114,7 +114,7 @@
   box-shadow: 10px 0px 11px -10px rgba(0, 0, 0, 0.25);
 }
 .profile-main-grid {
-  height: 85vh;
+  height: 94vh;
   // margin-bottom: -100px;
   background-color: #edeff0;
 }
@@ -160,6 +160,18 @@
   font-size: 13px;
   display: block;
 }
-.profile-title {
+.profile-title, th.profile-title {
   font-weight: bold;
+}
+th.profile-title, th.profile-value {
+  font-size: 13px;
+}
+.table-title,.table-value {
+  font-size: 13px;
+}
+.table-title {
+  font-weight: bold;
+}
+.ml-27 {
+  margin-left: 27px;
 }

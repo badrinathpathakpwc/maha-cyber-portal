@@ -61,7 +61,7 @@
                     </div>
                     <input type="text" id="keyword" name="filter_search" [(ngModel)]="key"
                         placeholder="{{resourceService?.frmelmnts?.prmpt?.search}}"
-                        title="{{resourceService?.frmelmnts?.prmpt?.search}}" (keyup.enter)="onEnter(key)">
+                        title="{{resourceService?.frmelmnts?.prmpt?.search}}" (keyup.enter)="onEnter(key)" style="line-height: 0px;">
                     <i title="{{resourceService?.frmelmnts?.prmpt?.search}}" class="circular search link icon" (click)="onEnter(key)"></i>
                 </div>
                 <!-- <div class="ui fluid ui left action input searchbox-inner">

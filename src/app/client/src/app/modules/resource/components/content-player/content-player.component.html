@@ -5,7 +5,7 @@
             (contentProgressEvent)="contentProgressEvent($event)"></app-player>
     </div>
     <div class="three wide column p-0" style="background-color: #fff;">
-        <button class="ab-accordion ab-active">{{contentData?.name | titlecase}}</button>
+        <button class="ab-accordion ab-active first-accordion">{{contentData?.name | titlecase}}</button>
         <div class="ab-panel" style="max-height: 52px;padding: 15px;">
             <div *ngIf="contentStatus !== 'Unlisted'">
                 <sui-rating [ngClass]="{'black-divider pr-15': badgeData}"
@@ -45,8 +45,8 @@
                 </span>
             </div>
         </div>
-        <button class="ab-accordion">{{resourceService.frmelmnts.lbl.contentinformation}}</button>
-        <div class="ab-panel">
+        <button class="ab-accordion ab-active second-accordion">{{resourceService.frmelmnts.lbl.contentinformation}}</button>
+        <div class="ab-panel" style="max-height: 341px;">
             <div class="item p-0">
                 <div class="ui grid stackable m-0">
                     <div class="five wide column py-0">

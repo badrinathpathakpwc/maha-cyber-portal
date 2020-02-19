@@ -16,7 +16,8 @@
     [(ngModel)]="key" 
     (keyup.enter)="onEnter(key)" 
     [disabled]="!showInput"
-    [ngClass]="{'disabled': !showInput }" 
+    [ngClass]="{'disabled': !showInput }"
+    style="line-height: 0px;"
     >
     <i class="circular search link icon" [ngClass]="{'disabled': !showInput }" (click)="onEnter(key)"
     title="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}"></i>

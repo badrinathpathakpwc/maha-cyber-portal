@@ -121,9 +121,19 @@ export class ContentPlayerComponent implements OnInit {
           this.classList.toggle("ab-active");
           var panel = this.nextElementSibling;
           if (panel.style.maxHeight) {
-            panel.style.maxHeight = null;
+            if($(this).hasClass('first-accordion')) {
+              panel.style.maxHeight = null;
+              panel.style.padding = null;
+            } else {
+              panel.style.maxHeight = null;
+            }
           } else {
-            panel.style.maxHeight = panel.scrollHeight + "px";
+            if($(this).hasClass('first-accordion')) {
+              panel.style.maxHeight = '52px';
+              panel.style.padding = '15px';
+            } else {
+              panel.style.maxHeight = panel.scrollHeight + "px";
+            }
           }
         });
       }
