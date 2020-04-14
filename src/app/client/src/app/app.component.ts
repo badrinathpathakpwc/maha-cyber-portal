@@ -315,6 +315,7 @@ export class AppComponent implements OnInit {
         return obj;
       }
     });
+    if(!_.isEmpty(tempData)) {
     const req = {
       framework: {
         "board": [tempData.type],
@@ -357,6 +358,7 @@ export class AppComponent implements OnInit {
       // this.router.navigate(['/resources']);
       // this.cacheService.set('showFrameWorkPopUp', 'installApp');
     });
+    }
   }
   viewInBrowser() {
     this.router.navigate(['/resources']);
