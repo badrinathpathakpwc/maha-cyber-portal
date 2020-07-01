@@ -423,6 +423,6 @@ export class UserService {
       url: this.config.urlConFig.URLS.COURSE.SEARCH,
       data: data
     };
-    return this.publicDataService.post(options);
+    return this.contentService.post(options);
   }
 }
