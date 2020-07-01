@@ -408,4 +408,21 @@ export class UserService {
       EXCLUDED: 'excluded'
     });
   }
+  getSuggestions(url,data): Observable<any> {
+      return this.http.post(url,data);
+  }
+  getContentSuggestionList(data): Observable<ServerResponse> {
+    const options = {
+      url: this.config.urlConFig.URLS.CONTENT.SEARCH,
+      data: data
+    };
+    return this.publicDataService.post(options);
+  }
+  getCourseSuggestionList(data): Observable<ServerResponse> {
+    const options = {
+      url: this.config.urlConFig.URLS.COURSE.SEARCH,
+      data: data
+    };
+    return this.publicDataService.post(options);
+  }
 }

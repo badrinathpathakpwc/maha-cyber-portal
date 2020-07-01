@@ -18,6 +18,7 @@ import * as _ from 'lodash';
 export class SearchComponent implements OnInit {
   currentSearchMode:string = 'Basic';
   showNLPSearch: boolean = false;
+  showLoader: boolean = false;
   /**
    * Sui dropdown initiator
    */
@@ -53,6 +54,7 @@ export class SearchComponent implements OnInit {
    * input keyword depending on url
    */
   search: object;
+  public frameworkData: object;
   /**
    * url
    */
@@ -61,6 +63,10 @@ export class SearchComponent implements OnInit {
   userProfile: IUserProfile;
 
   searchDropdownValues: Array<string> = ['All', 'Courses', 'Library'];
+  
+  contentSuggestions:any=[];
+
+  courseSuggestions:any=[];
 
   searchPlaceHolderValue: string;
 
@@ -80,6 +86,8 @@ export class SearchComponent implements OnInit {
   * service for redirection to parent component
   */
   private activatedRoute: ActivatedRoute;
+  showContentSuggest: boolean;
+  showCourseSuggest: boolean;
   /**
      * Constructor to create injected service(s) object
      * Default method of Draft Component class
@@ -100,14 +108,47 @@ export class SearchComponent implements OnInit {
       'Courses': 'courses',
       'Users': 'users'
     };
+    this.route.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
+        // if(_.split(this.route.url,'/')[1] == 'resources' || _.split(this.route.url,'/')[1] == 'learn') {
+          // this.key = "";
+        // }
+      }
+    });
   }
   ngDoCheck() {
     this.showNLPSearch = _.split(this.route.url,'/')[1] === 'resources' || _.split(this.route.url,'/')[2] === 'Library' ? true : false;
+    this.showContentSuggest = _.split(this.route.url,'/')[1] === 'resources' || _.split(this.route.url,'/')[2] === 'Library' ? true : false;
+    this.showCourseSuggest = _.split(this.route.url,'/')[1] === 'learn' || _.split(this.route.url,'/')[2] === 'Courses' ? true : false;
     if(_.split(this.route.url,'/')[1] !== 'resources' && _.split(this.route.url,'/')[2] !== 'Library') {
       this.currentSearchMode = "Basic";
     }
+    if(!this.showContentSuggest && !this.showCourseSuggest) {
+      this.showSuggestions([]);
+    }
+    if(this.showContentSuggest) {
+      this.showSuggestions(this.contentSuggestions);
+    }
+    if(this.showCourseSuggest) {
+      this.showSuggestions(this.courseSuggestions);
+    }
+  }
+  showSuggestions(data) {
+    (<any>$('.ui.search')).search({
+      source: data,
+      fullTextSearch: true,
+      maxResults:6,
+      cache:false,
+      minCharacters:3,
+      showNoResults:false
+    });
   }
   ngOnInit() {
+    this.userService.userData$.subscribe(userData => {
+      if (userData && !userData.err) {
+          this.frameworkData = _.get(userData.userProfile, 'framework');
+      }
+    });
     this.activatedRoute.queryParams.subscribe(queryParams => {
       this.queryParam = { ...queryParams };
       this.key = this.queryParam['key'];
@@ -131,6 +172,14 @@ export class SearchComponent implements OnInit {
         this.setSearchPlaceHolderValue();
       }
     );
+    let self=this;
+    $(function() {
+      $('.results').on('click','.result',function() {
+        self.onEnter(_.trim($(this).find('.title').text()));
+      });
+    });
+    this.getContentSuggestionList();
+    this.getCourseSuggestionList();
   }
 
   /**
@@ -140,7 +189,40 @@ export class SearchComponent implements OnInit {
   onChange() {
     this.route.navigate([this.search[this.selectedOption], 1]);
   }
-
+  getContentSuggestionList() {
+    const data = {
+      "request": {
+        "filters": {
+          "board": _.get(this.frameworkData,'board'),
+          "medium": _.get(this.frameworkData,'medium'),
+          "subject": _.get(this.frameworkData,'subject'),
+          "gradeLevel": _.get(this.frameworkData,'gradeLevel'),
+          "contentType": ["Collection", "TextBook", "LessonPlan", "Resource"],
+        },
+        "limit": 10000,
+        "mode":'soft',
+        "fields": ["name"]
+      }
+    };
+    this.userService.getContentSuggestionList(data).subscribe(response=>{
+      this.contentSuggestions = _.map(response.result.content,obj=>({title:obj.name}));
+      this.showSuggestions(this.contentSuggestions);
+    });
+  }
+  getCourseSuggestionList() {
+    const data = {
+      "request": {
+        "filters": {},
+        "limit": 10000,
+        "mode":'soft',
+        "fields": ["name"]
+      }
+    };
+    this.userService.getCourseSuggestionList(data).subscribe(response=>{
+      this.courseSuggestions = _.map(response.result.course,obj=>({title:obj.name}));
+      this.showSuggestions(this.courseSuggestions);
+    });
+  }
   /**
    * search input box placeholder value
    */

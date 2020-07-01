@@ -1,4 +1,4 @@
-<div class="ui mini left action right icon input" style="width: 100%;">
+<div class="ui search mini left action right icon input" style="width: 100%;" [ngClass]="{'loading': showLoader }">
     <div class="ui mini basic floating dropdown button" suiDropdown *ngIf="showNLPSearch" style="background-color: #FFFFFF !important;">
         <div class="text">{{currentSearchMode}}</div>
         <i class="dropdown icon"></i>
@@ -7,43 +7,20 @@
             <div class="item" (click)="currentSearchMode='Advanced'">Advanced</div>
         </div>
     </div>
-    <input
-    type="text" 
-    id="keyword" 
-    name="filter_search"
-    title="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}" 
-    placeholder="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}"
-    [(ngModel)]="key" 
-    (keyup.enter)="onEnter(key)" 
-    [disabled]="!showInput"
-    [ngClass]="{'disabled': !showInput }"
-    style="line-height: 0px;"
-    >
-    <i class="circular search link icon" [ngClass]="{'disabled': !showInput }" (click)="onEnter(key)"
-    title="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}"></i>
-</div>
-<!-- <div 
-    class="ui fluid ui left action input searchbox-inner" 
-    id="search-input-container"
-    >
-    <input 
-        type="text" 
-        id="keyword" 
+    <div class="ui icon input" style="width: 80%;">
+        <input class="prompt"
+        type="text"
+        id="keyword"
         name="filter_search"
-        class="searchinput br-0"
         title="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}" 
         placeholder="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}"
         [(ngModel)]="key" 
-        (keyup.enter)="onEnter(key)" 
+        (keyup.enter)="onEnter($event.target.value)" 
         [disabled]="!showInput"
-        [ngClass]="{'disabled': !showInput }" 
-    />
-    <button class="ui icon button" [ngClass]="{'disabled': !showInput }" >
-        <i 
-            class="search blue icon br-0"
-            (click)="onEnter(key)"
-            title="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}"
-            tabindex="0"
-            ></i>
-    </button>
-</div> -->
+        [ngClass]="{'disabled': !showInput }"
+        autocomplete="off"
+        style="border-radius: 0rem .28571429rem .28571429rem 0rem;line-height: 0px;">
+        <i class="search icon"></i>
+    </div>
+    <div class="results" [ngStyle]="{'left':this.showContentSuggest ? '5.5rem;':''}" style="width:35.5em;"></div>
+</div>

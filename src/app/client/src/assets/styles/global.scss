@@ -166,3 +166,6 @@ input[type=number]::-webkit-outer-spin-button {
 .ui.star.rating .icon {
   color:#616161
 }
+.ui.search>.results .result {
+  border-bottom: none !important;
+}
