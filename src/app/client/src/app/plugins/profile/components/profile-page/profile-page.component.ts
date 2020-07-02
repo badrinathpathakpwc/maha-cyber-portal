@@ -15,6 +15,8 @@ import { IInteractEventInput, IImpressionEventInput, IInteractEventEdata, IInter
 import { ActivatedRoute } from '@angular/router';
 import { CacheService } from 'ng2-cache-service';
 import { IPopup } from "ng2-semantic-ui";
+import { NgxXml2jsonService } from 'ngx-xml2json';
+declare const calcSHA1:any;
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
@@ -79,6 +81,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     fontWeight: 'bold',
     fontFamily: 'inherit'
   };
+  conferenceName:string;
+  duration:string;
   showContactPopup = false;
   showEditUserDetailsPopup = false;
   state: string;
@@ -175,7 +179,9 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   editMobileInteractEdata: IInteractEventEdata;
   editEmailInteractEdata: IInteractEventEdata;
   telemetryInteractObject: IInteractEventObject;
-  constructor(private cacheService: CacheService, public resourceService: ResourceService, public coursesService: CoursesService,
+  meetingList: any;
+  conferenceLink: string;
+  constructor(private ngxXml2jsonService: NgxXml2jsonService, private cacheService: CacheService, public resourceService: ResourceService, public coursesService: CoursesService,
     public permissionService: PermissionService, public toasterService: ToasterService, public profileService: ProfileService,
     public userService: UserService, public configService: ConfigService, public router: Router, public utilService: UtilService,
     public searchService: SearchService, private playerService: PlayerService, private activatedRoute: ActivatedRoute,
@@ -263,8 +269,36 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     //   });
     //   });
     //  });
+    this.getMeetings();
   }
-
+  getMeetings() {
+    this.profileService.getMeetings(`${this.configService.appConfig.Conferencing.base_url}getMeetings?checksum=${this.calculateChecksum('getMeetings','')}`).subscribe(response => {
+      this.meetingList = this.convertXMLToJSON(response);
+      console.log(this.meetingList.response);
+      if(!_.isEmpty(this.meetingList.response.meetings.meeting) && !_.isArray(this.meetingList.response.meetings.meeting)) {
+        this.meetingList.response.meetings.meeting = [this.meetingList.response.meetings.meeting];
+      }
+    });
+  }
+  createMeeting() {
+    let params = `allowStartStopRecording=false&attendeePW=123&autoStartRecording=false&duration=${this.duration}&meetingID=${_.replace(this.conferenceName,' ','+')}&name=${_.replace(this.conferenceName,' ','+')}&record=false`;
+    this.profileService.createMeeting(`${this.configService.appConfig.Conferencing.base_url}create?${params}&checksum=${this.calculateChecksum('create',params)}`).subscribe(response=>{
+      this.toasterService.success("Conference was successfully created.");
+      this.getMeetings();
+      this.conferenceName = '';
+      this.duration = '';
+    });
+  }
+  startMeeting(attendeePW,meetingID,mode) {
+    let params = `fullName=${this.userProfile.firstName}+${this.userProfile.lastName}&meetingID=${meetingID}&password=${attendeePW}&redirect=true`;
+    let url = `${this.configService.appConfig.Conferencing.base_url}join?${params}&checksum=${this.calculateChecksum('join',params)}`;
+    if(mode == 'start') {
+      window.open(url,'_blank');
+    }
+    if(mode == 'share') {
+      this.conferenceLink = url;
+    }
+  }
   getOrgDetails() {
     let orgList = [];
     this.roles = [];
@@ -453,7 +487,14 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       this.btnArrow = 'prev-button';
     }
   }
-
+  calculateChecksum(apiName,url) {
+    return calcSHA1(`${apiName}${url}${this.configService.appConfig.Conferencing.secretKey}`);
+  }
+  convertXMLToJSON(xml) {
+    let parser = new DOMParser();
+    xml = parser.parseFromString(xml, 'text/xml');
+    return this.ngxXml2jsonService.xmlToJson(xml);
+  }
   private getCustodianOrgUser() {
     return this.orgDetailsService.getCustodianOrg().pipe(map((custodianOrg) => {
       if (_.get(this.userService, 'userProfile.rootOrg.rootOrgId') === _.get(custodianOrg, 'result.response.value')) {

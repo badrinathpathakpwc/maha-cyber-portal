@@ -1,4 +1,8 @@
 {
+  "Conferencing":{
+    "secretKey": "vLNSYk6iQFTn29bgfAi992M01UqfmHauqZpGKTq32Nk",
+    "base_url": "https://able-conference.ddns.net/bigbluebutton/api/"
+  },
   "Home": {
     "contentApiQueryParams": {
       "orgdetails": "orgName,email"

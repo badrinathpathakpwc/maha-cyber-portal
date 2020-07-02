@@ -1,11 +1,12 @@
-
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import {mergeMap, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { UserService, PermissionService, LearnerService } from '@sunbird/core';
 import { ResourceService, ConfigService, IUserProfile, IUserData, ServerResponse } from '@sunbird/shared';
 @Injectable()
 export class ProfileService {
-  constructor(private learnerService: LearnerService,
+  constructor(private http: HttpClient, private learnerService: LearnerService,
     public userService: UserService, public configService: ConfigService) { }
   /**
    * This method is used to update profile picture of the user
@@ -114,5 +115,11 @@ export class ProfileService {
       data: data
     };
     return this.learnerService.post(options);
+  }
+  getMeetings(url):Observable<any> {
+    return this.http.get(url,{responseType: 'text'});
+  }
+  createMeeting(url):Observable<any> {
+    return this.http.get(url,{responseType: 'text'});
   }
 }

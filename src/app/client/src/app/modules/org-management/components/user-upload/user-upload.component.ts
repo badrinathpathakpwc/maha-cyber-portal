@@ -186,7 +186,7 @@ export class UserUploadComponent implements OnInit, OnDestroy {
       'firstName': '',
       'phone': '',
       'email': '',
-      'orgId': '0127667799398154241',
+      'orgId': this.uploadUserForm.value.orgId,
       'userType': '',
       'roles': ''
     }];

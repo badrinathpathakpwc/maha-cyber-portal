@@ -102,6 +102,58 @@
           </div>
         </div>
       </div>
+      <div class="ui grid">
+        <div class="twelve wide column">
+          <a class="ui blue ribbon label blue-ribbon-label">
+            Conferences
+          </a>
+          <div class="ui pink segment ml-20 mr-20">
+            <div class="twelve wide column">
+              <button class="ui mini green button" (click)="showConferenceModal=true;" style="float: right;">
+                <i class="plus circle icon"></i>Conference
+              </button>
+            </div>
+            <div class="twelve wide column">
+              <table class="ui selectable single line table" style="margin-top: 35px;">
+                <thead>
+                <tr>
+                  <th class="table-title">S.No</th>
+                  <th class="table-title">Meeting Name</th>
+                  <th class="table-title">Dial Number</th>
+                  <th class="table-title">Created Date</th>
+                  <th class="table-title">&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let meeting of meetingList?.response?.meetings?.meeting;let i=index;">
+                  <td>{{i+1}}</td>
+                  <td class="table-value">
+                    {{meeting.meetingName}}
+                  </td>
+                  <td class="table-value">
+                    {{meeting.dialNumber}}
+                  </td>
+                  <td class="table-value">
+                    {{meeting.createDate | date :'dd-MMM-yyyy' }}
+                  </td>
+                  <td style="text-align: center;">
+                    <button class="ui mini green button" (click)="startMeeting(meeting.attendeePW,meeting.meetingID,'start')" style="margin-right: 10px;">
+                      <i class="external square alternate icon"></i>Start
+                    </button>
+                    <button class="ui mini green button" (click)="startMeeting(meeting.attendeePW,meeting.meetingID,'share');showShareModal=true;" style="margin-right: 10px;">
+                      <i class="share icon"></i>Share
+                    </button>
+                    <button class="ui mini default button">
+                      <i class="cancel icon"></i>Cancel
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+        </div>
+      </div>
       <div class="ui grid" *ngIf="attendedTraining && attendedTraining.length > 0">
         <div class="twelve wide column">
           <div class="ui purple segment ml-20 mr-20">
@@ -164,6 +216,67 @@
     <app-loader [data]='loaderMessage'></app-loader>
   </div>
 </div>
+<!-- Add Conference Starts Here -->
+<sui-modal [mustScroll]="true" [isClosable]="true" [transitionDuration]="0" [size]="'small'" class="sb-modal"
+  appBodyScroll (dismissed)="showConferenceModal=false;conferenceModal.deny();" #conferenceModal
+  *ngIf="showConferenceModal">
+  <!--Header-->
+  <div class="sb-modal-header" [appTelemetryImpression]="telemetryImpression">
+    Add Conference
+  </div>
+  <!--/Header-->
+  <!--Content-->
+  <div class="sb-modal-content onboard-user-modal" style="height: auto;">
+    <div class="ui stackable grid">
+      <div class="twelve wide column workspacesegment mt-20 ml-20">
+          <form class="ui form">
+            <div class="field">
+              <label>Title</label>
+                <input type="text" name="conferenceName" [(ngModel)]="conferenceName" placeholder="Enter conference name">
+            </div>
+            <div class="field">
+              <label>Duration (in minutes)</label>
+                <input type="text" name="duration" [(ngModel)]="duration" placeholder="Enter duration">
+            </div>
+          </form>        
+      </div>
+    </div>
+  </div>
+  <!--/Content-->
+  <!--Actions-->
+  <div class="sb-modal-actions">
+    <button class="sb-btn sb-btn-normal sb-btn-primary"
+      (click)="createMeeting();conferenceModal.deny();">
+      Add
+    </button>
+    <!-- <button class="sb-btn sb-btn-normal sb-btn-outline-primary"
+      (click)="showConferenceModal=false;conferenceModal.deny();">
+      {{resourceService?.frmelmnts?.lbl?.tcno}}
+    </button> -->
+  </div>
+  <!--/Actions-->
+</sui-modal>
+<!-- Add Conference Ends Here -->
+<!-- Add Share Link Starts Here -->
+<sui-modal [mustScroll]="true" [isClosable]="true" [transitionDuration]="0" [size]="'large'" class="sb-modal"
+  appBodyScroll (dismissed)="showShareModal=false;shareLinkModal.deny();" #shareLinkModal
+  *ngIf="showShareModal">
+  <!--Header-->
+  <div class="sb-modal-header" [appTelemetryImpression]="telemetryImpression">
+    Conference Link
+  </div>
+  <!--/Header-->
+  <!--Content-->
+  <div class="sb-modal-content onboard-user-modal" style="height: auto;">
+    <div class="ui stackable grid">
+      <div class="twelve wide column workspacesegment mt-20 ml-20" style="padding: 0;">
+        {{conferenceLink}}
+      </div>
+    </div>
+  </div>
+  <!--/Content-->
+</sui-modal>
+<!-- Share Link Ends Here -->
 <app-popup *ngIf="showEdit" #profileModal [formInput]="inputData" [showCloseIcon]="true" [isClosable]="true"
   [buttonLabel]="resourceService?.frmelmnts?.btn?.submit" (submit)="updateProfile($event)"
   (close)="showEdit = !showEdit">
