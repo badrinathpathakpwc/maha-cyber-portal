@@ -33,6 +33,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   adminDashboard: Array<string>;
   enableCertificateFeature: string;
   azureUrl: string;
+  showConferenceModal: boolean;
+  showShareModal: boolean;
   @ViewChild('profileModal') profileModal;
   @ViewChild('slickModal') slickModal;
   /**
@@ -281,7 +283,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     });
   }
   createMeeting() {
-    let params = `allowStartStopRecording=false&attendeePW=123&autoStartRecording=false&duration=${this.duration}&meetingID=${_.replace(this.conferenceName,' ','+')}&name=${_.replace(this.conferenceName,' ','+')}&record=false`;
+    let params = `allowStartStopRecording=false&attendeePW=123&autoStartRecording=false&duration=${this.duration}&meetingID=${this.conferenceName.replace(/ /g,'+')}&name=${this.conferenceName.replace(/ /g,'+')}&record=false`;
     this.profileService.createMeeting(`${this.configService.appConfig.Conferencing.base_url}create?${params}&checksum=${this.calculateChecksum('create',params)}`).subscribe(response=>{
       this.toasterService.success("Conference was successfully created.");
       this.getMeetings();
