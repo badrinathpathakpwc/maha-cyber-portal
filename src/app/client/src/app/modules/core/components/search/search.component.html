@@ -20,7 +20,9 @@
         [ngClass]="{'disabled': !showInput }"
         autocomplete="off"
         style="border-radius: 0rem .28571429rem .28571429rem 0rem;line-height: 0px;">
-        <i class="search icon"></i>
+        <!-- <i class="search icon"></i> -->
+        <i class="circular search link icon" [ngClass]="{'disabled': !showInput }" (click)="onEnter(key)"
+        title="{{resourceService.frmelmnts?.lbl?.SearchIn}} {{searchPlaceHolderValue}}"></i>
     </div>
     <div class="results" [ngStyle]="{'left':this.showContentSuggest ? '5.5rem;':''}" style="width:35.5em;"></div>
 </div>
