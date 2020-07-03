@@ -292,7 +292,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     });
   }
   startMeeting(attendeePW,meetingID,mode) {
-    let params = `fullName=${this.userProfile.firstName}+${this.userProfile.lastName}&meetingID=${meetingID}&password=${attendeePW}&redirect=true`;
+    let params = `fullName=${this.userProfile.firstName.replace(/ /g,'+')}+${this.userProfile.lastName.replace(/ /g,'+')}&meetingID=${meetingID.replace(/ /g,'+')}&password=${attendeePW}&redirect=true`;
     let url = `${this.configService.appConfig.Conferencing.base_url}join?${params}&checksum=${this.calculateChecksum('join',params)}`;
     if(mode == 'start') {
       window.open(url,'_blank');
