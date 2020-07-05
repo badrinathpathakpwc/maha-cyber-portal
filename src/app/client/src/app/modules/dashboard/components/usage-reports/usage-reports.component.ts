@@ -302,7 +302,7 @@ export class UsageReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     _.forEach(charts, chart => {
       const chartObj: any = {};
       chartObj.options = _.get(chart, 'options') || { responsive: true };
-      chartObj.colors = _.get(chart, 'colors') || ['#024F9D'];
+      chartObj.colors = _.get(chart, 'colors') || ['#006580'];
       chartObj.chartType = _.get(chart, 'chartType') || 'line';
       chartObj.labels = _.get(chart, 'labels') || _.get(data, _.get(chart, 'labelsExpr'));
       chartObj.legend = (_.get(chart, 'legend') === false) ? false : true;

@@ -80,7 +80,7 @@ export class FrameworkService {
   }
   public getFrameworkCategories(framework: string) {
     const frameworkOptions = {
-      url: this.configService.urlConFig.URLS.FRAMEWORK.READ + '/' + framework
+      url: this.configService.urlConFig.URLS.FRAMEWORK.READ + '/' + 'nishtha10'
     };
     return this.publicDataService.get(frameworkOptions);
   }

@@ -236,7 +236,7 @@ function createCertificate (req, res) {
         } else {
           console.log('User have certificate')
           rspObj.result = { fileUrl: envVariables.AZURE_STORAGE_URL + containerName + '/' + destPath }
-          return res.status(200).send(successResponse(rspObj))
+          // return res.status(200).send(successResponse(rspObj))
         }
       })
     },

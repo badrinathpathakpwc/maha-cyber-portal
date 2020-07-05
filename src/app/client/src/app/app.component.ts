@@ -300,7 +300,7 @@ export class AppComponent implements OnInit {
     this.tenantService.tenantData$.subscribe(data => {
       if (!data.err) {
         /*document.title = this.userService.rootOrgName || data.tenantData.titleName;*/
-        document.title = "Maha Cyber";
+        document.title = "Jhpiego - Saving Lives. Improving Health. Transforming Futures.";
         document.querySelector('link[rel*=\'icon\']').setAttribute('href', data.tenantData.favicon);
       }
     });

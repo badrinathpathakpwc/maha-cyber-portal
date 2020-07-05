@@ -110,7 +110,7 @@ export class UserSearchComponent implements OnInit {
     border: '1px solid #fff',
     boxShadow: '0 0 6px 0 rgba(0,0,0,0.38)',
     borderRadius: '50%',
-    color: '#024F9D',
+    color: '#006580',
     fontWeight: 'bold',
     fontFamily: 'inherit',
     fontSize: '48px'
