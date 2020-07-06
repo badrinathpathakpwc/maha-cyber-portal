@@ -136,6 +136,7 @@ export class LearnPageComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.pageApiService.getPageData(option).pipe(takeUntil(this.unsubscribe$))
       .subscribe(data => {
         this.showLoader = false;
+        data.sections = _.map(data.sections,parentObj=>(_.filter(parentObj.contents,{channel:"0130575380622950401"})));
         this.carouselData = this.prepareCarouselData(_.get(data, 'sections'));
       }, err => {
         this.showLoader = false;

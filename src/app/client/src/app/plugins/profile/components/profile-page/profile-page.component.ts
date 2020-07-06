@@ -183,6 +183,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   telemetryInteractObject: IInteractEventObject;
   meetingList: any;
   conferenceLink: string;
+  stateName: string;
   constructor(private ngxXml2jsonService: NgxXml2jsonService, private cacheService: CacheService, public resourceService: ResourceService, public coursesService: CoursesService,
     public permissionService: PermissionService, public toasterService: ToasterService, public profileService: ProfileService,
     public userService: UserService, public configService: ConfigService, public router: Router, public utilService: UtilService,
@@ -206,7 +207,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       (user: IUserData) => {
         if (user && !user.err) {
           this.userProfile = user.userProfile;
-
+          this.stateName = this.userProfile.organisations.length === 0 ? this.userProfile.organisations[0].orgName : _.get(_.reject(this.userProfile.organisations,{organisationId:this.userProfile.rootOrgId})[0],'orgName');
           const state = _.find(this.userProfile.userLocations, (locations) => {
             return locations.type === 'state';
           });

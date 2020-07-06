@@ -48,6 +48,9 @@ export class CollectionTreeComponent implements OnInit, OnChanges {
 
   public onItemSelect(item: any) {
     if (!item.folder) {
+      if (_.indexOf(_.split(window.location.href, '/'), 'explore-course') > -1) {
+        window.location.href="/resources";
+      }
       this.contentSelect.emit({ id: item.data.id, title: item.title });
     }
   }

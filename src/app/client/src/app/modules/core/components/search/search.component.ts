@@ -201,10 +201,11 @@ export class SearchComponent implements OnInit {
         },
         "limit": 10000,
         "mode":'soft',
-        "fields": ["name"]
+        "fields": ["name","channel"]
       }
     };
     this.userService.getContentSuggestionList(data).subscribe(response=>{
+      response.result.content = _.filter(response.result.content,{channel:"0130575380622950401"});
       this.contentSuggestions = _.map(response.result.content,obj=>({title:obj.name}));
       this.showSuggestions(this.contentSuggestions);
     });
@@ -215,10 +216,11 @@ export class SearchComponent implements OnInit {
         "filters": {},
         "limit": 10000,
         "mode":'soft',
-        "fields": ["name"]
+        "fields": ["name","channel"]
       }
     };
     this.userService.getCourseSuggestionList(data).subscribe(response=>{
+      response.result.course = _.filter(response.result.course,{channel:"0130575380622950401"});
       this.courseSuggestions = _.map(response.result.course,obj=>({title:obj.name}));
       this.showSuggestions(this.courseSuggestions);
     });

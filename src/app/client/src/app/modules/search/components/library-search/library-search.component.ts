@@ -128,9 +128,11 @@ export class LibrarySearchComponent implements OnInit, OnDestroy {
             .subscribe(data => {
                 this.showLoader = false;
                 this.facetsList = this.searchService.processFilterData(_.get(data, 'result.facets'));
+                data.result.count = data.result.content.length;
                 this.paginationDetails = this.paginationService.getPager(data.result.count, this.paginationDetails.currentPage,
                     this.configService.appConfig.SEARCH.PAGE_LIMIT);
                 const { constantData, metaData, dynamicFields } = this.configService.appConfig.LibrarySearch;
+                data.result.content = _.filter(data.result.content,{channel:"0130575380622950401"});
                 this.contentList = this.utilService.getDataForCard(data.result.content, constantData, dynamicFields, metaData);
             }, err => {
                 this.showLoader = false;
