@@ -61,7 +61,7 @@ export class CourseSearchComponent implements OnInit, OnDestroy {
         this.enrolledSection = data[0];
         if (data[1]) {
           this.initFilters = true;
-          this.frameWorkName = data[1];
+          this.frameWorkName = 'nishtha10';
           // return this.dataDrivenFilterEvent;
           return of({});
         } else {
@@ -102,7 +102,7 @@ export class CourseSearchComponent implements OnInit, OnDestroy {
         limit: this.configService.appConfig.SEARCH.PAGE_LIMIT,
         pageNumber: this.paginationDetails.currentPage,
         query: this.queryParams.key,
-        sort_by: {[this.queryParams.sort_by]: this.queryParams.sortType},
+        sort_by: {createdOn: "desc"},
         facets: this.facets,
         params: this.configService.appConfig.Course.contentApiQueryParams
     };
@@ -113,11 +113,11 @@ export class CourseSearchComponent implements OnInit, OnDestroy {
     .subscribe(data => {
         this.showLoader = false;
         this.facetsList = this.searchService.processFilterData(_.get(data, 'result.facets'));
+        data.result.course = _.filter(data.result.course,{channel:"0130575380622950401"});
         data.result.count = data.result.course.length;
         this.paginationDetails = this.paginationService.getPager(data.result.count, this.paginationDetails.currentPage,
             this.configService.appConfig.SEARCH.PAGE_LIMIT);
         const { constantData, metaData, dynamicFields } = this.configService.appConfig.CoursePageSection.course;
-        data.result.course = _.filter(data.result.course,{channel:"0130575380622950401"});
         this.contentList = _.map(data.result.course, (content: any) =>
           this.utilService.processContent(content, constantData, dynamicFields, metaData));
     }, err => {
