@@ -12,7 +12,7 @@ let envVariables = {
   CONTENT_PROXY_URL: env.sunbird_content_proxy_url || 'https://mahacyber.ddns.net',
   PORTAL_REALM: env.sunbird_portal_realm || 'sunbird',
   PORTAL_AUTH_SERVER_URL: env.sunbird_portal_auth_server_url || 'https://mahacyber.ddns.net/auth',
-  PORTAL_AUTH_SERVER_CLIENT: env.sunbird_portal_auth_server_client || 'portal',
+  PORTAL_AUTH_SERVER_CLIENT: 'nishtha',
   APPID: process.env.sunbird_environment + '.' + process.env.sunbird_instance + '.portal',
   DEFAULT_CHANNEL: 'mahacyber',
   EKSTEP_ENV: env.ekstep_env || 'qa',
