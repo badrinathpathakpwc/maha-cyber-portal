@@ -199,6 +199,10 @@ export class ViewAllComponent implements OnInit, OnDestroy {
       this.showLoader = false;
       if (response.contentData.result.count && response.contentData.result.content) {
         this.noResult = false;
+        if (_.indexOf(_.split(window.location.href, '/'), 'resources') > -1) {
+          response.contentData.result.content = _.filter(response.contentData.result.content,{channel:"0130575380622950401"});
+          response.contentData.result.count = response.contentData.result.content.length;
+        }
         this.totalCount = response.contentData.result.count;
         this.pager = this.paginationService.getPager(response.contentData.result.count, this.pageNumber, this.pageLimit);
         this.searchList = this.formatSearchresults(response);

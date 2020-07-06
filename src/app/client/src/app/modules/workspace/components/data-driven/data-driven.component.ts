@@ -341,7 +341,7 @@ export class DataDrivenComponent extends WorkSpace implements OnInit, OnDestroy 
     } else {
       // const fid = this.userService.frameworkID[0];
       //Hard coded framework data due to api issue
-      const fid = "nishtha";
+      const fid = "nishtha10";
       const response = {
         'id': 'courseFrameworkId',
         'field': 'courseFrameworkId',

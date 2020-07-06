@@ -247,7 +247,7 @@ export class DataDrivenFilterComponent implements OnInit, OnChanges, OnDestroy {
   }
   ngOnChanges() {
     if (this.formFieldProperties && this.enrichFilters) {
-      this.enrichFiltersOnInputChange();
+      // this.enrichFiltersOnInputChange();
     }
   }
   private enrichFiltersOnInputChange() {

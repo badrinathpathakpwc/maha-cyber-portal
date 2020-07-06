@@ -121,7 +121,8 @@ export class ResourceComponent implements OnInit, OnDestroy {
     this.pageApiService.getPageData(option)
       .subscribe(data => {
         this.showLoader = false;
-        data.sections = _.map(data.sections,parentObj=>(_.filter(parentObj.contents,{channel:"0130575380622950401"})));
+        data.sections[0].contents = _.filter(data.sections[0].contents,{channel:"0130575380622950401"});
+        data.sections[0].count = data.sections[0].contents.length;
         this.carouselData = this.prepareCarouselData(_.get(data, 'sections'));
         this.cdr.detectChanges();
       }, err => {
