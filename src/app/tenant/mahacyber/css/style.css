@@ -6,7 +6,7 @@ body {
 }
 
 a {
-  color: #0065fe;
+  color: #006580;
   transition: 0.5s;
 }
 
@@ -57,7 +57,7 @@ h6 {
 }
 
 .back-to-top:hover {
-  background: #0c2e8a;
+  background: #006580;
   color: #fff;
 }
 
@@ -131,7 +131,7 @@ h6 {
 }
 
 #header #logo h1 a {
-  color: #0c2e8a;
+  color: #006580;
   line-height: 1;
   display: inline-block;
 }
@@ -224,13 +224,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#192736', end
 }
 
 #intro .intro-content .btn-get-started {
-  background: #0c2e8a;
-  border: 2px solid #0c2e8a;
+  background: #006580;
+  border: 2px solid #006580;
 }
 
 #intro .intro-content .btn-get-started:hover {
   background: none;
-  color: #0c2e8a;
+  color: #006580;
 }
 
 #intro .intro-content .btn-projects {
@@ -522,7 +522,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .section-header h2 {
   font-size: 33px;
-  color: #0c2e8a;
+  color: #006580;
   text-transform:normal;
   font-weight: 700;
   position: relative;
@@ -538,7 +538,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   height: 3px;
   bottom: 16px;
   left: 49%;
-  border-bottom: 3px solid #006dfe;
+  border-bottom: 3px solid #006580;
   border-radius: 3px;
   padding-bottom: 33px;
 }
@@ -553,7 +553,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   height: 3px;
   bottom: 16px;
   left: 46%;
-  border-bottom: 3px solid #006dfe;
+  border-bottom: 3px solid #006580;
   border-radius: 3px;
   padding-bottom: 33px;
 }
@@ -565,7 +565,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   height: 3px;
   bottom: 17px;
   left: 36%;
-  border-bottom: 3px solid #006dfe;
+  border-bottom: 3px solid #006580;
   border-radius: 3px;
   padding-bottom: 33px;
 }
@@ -577,7 +577,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   height: 3px;
   bottom: 16px;
   left: 34%;
-  border-bottom: 3px solid #006dfe;
+  border-bottom: 3px solid #006580;
   border-radius: 3px;
   padding-bottom: 33px;
 }
@@ -589,7 +589,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   height: 3px;
   bottom: 16px;
   left: 32.7%;
-  border-bottom: 3px solid #006dfe;
+  border-bottom: 3px solid #006580;
   border-radius: 3px;
   padding-bottom: 33px;
 }
@@ -616,7 +616,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #about .content h2 {
-  color: #0c2e8a;
+  color: #006580;
   font-weight: 700;
   font-size: 36px;
   font-family: "Raleway", sans-serif;
@@ -642,7 +642,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #about .content i {
   font-size: 20px;
   padding-right: 4px;
-  color: #2381ff;
+  color: #006580;
 }
 
 #about .content ul {
@@ -689,7 +689,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #services .box .icon i:before {
-  background: #0c2e8a;
+  background: #006580;
   background: linear-gradient(45deg, #50d8af 0%, #a3ebd5 100%);
   background-clip: border-box;
   -webkit-background-clip: text;
@@ -1197,7 +1197,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 #footer .credits a {
-  color: #0c2e8a;
+  color: #006580;
 }
 
 @media (min-width: 768px) {
@@ -1348,12 +1348,12 @@ a.navbar-brand.nav-lg{
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
-    color:#006dfe;
-	border-bottom:2px solid #006dfe;
+    color:#006580;
+	border-bottom:2px solid #006580;
 }
 
 .nav-active {
-    border-bottom:2px solid #006dfe;
+    border-bottom:2px solid #006580;
 }
 
 .intro-content p {
@@ -1401,7 +1401,7 @@ a.navbar-brand.nav-lg{
     line-height: 82px;
 }
 .border-btm{
-	border-bottom: 3px solid #006dfe;
+	border-bottom: 3px solid #006580;
     border-radius: 3px;
     padding-bottom: 0px;
     border-height: 2rem;
@@ -1411,7 +1411,7 @@ a.navbar-brand.nav-lg{
 }
 
 .border-btm-center{
-	border-bottom: 5px solid #006dfe;
+	border-bottom: 5px solid #006580;
     border-radius: 3px;
     padding-bottom: 33px;
     border-height: 2rem;
@@ -2151,7 +2151,7 @@ label {
 	margin:0;
 	list-style:none;
 	 float:left;
-	 color:#006dfe;
+	 color:#006580;
 	 background-color:rgba(0,109,254, 0.1);
 	
 }
@@ -2161,7 +2161,7 @@ label {
 	margin:0;
 	list-style:none;
 	 float:left;
-	 color:#006dfe;
+	 color:#006580;
 	 background-color:rgba(0,109,254, 0.1);
 	
 }
@@ -2293,13 +2293,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b35d462e', e
 }
 
 #innovate-banner .innovate-content .btn-get-started {
-  background: #0c2e8a;
-  border: 2px solid #0c2e8a;
+  background: #006580;
+  border: 2px solid #006580;
 }
 
 #innovate-banner .innovate-content .btn-get-started:hover {
   background: none;
-  color: #0c2e8a;
+  color: #006580;
 }
 
 #innovate-banner .innovate-content .btn-projects {
@@ -2422,13 +2422,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3032317', e
 }
 
 #learn-banner .learn-content .btn-get-started {
-  background: #0c2e8a;
-  border: 2px solid #0c2e8a;
+  background: #006580;
+  border: 2px solid #006580;
 }
 
 #learn-banner .learn-content .btn-get-started:hover {
   background: none;
-  color: #0c2e8a;
+  color: #006580;
 }
 
 #learn-banner .learn-content .btn-projects {
@@ -2565,13 +2565,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 }
 
 #comming .comming-content .btn-get-started {
-  background: #0c2e8a;
-  border: 2px solid #0c2e8a;
+  background: #006580;
+  border: 2px solid #006580;
 }
 
 #comming .comming-content .btn-get-started:hover {
   background: none;
-  color: #0c2e8a;
+  color: #006580;
 }
 
 #comming .comming-content .btn-projects {
@@ -3497,7 +3497,7 @@ a.bt.dropdown-toggle::after {
 }
 .smart-gov-heading b,.border-btm b {
   font-size: 25px;
-  color: #0c2e8a;
+  color: #006580;
   text-transform: none;
   font-weight: 600 !important;
   position: relative;
