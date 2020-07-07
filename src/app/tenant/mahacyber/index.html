@@ -209,7 +209,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 offset-md-3" style="text-align: center;">
-          <p style="margin-bottom: 0;margin-top: 10px;">Contact us: info@jhpiego.org</p>
+          <p style="margin-bottom: 0;">Contact us: info@jhpiego.org</p>
         </div>
       </div>
     </div>
@@ -429,9 +429,10 @@
           processData: false,
           contentType: 'application/json',
           success: function (response) {
-            var latestCourses = _.find(response.result.response.sections, { name: 'Popular Courses' });
+            var latestCourses = _.find(response.result.response.sections, { name: 'Latest Courses' });
             // latestCourses.contents = latestCourses.contents.slice(0,2)
             // $(".pageSection-count").html(latestCourses.count);
+            latestCourses.contents = _.filter(latestCourses.contents,{channel:"0130575380622950401"});
             var resourceContents = '';
             $.each(latestCourses.contents, function (index, value) {
               if(index<3) {
