@@ -136,7 +136,7 @@ export class AppComponent implements OnInit, AfterContentInit {
   ngAfterContentInit() {
     $(function() {
       var chatroom = new (<any>window).Chatroom({
-        host: "https://f82622b0511d.ngrok.io",
+        host: "http://52.172.51.143:5005",
         title: "Swati",
         container: document.querySelector(".chat-container"),
         welcomeMessage: "Hi, I am Swati. How may I help you?",
