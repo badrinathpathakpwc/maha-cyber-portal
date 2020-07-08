@@ -169,3 +169,13 @@ input[type=number]::-webkit-outer-spin-button {
 .ui.search>.results .result {
   border-bottom: none !important;
 }
+.chat-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+}
+.close-chatbot {
+  position: fixed;
+  right: 10px;
+}

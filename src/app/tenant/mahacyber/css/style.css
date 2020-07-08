@@ -3553,3 +3553,13 @@ img.testimonial-img {
 .margin-top-20 {
   margin-top: 20px;
 }
+.chat-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+}
+.close-chatbot {
+  position: fixed;
+  right: 10px;
+}

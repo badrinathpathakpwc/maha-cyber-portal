@@ -5,7 +5,7 @@ import {
   UtilService, ResourceService, ToasterService, IUserData, IUserProfile,
   NavigationHelperService, ConfigService, BrowserCacheTtlService
 } from '@sunbird/shared';
-import { Component, HostListener, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild, Inject, AfterContentInit } from '@angular/core';
 import { FrameworkService, UserService, PermissionService, CoursesService, TenantService, OrgDetailsService, DeviceRegisterService } from '@sunbird/core';
 import * as _ from 'lodash';
 import { ProfileService } from '@sunbird/profile';
@@ -22,7 +22,7 @@ import { UserSearchService } from './modules/search/services/user-search/user-se
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterContentInit {
   @ViewChild('frameWorkPopUp') frameWorkPopUp;
   public showMainFooter = false;
   /**
@@ -132,6 +132,18 @@ export class AppComponent implements OnInit {
     // #NUIH change: Hide main header for Nuih Page
     this.showMainFooter = _.indexOf(_.split(window.location.href, '/'), 'play') > -1 ?
       false : true;
+  }
+  ngAfterContentInit() {
+    $(function() {
+      var chatroom = new (<any>window).Chatroom({
+        host: "https://f82622b0511d.ngrok.io",
+        title: "Swati",
+        container: document.querySelector(".chat-container"),
+        welcomeMessage: "Hi, I am Swati. How may I help you?",
+        speechRecognition: "en-US",
+        voiceLang: "en-US"
+      });
+    });
   }
   readFramework() {
     this.frameworkService.getFrameworkCategories(this.cyberProfileConfig.framework).subscribe(response => {
