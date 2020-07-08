@@ -37,11 +37,11 @@
 			tabindex="0" routerLink="/explore">
 			{{resourceService.frmelmnts?.lbl?.explore}} {{resourceService.instance}}
 		</button>
-		<a class="item" [class.active]="router.isActive('/search/explore') || router.isActive('/explore')"
+		<!-- <a class="item" [class.active]="router.isActive('/search/explore') || router.isActive('/explore')"
 			*ngIf="!router.isActive('', true)" routerLink="explore" appTelemetryInteract
 			[telemetryInteractEdata]="libraryMenuIntractEdata">
 			<img src="assets/images/library.png" title="{{resourceService?.frmelmnts?.tab?.resources}}" style="width: 28px;">
-		</a>
+		</a> -->
 		<!-- <a class="item" [class.active]="router.isActive('/search/explore-course') || router.isActive('/explore-course')"
 			*ngIf="!router.isActive('', true)" routerLink="explore-course" appTelemetryInteract
 			[telemetryInteractEdata]="learnMenuIntractEdata">

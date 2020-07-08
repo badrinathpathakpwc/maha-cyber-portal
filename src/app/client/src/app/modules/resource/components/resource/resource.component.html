@@ -1,5 +1,5 @@
 <app-prominent-filter [pageId]="'resource-page'" *ngIf="initFilters" [filterEnv]="filterType"  [ignoreQuery]="['key']" 
-    [accordionDefaultOpen]=true [isShowFilterLabel]=true [showSearchedParam]=true [isShowFilterLabel]=true [hashTagId]="hashTagId" (prominentFilter)="getFilters($event)"></app-prominent-filter>
+    [accordionDefaultOpen]=false [isShowFilterLabel]=true [showSearchedParam]=true [isShowFilterLabel]=true [hashTagId]="hashTagId" (prominentFilter)="getFilters($event)"></app-prominent-filter>
 
 <div class="ui container">
   <div [appTelemetryImpression]="telemetryImpression" *ngIf="!showLoader" class="ui grid stackable my-0">

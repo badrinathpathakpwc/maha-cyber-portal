@@ -45,7 +45,7 @@ export class ExploreComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.orgDetailsService.getOrgDetails(this.activatedRoute.snapshot.params.slug).pipe(
       mergeMap((orgDetails: any) => {
-        this.hashTagId = orgDetails.hashTagId;
+        this.hashTagId = "0130575380622950401";
         this.initFilters = true;
         return this.dataDrivenFilterEvent;
       }), first()

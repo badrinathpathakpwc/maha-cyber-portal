@@ -132,6 +132,8 @@ export class PublicCourseComponent implements OnInit, OnDestroy {
     this.pageApiService.getPageData(option).pipe(takeUntil(this.unsubscribe$))
       .subscribe(data => {
         this.showLoader = false;
+        data.sections[0].contents = _.filter(data.sections[0].contents,{channel:"0130575380622950401"});
+        data.sections[0].count = data.sections[0].contents.length;
         this.carouselData = this.prepareCarouselData(_.get(data, 'sections'));
       }, err => {
         this.showLoader = false;
