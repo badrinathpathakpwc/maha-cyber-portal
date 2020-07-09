@@ -491,10 +491,10 @@
         });
       });
     </script>
-      <script src="https://npm-scalableminds.s3.eu-central-1.amazonaws.com/@scalableminds/chatroom@master/dist/Chatroom.js"></script>
+      <script src="js/Chatroom.js"></script>
       <script type="text/javascript">
         var chatroom = new window.Chatroom({
-          host: "http://52.172.51.143:5005",
+          host: window.location.origin + "/webhooks",
           title: "Swati",
           container: document.querySelector(".chat-container"),
           welcomeMessage: "Hi, I am Swati. How may I help you?",

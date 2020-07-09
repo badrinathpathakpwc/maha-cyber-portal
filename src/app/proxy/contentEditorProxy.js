@@ -56,6 +56,12 @@ module.exports = function (app) {
     proxyReqPathResolver: proxyReqPathResolverMethod
   }))
 
+  app.use('/webhooks/*', proxy(contentProxyUrl, {
+    preserveHostHdr: true,
+    proxyReqOptDecorator: proxyHeaders.decorateRequestHeaders(),
+    proxyReqPathResolver: proxyReqPathResolverMethod
+  }))
+
   // Log telemetry for action api's
   app.all('/action/*', telemetryHelper.generateTelemetryForProxy)
 
