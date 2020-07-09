@@ -141,7 +141,7 @@ export class AppComponent implements OnInit, AfterContentInit {
         container: document.querySelector(".chat-container"),
         welcomeMessage: "Hi, I am Swati. How may I help you?",
         speechRecognition: "en-US",
-        voiceLang: "en-US"
+        // voiceLang: "en-US"
       });
     });
   }
