@@ -1,7 +1,7 @@
 {
   "Conferencing":{
-    "secretKey": "vLNSYk6iQFTn29bgfAi992M01UqfmHauqZpGKTq32Nk",
-    "base_url": "https://able-conference.ddns.net/bigbluebutton/api/"
+    "secretKey": "5TXAg9WoUtSbbyU8McgizWcbH55kBEfob0cP4SGLc",
+    "base_url": "https://bigbluebutton.southindia.cloudapp.azure.com/bigbluebutton/api/"
   },
   "Home": {
     "contentApiQueryParams": {
